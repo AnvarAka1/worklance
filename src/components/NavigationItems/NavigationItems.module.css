@@ -1,0 +1,15 @@
+.NavigationItems {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 0;
+}
+.Items {
+	display: flex;
+	align-items: center;
+}
+.Logo {
+	margin-right: 15px;
+}
+.RightNav {
+}

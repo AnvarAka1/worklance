@@ -1,0 +1,31 @@
+.Button {
+	background: #eeeeee;
+	border-radius: 4px;
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: normal;
+	text-align: center;
+	color: #777777;
+	width: 90px;
+	cursor: pointer;
+}
+.Blue {
+	background: #007bff;
+	font-weight: bold;
+	text-align: center;
+	color: #ffffff;
+}
+.Green {
+	background: #1bc47d;
+	font-weight: normal;
+	color: #ffffff;
+}
+.Grey {
+	background: #cccccc;
+	font-weight: bold;
+	text-align: center;
+	color: #ffffff;
+}
+.Wide {
+	width: 100%;
+}

@@ -1,0 +1,14 @@
+.NavigationItem {
+	display: block;
+	font-size: 12px;
+	margin-left: 30px;
+}
+.NavigationItem h6 {
+	transition: all .5s ease;
+}
+.NavigationItem h6:hover {
+	color: #007bff;
+}
+.Active h6 {
+	color: #007bff;
+}
