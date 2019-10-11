@@ -1,0 +1,31 @@
+.NotificationItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+	border-radius: 5px;
+	transition: background .25s ease;
+}
+.NotificationItem:hover {
+	background: #e0e0e0;
+}
+.ProfileInfo {
+	display: flex;
+	align-items: center;
+}
+.Info {
+	margin-left: 8px;
+}
+.Name {
+	display: flex;
+	align-items: center;
+}
+.Name img {
+	margin-left: 5px;
+	width: 10px;
+	height: 10px;
+}
+.Overflow {
+	width: 100%;
+	overflow: hidden;
+}

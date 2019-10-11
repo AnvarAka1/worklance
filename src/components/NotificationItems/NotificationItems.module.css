@@ -1,0 +1,18 @@
+.NotificationItems {
+}
+.TopTitles {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.NotificationsTitle {
+	display: flex;
+	align-items: center;
+}
+.NotificationsTitle img {
+	width: 13px;
+	height: 16px;
+	margin-right: 5px;
+}

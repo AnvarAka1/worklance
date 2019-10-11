@@ -11,6 +11,7 @@ body {
 	padding: 0;
 	min-height: 700px;
 	font-weight: 400;
+	background: #fafafa;
 }
 
 p,
@@ -90,7 +91,7 @@ img {
 		font-size: 16px;
 	}
 	h6 {
-		font-size: 12px;
+		font-size: 10px;
 	}
 	p {
 		font-size: 16px;
@@ -118,7 +119,7 @@ img {
 		font-size: 14px;
 	}
 	h6 {
-		font-size: 12px;
+		font-size: 10px;
 	}
 	p {
 		font-size: 14px;
@@ -146,7 +147,7 @@ img {
 		font-size: 12px;
 	}
 	h6 {
-		font-size: 12px;
+		font-size: 10px;
 	}
 	p {
 		font-size: 12px;

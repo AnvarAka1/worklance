@@ -2,3 +2,8 @@
 	width: 180px;
 	height: auto;
 }
+@media (max-width: 1290px) {
+	.Logo {
+		width: 120px;
+	}
+}

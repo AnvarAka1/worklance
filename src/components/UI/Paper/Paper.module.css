@@ -1,0 +1,21 @@
+.Paper {
+	padding: 15px;
+	background: #fff;
+	box-shadow: 0px 5px 10px #e5e5e5;
+	border-radius: 5px;
+}
+.Tl {
+	padding-top: 30px;
+	padding-left: 30px;
+}
+.Trl {
+	padding-top: 30px;
+	padding-right: 30px;
+	padding-left: 30px;
+}
+.Trbl {
+	padding: 30px;
+}
+.MinHeight {
+	min-height: 560px;
+}

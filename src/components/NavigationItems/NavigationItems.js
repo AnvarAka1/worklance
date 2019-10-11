@@ -4,6 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
 import NavigationItem from "./NavigationItem/NavigationItem";
 import Logo from "../UI/Logo/Logo";
+import MyProfile from "../Profile/MyProfile/MyProfile";
+
 const navigationItems = props => {
 	const items = [
 		{
@@ -35,18 +37,22 @@ const navigationItems = props => {
 		items.map(item => {
 			return <NavigationItem key={item.id} {...item} lang={props.lang ? props.lang : 0} />;
 		});
+
+	const logo = (
+		<li className={classes.Logo}>
+			<Logo />
+		</li>
+	);
+	const myProfile = <MyProfile profile={props.profile} />;
 	return (
 		<AppBar color="inherit" position="static">
 			<Container maxWidth="xl">
 				<div className={classes.NavigationItems}>
 					<ul className={classes.Items}>
-						<li className={classes.Logo}>
-							<Logo />
-						</li>
+						{logo}
 						{navigationItems}
 					</ul>
-
-					<div className={classes.RightNav}>{/* Profile */}</div>
+					<div className={classes.RightNav}>{myProfile}</div>
 				</div>
 			</Container>
 		</AppBar>

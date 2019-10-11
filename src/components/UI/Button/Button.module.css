@@ -8,6 +8,15 @@
 	color: #777777;
 	width: 90px;
 	cursor: pointer;
+	border: none;
+	outline: none;
+	padding-top: 7px;
+	padding-bottom: 8px;
+	transition: all .25s ease;
+}
+.Button:hover {
+	background: #007bff;
+	color: #fff;
 }
 .Blue {
 	background: #007bff;

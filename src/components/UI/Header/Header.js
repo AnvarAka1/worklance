@@ -4,7 +4,9 @@ const header = props => {
 	const headerClasses = [
 		classes.Header,
 		props.headerClass && classes[props.headerClass],
-		props.normal && classes.Normal
+		props.normal && classes.Normal,
+		props.mt && classes.Mt,
+		props.mb && classes.Mb
 	];
 	const headerStyles = {
 		color: props.color && props.color

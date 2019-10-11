@@ -13,3 +13,8 @@
 }
 .RightNav {
 }
+@media (max-width: 1290px) {
+	.NavigationItems {
+		padding: 13px 0;
+	}
+}
