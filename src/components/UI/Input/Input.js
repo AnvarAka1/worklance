@@ -3,7 +3,11 @@ import classes from "./Input.module.css";
 const input = props => {
 	let input = null;
 	const { inputType, value, elementConfig } = props;
-	inputClasses = [ classes.Input, props.inputClass && classes[props.inputClass], props.search && classes.Search ];
+	const inputClasses = [
+		classes.Input,
+		props.inputClass && classes[props.inputClass],
+		props.search && classes.Search
+	];
 	switch (inputType) {
 		case "input":
 			input = (

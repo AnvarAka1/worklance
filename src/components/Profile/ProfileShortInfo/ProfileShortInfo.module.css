@@ -1,7 +1,10 @@
 .ProfileShortInfo {
-	text-align: right;
+	text-align: left;
 }
 
 .Mr {
 	margin-right: 15px;
+}
+.AlignRight {
+	text-align: right;
 }

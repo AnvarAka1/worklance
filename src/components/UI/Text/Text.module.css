@@ -5,9 +5,18 @@
 	line-height: 19px;
 	color: #777777;
 }
+.Small {
+	font-size: 12px;
+}
 .Mt {
 	margin-top: 15px;
 }
 .Mb {
 	margin-bottom: 15px;
+}
+.MtB {
+	margin-top: 20px;
+}
+.MbB {
+	margin-bottom: 20px;
 }

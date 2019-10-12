@@ -8,7 +8,7 @@ const myProfile = props => {
 	return (
 		<NavLink to={"/user"}>
 			<div className={myProfileClasses.join(" ")}>
-				<ProfileShortInfo mr {...props.profile} />
+				<ProfileShortInfo mr alignRight {...props.profile} />
 				<ProfilePhoto {...props.profile} />
 			</div>
 		</NavLink>

@@ -13,7 +13,12 @@ const notificationItems = props => {
 	};
 	const notificationItems = props.notificationItems.map(item => {
 		return (
-			<NotificationItem lang={lang} {...item} key={item.id} clicked={event => props.clicked(event, item.id)} />
+			<NotificationItem
+				lang={lang}
+				{...item}
+				key={item.id}
+				clicked={event => props.viewClicked(event, item.id)}
+			/>
 		);
 	});
 	return (
@@ -24,7 +29,7 @@ const notificationItems = props => {
 						<img src={BellIcon} alt="Notifications" />
 						<Header h={5}>{content.notifications[lang]}</Header>
 					</div>
-					<Header h={5} normal color="#777">
+					<Header clicked={props.archiveClicked} h={5} normal color="#777">
 						{content.archive[lang]}
 					</Header>
 				</div>

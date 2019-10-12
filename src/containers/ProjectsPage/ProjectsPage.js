@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Projects from "../../components/Projects/Projects";
-import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import Grid from "@material-ui/core/Grid";
+import NotificationItems from "../../components/NotificationItems/NotificationItems";
+import SearchBar from "../../components/SearchBar/SearchBar";
 export class ProjectsPage extends Component {
 	state = {
 		projects: [
@@ -73,15 +74,31 @@ export class ProjectsPage extends Component {
 	componentDidMount() {
 		this.setState({ loading: false });
 	}
+	archiveClickedHandler = (event, id) => {
+		console.log("Archive was clicked");
+	};
+	viewClickedHandler = (event, id) => {
+		event.preventDefault();
+		console.log("You clicked " + id);
+	};
+
 	render() {
 		let projects = !this.state.loading ? <Projects lang={this.state.lang} projects={this.state.projects} /> : null;
 		let notificationItems = !this.state.loading ? (
-			<NotificationItems lang={this.state.lang} notificationItems={this.state.notificationItems} />
+			<NotificationItems
+				archiveClicked={this.archiveClickedHandler}
+				viewClicked={this.viewClickedHandler}
+				lang={this.state.lang}
+				notificationItems={this.state.notificationItems}
+			/>
 		) : null;
 		return (
 			<Grid container spacing={3}>
 				<Grid item md={8}>
 					<Grid container spacing={1}>
+						<Grid item xs={12}>
+							<SearchBar lang={this.state.lang} />
+						</Grid>
 						{projects}
 					</Grid>
 				</Grid>

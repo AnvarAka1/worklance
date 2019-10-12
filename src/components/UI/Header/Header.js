@@ -9,7 +9,8 @@ const header = props => {
 		props.mb && classes.Mb
 	];
 	const headerStyles = {
-		color: props.color && props.color
+		color: props.color && props.color,
+		cursor: props.clicked && "pointer"
 	};
 	let header = null;
 	switch (props.h) {

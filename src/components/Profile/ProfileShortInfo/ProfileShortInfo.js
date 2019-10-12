@@ -5,7 +5,8 @@ const profileShortInfo = props => {
 	const profileShortInfoClasses = [
 		classes.ProfileShortInfo,
 		props.profileShortInfoClass && classes[props.profileShortInfoClass],
-		props.mr && classes.Mr
+		props.mr && classes.Mr,
+		props.alignRight && classes.AlignRight
 	];
 	const { name, position_en, position_ru, lang } = props;
 	return (
