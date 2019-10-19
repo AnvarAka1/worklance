@@ -7,7 +7,55 @@ import FilterIcon from "../../assets/images/icons/filter.png";
 
 class SearchBar extends Component {
 	state = {
-		search: {}
+		search: {
+			search: "",
+			stack: "",
+			exp: "",
+			cost: ""
+		},
+		options: {
+			stack: [
+				{
+					id: 0,
+					value: [ "Все", "All", "AllUzb" ]
+				},
+				{
+					id: 1,
+					value: [ "Некоторые", "Some", "SomeUzb" ]
+				}
+			],
+			exp: [
+				{
+					id: 0,
+					value: [ "", "" ]
+				},
+				{
+					id: 1,
+					value: [ "", "" ]
+				}
+			],
+			cost: [
+				{
+					id: 0,
+					value: 300
+				},
+				{
+					id: 1,
+					value: 15
+				}
+			]
+		}
+	};
+	getInputConfigs = () => {
+		// const placeholders = {
+		// 	search: [ "Поиск", "Search", "SearchUzb" ]
+		// };
+		// const options = {};
+		// const search = {
+		// 	search: {
+		// 		placeholder: []
+		// 	}
+		// };
 	};
 	searchChangedHandler = event => {
 		console.log("Search " + event.target.value);

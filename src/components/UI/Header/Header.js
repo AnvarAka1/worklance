@@ -5,12 +5,15 @@ const header = props => {
 		classes.Header,
 		props.headerClass && classes[props.headerClass],
 		props.normal && classes.Normal,
+		props.mbS && classes.MbS,
 		props.mt && classes.Mt,
-		props.mb && classes.Mb
+		props.mb && classes.Mb,
+		props.hover && classes.Hover
 	];
 	const headerStyles = {
 		color: props.color && props.color,
-		cursor: props.clicked && "pointer"
+		cursor: props.clicked && "pointer",
+		textAlign: props.center && "center"
 	};
 	let header = null;
 	switch (props.h) {

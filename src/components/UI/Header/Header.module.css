@@ -1,9 +1,13 @@
 .Header {
 	color: #333333;
 	line-height: 19px;
+	transition: .25s ease color;
 }
 .Normal {
 	font-weight: normal;
+}
+.MbS {
+	margin-bottom: 5px;
 }
 .Mt {
 	margin-top: 15px;

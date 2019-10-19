@@ -69,6 +69,7 @@ export class ProjectsPage extends Component {
 			}
 		],
 		lang: 0,
+		hover: false,
 		loading: true
 	};
 	componentDidMount() {
@@ -81,9 +82,22 @@ export class ProjectsPage extends Component {
 		event.preventDefault();
 		console.log("You clicked " + id);
 	};
-
+	onHoverEnter = id => {
+		this.setState({ hover: id });
+	};
+	onHoverLeave = id => {
+		this.setState({ hover: -1 });
+	};
 	render() {
-		let projects = !this.state.loading ? <Projects lang={this.state.lang} projects={this.state.projects} /> : null;
+		let projects = !this.state.loading ? (
+			<Projects
+				lang={this.state.lang}
+				hover={this.state.hover}
+				onHover={this.onHoverEnter}
+				onUnHover={this.onHoverLeave}
+				projects={this.state.projects}
+			/>
+		) : null;
 		let notificationItems = !this.state.loading ? (
 			<NotificationItems
 				archiveClicked={this.archiveClickedHandler}

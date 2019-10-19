@@ -1,5 +1,4 @@
 import React from "react";
-// import classes from "./Project.module.css";
 import Header from "../../UI/Header/Header";
 import Text from "../../UI/Text/Text";
 import Paper from "../../UI/Paper/Paper";
@@ -12,22 +11,26 @@ const project = props => {
 		price: [ "Цена", "Price" ]
 	};
 	return (
-		<Paper>
-			<NavLink to={`/projects/${id}`}>
-				<Header h={5}>{title}</Header>
-			</NavLink>
-			<NavLink to={`/users/${authorId}`}>
-				<Header h={5} color="#AAAAAA">
-					{author}
-				</Header>
-			</NavLink>
-			<NavLink to={`/projects/${id}`}>
-				<Text mt>{text}</Text>
-				<Header mt h={5}>
-					{content.price[lang]} : ${price}
-				</Header>
-			</NavLink>
-		</Paper>
+		<div onMouseEnter={props.onHover} onMouseLeave={props.onUnHover}>
+			<Paper>
+				<NavLink to={`/projects/${id}`}>
+					<Header color={props.hover ? "#007BFF" : "#333"} h={5}>
+						{title}
+					</Header>
+				</NavLink>
+				<NavLink to={`/users/${authorId}`}>
+					<Header h={5} color="#AAAAAA">
+						{author}
+					</Header>
+				</NavLink>
+				<NavLink to={`/projects/${id}`}>
+					<Text mt>{text}</Text>
+					<Header mt h={5}>
+						{content.price[lang]} : ${price}
+					</Header>
+				</NavLink>
+			</Paper>
+		</div>
 	);
 };
 

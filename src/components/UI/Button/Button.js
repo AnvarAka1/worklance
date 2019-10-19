@@ -4,6 +4,7 @@ const button = props => {
 	const buttonClasses = [
 		classes.Button,
 		classes[props.buttonClass],
+		props.wide && classes.Wide,
 		props.blue && classes.Blue,
 		props.green && classes.Green,
 		props.grey && classes.Grey

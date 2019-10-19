@@ -5,7 +5,13 @@ const projects = props => {
 	const projects = props.projects.map(project => {
 		return (
 			<Grid item xs={12} key={project.id}>
-				<Project lang={props.lang} {...project} />
+				<Project
+					hover={project.id === props.hover ? true : false}
+					onHover={() => props.onHover(project.id)}
+					onUnHover={() => props.onUnHover(project.id)}
+					lang={props.lang}
+					{...project}
+				/>
 			</Grid>
 		);
 	});
