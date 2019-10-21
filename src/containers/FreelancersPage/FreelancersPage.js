@@ -155,6 +155,7 @@ export class FreelancersPage extends Component {
 			{
 				id: 0,
 				userId: 1,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -163,6 +164,8 @@ export class FreelancersPage extends Component {
 			{
 				id: 1,
 				userId: 1,
+
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -171,6 +174,7 @@ export class FreelancersPage extends Component {
 			{
 				id: 2,
 				userId: 2,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -179,6 +183,7 @@ export class FreelancersPage extends Component {
 			{
 				id: 3,
 				userId: 1,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,

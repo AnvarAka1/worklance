@@ -41,9 +41,9 @@ const profileInputs = props => {
 					</Grid>
 
 					<Hidden smDown>
-						<Grid item sm={6} />
+						<Grid item sm={props.half ? 6 : 4} />
 					</Hidden>
-					<Grid item sm={6}>
+					<Grid item sm={props.half ? 6 : 8}>
 						<Button wide clicked={props.clicked}>
 							{content.save[lang]}
 						</Button>

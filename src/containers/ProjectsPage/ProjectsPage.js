@@ -3,6 +3,7 @@ import Projects from "../../components/Projects/Projects";
 import Grid from "@material-ui/core/Grid";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Avatar1 from "../../assets/images/profile/avatar1.jpg";
 export class ProjectsPage extends Component {
 	state = {
 		projects: [
@@ -38,6 +39,7 @@ export class ProjectsPage extends Component {
 			{
 				id: 0,
 				userId: 1,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -46,6 +48,7 @@ export class ProjectsPage extends Component {
 			{
 				id: 1,
 				userId: 1,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -54,6 +57,7 @@ export class ProjectsPage extends Component {
 			{
 				id: 2,
 				userId: 2,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,
@@ -62,6 +66,7 @@ export class ProjectsPage extends Component {
 			{
 				id: 3,
 				userId: 1,
+				avatar: Avatar1,
 				name: "Anvar Abdulsatarov",
 				text: "Hello, It's me",
 				approved: true,

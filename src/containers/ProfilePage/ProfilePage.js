@@ -4,6 +4,7 @@ import Header from "../../components/UI/Header/Header";
 import ProfilePhoto from "../../components/Profile/ProfilePhoto/ProfilePhoto";
 import Avatar from "../../assets/images/profile/avatar.jpg";
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
+import Publications from "../../components/Publications/Publications";
 export class ProfilePage extends Component {
 	state = {
 		profile: {
@@ -74,6 +75,28 @@ export class ProfilePage extends Component {
 				}
 			}
 		},
+		publications: [
+			{
+				id: 0,
+				title: "Доработать адаптивность сайта",
+				date: "27.09.2019",
+				isProject: true
+			},
+
+			{
+				id: 1,
+				title: "Фронт-энд разработчик",
+				date: "25.09.2019",
+				isProject: false
+			},
+
+			{
+				id: 2,
+				title: "Написать телеграм-бота",
+				date: "21.09.2019",
+				isProject: true
+			}
+		],
 		lang: 0,
 		loading: true
 	};
@@ -99,10 +122,18 @@ export class ProfilePage extends Component {
 	avatarChangeHandler = () => {
 		console.log("Change Avatar");
 	};
+
+	removeClickedHandler = (event, id) => {
+		console.log("Remove clicked with id", id);
+	};
+	addClickedHandler = () => {
+		console.log("Add clicked");
+	};
 	render() {
 		const content = {
 			title1: [ "Общая информация", "General information", "InfoUzb" ],
-			title2: [ "Безопасность", "Security", "Uzb" ]
+			title2: [ "Безопасность", "Security", "Uzb" ],
+			title3: [ "Публикации", "Publications", "Uzb" ]
 		};
 		return (
 			<Grid container spacing={3}>
@@ -126,6 +157,7 @@ export class ProfilePage extends Component {
 						</Grid>
 						<Grid item sm={8}>
 							<ProfileInputs
+								half
 								changed={this.inputChangeHandler}
 								inputs={this.state.profile.general}
 								lang={this.state.lang}
@@ -154,6 +186,24 @@ export class ProfilePage extends Component {
 								lang={this.state.lang}
 								formType={"email"}
 								submitted={this.formSubmitHandler}
+							/>
+						</Grid>
+					</Grid>
+				</Grid>
+				<Grid item sm={1} />
+				<Grid item sm={5}>
+					<Grid container spacing={3}>
+						<Grid item xs={12}>
+							<Header h={5}>
+								<i className="fa fa-user-lock" /> {content.title3[this.state.lang]}
+							</Header>
+						</Grid>
+						<Grid item xs={12}>
+							<Publications
+								lang={this.state.lang}
+								publications={this.state.publications}
+								addClicked={this.addClickedHandler}
+								removeClicked={this.removeClickedHandler}
 							/>
 						</Grid>
 					</Grid>
