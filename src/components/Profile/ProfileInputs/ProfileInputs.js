@@ -1,10 +1,9 @@
 import React from "react";
 import classes from "./ProfileInputs.module.css";
-import Input from "../../UI/Input/Input";
-import Header from "../../UI/Header/Header";
 import Button from "../../UI/Button/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import LabeledInput from "../../UI/LabeledInput/LabeledInput";
 const profileInputs = props => {
 	const { inputs, lang, formType } = props;
 	const content = {
@@ -19,17 +18,14 @@ const profileInputs = props => {
 	}
 	const inputsJSX = inputsArray.map(input => {
 		return (
-			<div className={classes.InputLabel} key={input.id}>
-				<Header h={6} mbS color="#777">
-					{input.config.label[lang]}
-				</Header>
-				<Input
-					elementConfig={input.config.config}
-					inputType={input.config.config.inputType}
-					changed={event => props.changed(event, input.id, formType)}
-					value={input.config.value}
-				/>
-			</div>
+			<LabeledInput
+				key={input.id}
+				label={input.config.label[lang]}
+				elementConfig={input.config.config}
+				inputType={input.config.config.inputType}
+				changed={event => props.changed(event, input.id, formType)}
+				value={input.config.value}
+			/>
 		);
 	});
 	return (

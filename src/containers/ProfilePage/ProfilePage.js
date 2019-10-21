@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Header from "../../components/UI/Header/Header";
+
 import ProfilePhoto from "../../components/Profile/ProfilePhoto/ProfilePhoto";
 import Avatar from "../../assets/images/profile/avatar.jpg";
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
@@ -131,9 +132,10 @@ export class ProfilePage extends Component {
 	};
 	render() {
 		const content = {
-			title1: [ "Общая информация", "General information", "InfoUzb" ],
-			title2: [ "Безопасность", "Security", "Uzb" ],
-			title3: [ "Публикации", "Publications", "Uzb" ]
+			general: [ "Общая информация", "General information", "InfoUzb" ],
+			security: [ "Безопасность", "Security", "Uzb" ],
+			publications: [ "Публикации", "Publications", "Uzb" ],
+			additional: [ "Дополнительно", "Additionally", "Uzb" ]
 		};
 		return (
 			<Grid container spacing={3}>
@@ -141,7 +143,7 @@ export class ProfilePage extends Component {
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<Header h={5}>
-								<i className="fa fa-user" /> {content.title1[this.state.lang]}
+								<i className="fa fa-user" /> {content.general[this.state.lang]}
 							</Header>
 						</Grid>
 						<Grid item sm={4}>
@@ -167,7 +169,7 @@ export class ProfilePage extends Component {
 						</Grid>
 						<Grid item xs={12}>
 							<Header h={5}>
-								<i className="fa fa-user-lock" /> {content.title2[this.state.lang]}
+								<i className="fa fa-user-lock" /> {content.security[this.state.lang]}
 							</Header>
 						</Grid>
 						<Grid item sm={6}>
@@ -195,16 +197,24 @@ export class ProfilePage extends Component {
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<Header h={5}>
-								<i className="fa fa-user-lock" /> {content.title3[this.state.lang]}
+								<i className="fa fa-user-lock" />{" "}
+								{this.props.isUser ? (
+									content.additional[this.state.lang]
+								) : (
+									content.publications[this.state.lang]
+								)}
 							</Header>
 						</Grid>
+
 						<Grid item xs={12}>
-							<Publications
-								lang={this.state.lang}
-								publications={this.state.publications}
-								addClicked={this.addClickedHandler}
-								removeClicked={this.removeClickedHandler}
-							/>
+							{this.props.isUser ? null : (
+								<Publications
+									lang={this.state.lang}
+									publications={this.state.publications}
+									addClicked={this.addClickedHandler}
+									removeClicked={this.removeClickedHandler}
+								/>
+							)}
 						</Grid>
 					</Grid>
 				</Grid>
