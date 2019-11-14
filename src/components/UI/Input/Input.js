@@ -7,7 +7,9 @@ const input = props => {
 	const inputClasses = [
 		classes.Input,
 		props.inputClass && classes[props.inputClass],
-		props.search && classes.Search
+		props.search && classes.Search,
+		props.mt && classes.Mt,
+		props.ptb && classes.Ptb
 	];
 	switch (inputType) {
 		case "input":

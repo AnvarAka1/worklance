@@ -5,7 +5,7 @@ import Paper from "../../UI/Paper/Paper";
 import { NavLink } from "react-router-dom";
 const project = props => {
 	// const projectClasses = [ classes.Project ];
-	const { id, title, author, authorId, text, price, lang } = props;
+	const { id, title, author, authorId, description, price, lang } = props;
 
 	const content = {
 		price: [ "Цена", "Price" ]
@@ -24,7 +24,7 @@ const project = props => {
 					</Header>
 				</NavLink>
 				<NavLink to={`/projects/${id}`}>
-					<Text mt>{text}</Text>
+					<Text mt>{description}</Text>
 					<Header mt h={5}>
 						{content.price[lang]} : ${price}
 					</Header>

@@ -15,3 +15,11 @@
 .Mb {
 	margin-bottom: 15px;
 }
+.Mtb {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.MtbB {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

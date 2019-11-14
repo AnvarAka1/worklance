@@ -8,6 +8,8 @@ const header = props => {
 		props.mbS && classes.MbS,
 		props.mt && classes.Mt,
 		props.mb && classes.Mb,
+		props.mtb && classes.Mtb,
+		props.mtbB && classes.MtbB,
 		props.hover && classes.Hover
 	];
 	const headerStyles = {

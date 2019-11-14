@@ -4,7 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Avatar1 from "../../assets/images/profile/avatar1.jpg";
+import axios from "../../axios-db";
 export class ProjectsPage extends Component {
+	_isMounted = false;
 	state = {
 		projects: [
 			{
@@ -78,7 +80,22 @@ export class ProjectsPage extends Component {
 		loading: true
 	};
 	componentDidMount() {
-		this.setState({ loading: false });
+		this._isMounted = true;
+		this.setState({ loading: true });
+		axios
+			.get("/vacancies")
+			.then(res => {
+				console.log(res.data);
+				if (this._isMounted) {
+					this.setState({ projects: res.data, loading: false });
+				}
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}
+	componentWillUnmount() {
+		this._isMounted = false;
 	}
 	archiveClickedHandler = (event, id) => {
 		console.log("Archive was clicked");
@@ -93,6 +110,7 @@ export class ProjectsPage extends Component {
 	onHoverLeave = id => {
 		this.setState({ hover: -1 });
 	};
+
 	render() {
 		let projects = !this.state.loading ? (
 			<Projects
@@ -112,19 +130,21 @@ export class ProjectsPage extends Component {
 			/>
 		) : null;
 		return (
-			<Grid container spacing={3}>
-				<Grid item md={8}>
-					<Grid container spacing={1}>
-						<Grid item xs={12}>
-							<SearchBar lang={this.state.lang} />
+			<React.Fragment>
+				<Grid container spacing={3}>
+					<Grid item md={8}>
+						<Grid container spacing={1}>
+							<Grid item xs={12}>
+								<SearchBar lang={this.state.lang} />
+							</Grid>
+							{projects}
 						</Grid>
-						{projects}
+					</Grid>
+					<Grid item md={4}>
+						{notificationItems}
 					</Grid>
 				</Grid>
-				<Grid item md={4}>
-					{notificationItems}
-				</Grid>
-			</Grid>
+			</React.Fragment>
 		);
 	}
 }

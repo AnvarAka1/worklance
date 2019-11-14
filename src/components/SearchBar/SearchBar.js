@@ -46,17 +46,7 @@ class SearchBar extends Component {
 			]
 		}
 	};
-	getInputConfigs = () => {
-		// const placeholders = {
-		// 	search: [ "Поиск", "Search", "SearchUzb" ]
-		// };
-		// const options = {};
-		// const search = {
-		// 	search: {
-		// 		placeholder: []
-		// 	}
-		// };
-	};
+	getInputConfigs = () => {};
 	searchChangedHandler = event => {
 		console.log("Search " + event.target.value);
 	};
@@ -82,9 +72,9 @@ class SearchBar extends Component {
 						<Text small>{content.filter[lang]}</Text>
 					</div>
 				</div>
-				<div className={classes.filters}>
+				{/* <div className={classes.filters}>
 					<Button />
-				</div>
+				</div> */}
 			</div>
 		);
 	}

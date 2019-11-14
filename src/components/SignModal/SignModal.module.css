@@ -1,0 +1,34 @@
+.SignModal {
+	width: 560px;
+}
+.Toggle {
+	cursor: pointer;
+	color: #00b1eb;
+	transition: .5s ease color;
+}
+.Toggle:hover {
+	color: #1bc47d;
+}
+.Role{
+	display: flex;
+	justify-content: space-evenly;
+}
+.Role>div{
+	width: 	100%;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	text-align: center;
+	transition: all 0.25s ease;
+	cursor: pointer;
+	color: #777777;
+	background: white;
+}
+
+.Role>div:hover{
+	background: #007BFF;
+	color: white
+}
+.Role>.Selected{
+	color: white;
+	background: #1BC47D
+}

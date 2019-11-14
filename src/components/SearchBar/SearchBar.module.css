@@ -1,7 +1,7 @@
 .Search {
 	background: #f4f4f4;
 	border-radius: 5px;
-	padding: 18px 30px;
+	padding: 5px 30px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -20,6 +20,8 @@
 .LeftPart {
 	width: 100%;
 	display: flex;
+	/* justify-content: center; */
+	align-items: center;
 }
 .LeftPart input {
 	width: 100%;

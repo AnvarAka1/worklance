@@ -29,6 +29,9 @@
 	font-weight: normal;
 	color: #ffffff;
 }
+.Green * {
+	color: #ffffff;
+}
 .Grey {
 	background: #cccccc;
 	font-weight: bold;
@@ -37,4 +40,12 @@
 }
 .Wide {
 	width: 100%;
+}
+.Mtb {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.Ptb {
+	padding-top: 25px;
+	padding-bottom: 25px;
 }

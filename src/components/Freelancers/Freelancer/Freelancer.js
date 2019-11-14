@@ -8,9 +8,10 @@ import Text from "../../UI/Text/Text";
 const freelancer = props => {
 	const { avatar, name, position_ru, position_en, position_uz, text, skills, lang } = props;
 	const freelancerClasses = [ classes.Freelancer, props.inline && classes.Inline ];
+	const button = props.button ? <div className={classes.Right}>{props.button}</div> : null;
 	return (
 		<div onClick={props.blockClicked}>
-			<Paper tl>
+			<Paper clear={props.clear} center={props.center} tl>
 				<div className={freelancerClasses.join(" ")}>
 					<ProfilePhoto big avatar={avatar} name={name} />
 					<div className={classes.Text}>
@@ -25,6 +26,7 @@ const freelancer = props => {
 							{text}
 						</Text>
 						<Skills skills={skills} />
+						{button}
 					</div>
 				</div>
 			</Paper>

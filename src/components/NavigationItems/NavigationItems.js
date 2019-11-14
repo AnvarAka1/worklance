@@ -5,7 +5,7 @@ import Container from "@material-ui/core/Container";
 import NavigationItem from "./NavigationItem/NavigationItem";
 import Logo from "../UI/Logo/Logo";
 import MyProfile from "../Profile/MyProfile/MyProfile";
-
+import Button from "../UI/Button/Button";
 const navigationItems = props => {
 	const items = [
 		{
@@ -32,6 +32,9 @@ const navigationItems = props => {
 			link: "/candidates"
 		}
 	];
+	const content = {
+		button: [ "Войти", "Login" ]
+	};
 	const navigationItems =
 		items &&
 		items.map(item => {
@@ -43,6 +46,12 @@ const navigationItems = props => {
 			<Logo />
 		</li>
 	);
+	const button = (
+		<Button green clicked={props.signModalOpened}>
+			{content.button[props.lang ? props.lang : 0]}
+		</Button>
+	);
+
 	const myProfile = <MyProfile profile={props.profile} />;
 	return (
 		<AppBar color="inherit" position="static">
@@ -52,7 +61,7 @@ const navigationItems = props => {
 						{logo}
 						{navigationItems}
 					</ul>
-					<div className={classes.RightNav}>{myProfile}</div>
+					<div className={classes.RightNav}>{props.isAuthorized ? myProfile : button}</div>
 				</div>
 			</Container>
 		</AppBar>

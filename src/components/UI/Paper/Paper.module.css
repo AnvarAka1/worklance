@@ -4,6 +4,10 @@
 	box-shadow: 0px 5px 10px #e5e5e5;
 	border-radius: 5px;
 }
+.Clear {
+	box-shadow: none;
+	border-radius: 5px;
+}
 .Tl {
 	padding-top: 30px;
 	padding-left: 30px;
@@ -24,4 +28,15 @@
 }
 .Mb {
 	margin-bottom: 15px;
+}
+.Sign {
+	padding: 60px 65px 30px;
+	width: 560px;
+}
+.Center {
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: auto;
+	margin-top: 40px;
 }

@@ -7,7 +7,9 @@ const button = props => {
 		props.wide && classes.Wide,
 		props.blue && classes.Blue,
 		props.green && classes.Green,
-		props.grey && classes.Grey
+		props.grey && classes.Grey,
+		props.mtb && classes.Mtb,
+		props.ptb && classes.Ptb
 	];
 	return (
 		<button onClick={props.clicked && props.clicked} className={buttonClasses.join(" ")} disabled={props.disabled}>

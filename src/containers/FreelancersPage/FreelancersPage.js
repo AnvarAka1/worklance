@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import Freelancers from "../../components/Freelancers/Freelancers";
+import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
 import Grid from "@material-ui/core/Grid";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Modal from "../../components/UI/Modal/Modal";
+import Button from "../../components/UI/Button/Button";
 import Avatar from "../../assets/images/profile/avatar.jpg";
 import Avatar1 from "../../assets/images/profile/avatar1.jpg";
 import Avatar2 from "../../assets/images/profile/avatar2.jpg";
@@ -190,13 +193,45 @@ export class FreelancersPage extends Component {
 				date: "27.09"
 			}
 		],
+		freelancerSelected: 0,
+		fleelancerOpen: false,
 		loading: false,
 		lang: 0
 	};
+	freelancerModalOpenedHandler = () => {
+		this.setState({
+			fleelancerOpen: true
+		});
+	};
+	freelancerModalClosedHandler = () => {
+		this.setState({
+			fleelancerOpen: false
+		});
+	};
 	freelancerClickedHandler = (event, id) => {
 		console.log("Freelancer with id " + id + " was clicked");
+		this.setState({ freelancerSelected: id });
+		this.freelancerModalOpenedHandler();
 	};
 	render() {
+		const content = {
+			button: [ "Закрыть", "Close" ]
+		};
+		const button = (
+			<Button clicked={this.freelancerModalClosedHandler}>
+				{content.button[this.props.lang ? this.props.lang : 0]}
+			</Button>
+		);
+		let modal = (
+			<Modal
+				hasCloseButton
+				scrollable
+				open={this.state.fleelancerOpen}
+				modalClosed={this.freelancerModalClosedHandler}
+			>
+				<Freelancer center button={button} clear {...this.state.freelancers[this.state.freelancerSelected]} />
+			</Modal>
+		);
 		let freelancers = !this.state.loading ? (
 			<Freelancers
 				inline
@@ -214,19 +249,22 @@ export class FreelancersPage extends Component {
 			/>
 		) : null;
 		return (
-			<Grid container spacing={3}>
-				<Grid item md={8}>
-					<Grid container spacing={1}>
-						<Grid item xs={12}>
-							<SearchBar lang={this.state.lang} />
+			<React.Fragment>
+				{modal}
+				<Grid container spacing={3}>
+					<Grid item md={8}>
+						<Grid container spacing={1}>
+							<Grid item xs={12}>
+								<SearchBar lang={this.state.lang} />
+							</Grid>
+							{freelancers}
 						</Grid>
-						{freelancers}
+					</Grid>
+					<Grid item md={4}>
+						{notificationItems}
 					</Grid>
 				</Grid>
-				<Grid item md={4}>
-					{notificationItems}
-				</Grid>
-			</Grid>
+			</React.Fragment>
 		);
 	}
 }
