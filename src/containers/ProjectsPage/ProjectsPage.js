@@ -83,7 +83,7 @@ export class ProjectsPage extends Component {
 		this._isMounted = true;
 		this.setState({ loading: true });
 		axios
-			.get("/vacancies")
+			.get("/projects")
 			.then(res => {
 				console.log(res.data);
 				if (this._isMounted) {

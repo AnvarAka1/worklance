@@ -18,32 +18,36 @@ const profileInputs = props => {
 	}
 	const inputsJSX = inputsArray.map(input => {
 		return (
-			<LabeledInput
-				key={input.id}
-				label={input.config.label[lang]}
-				elementConfig={input.config.config}
-				inputType={input.config.config.inputType}
-				changed={event => props.changed(event, input.id, formType)}
-				value={input.config.value}
-			/>
+			<Grid key={input.id} item {...input.config.grid}>
+				<LabeledInput
+					label={input.config.label[lang]}
+					elementConfig={input.config.config}
+					inputType={input.config.inputType}
+					changed={event => props.changed(event, input.id, formType)}
+					value={input.config.value}
+				/>
+			</Grid>
 		);
 	});
+	const submitBtn = props.customBtn ? (
+		props.customBtn
+	) : (
+		<Grid item sm={props.half ? 6 : 8}>
+			<Button wide clicked={props.clicked}>
+				{content.save[lang]}
+			</Button>
+		</Grid>
+	);
 	return (
 		<div className={classes.ProfileInputs}>
 			<form onSubmit={event => props.submitted(event, formType)}>
 				<Grid container>
-					<Grid item xs={12}>
-						{inputsJSX}
-					</Grid>
+					{inputsJSX}
 
 					<Hidden smDown>
 						<Grid item sm={props.half ? 6 : 4} />
 					</Hidden>
-					<Grid item sm={props.half ? 6 : 8}>
-						<Button wide clicked={props.clicked}>
-							{content.save[lang]}
-						</Button>
-					</Grid>
+					{submitBtn}
 				</Grid>
 			</form>
 		</div>

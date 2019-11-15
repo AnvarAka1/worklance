@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./SearchBar.module.css";
 import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
+// import Button from "../UI/Button/Button";
 import Text from "../UI/Text/Text";
 import FilterIcon from "../../assets/images/icons/filter.png";
 

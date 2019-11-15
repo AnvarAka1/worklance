@@ -18,7 +18,7 @@ export const authSuccess = (token, id, role, email, avatar, name, password) => {
 		role: role,
 		email: email,
 		name: name,
-		avatar: null,
+		avatar: avatar,
 		password: password,
 		formFlush: true
 	};
@@ -72,6 +72,7 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 				localStorage.setItem("expirationDate", expirationDate);
 				localStorage.setItem("id", userData.id);
 				localStorage.setItem("name", userData.fullname);
+				localStorage.setItem("role", userData.role);
 				dispatch(authSuccess(token, userData.id, role, email, userData.avatar, userData.fullname, password));
 				dispatch(checkAuthTimeout(data.expires_in));
 				if (response.data.status === "error") dispatch(authFail(response.data.message));
@@ -101,15 +102,18 @@ export const authCheckState = () => {
 		console.log(name);
 		// const avatar = localStorage.getItem("avatar");
 		let avatar = null;
-
+		const url = +role === 1 ? "/client" : "/user";
+		console.log("role", role);
 		axios
-			.get(`/user/current`, {
+			.get(`${url}/current`, {
 				headers: {
 					Authorization: `${token}`
 				}
 			})
 			.then(res => {
-				avatar = res.data.avatar;
+				console.log(res);
+				avatar = +role === 1 ? res.data.clients.avatar : res.data.userdatas.avatar;
+
 				if (!token) {
 					dispatch(logout());
 				} else {

@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import SignModal from "../../components/SignModal/SignModal";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+// import { Redirect } from "react-router-dom";
 
 export class Layout extends Component {
 	state = {
@@ -74,7 +75,8 @@ export class Layout extends Component {
 		isClient: false,
 		signModalOpened: false,
 		isSignIn: true,
-		isAuthorizing: false
+		isAuthorizing: false,
+		isRedirect: false
 	};
 	componentDidMount() {
 		this.setState({ isAuthorizing: true });
@@ -85,7 +87,6 @@ export class Layout extends Component {
 			profile = { ...this.state.profile };
 			profile.avatar = this.props.authAvatar;
 			profile.name = this.props.name;
-
 			this.setState({ profile: profile, signModalOpened: false, isAuthorizing: false });
 		}
 	}
@@ -99,7 +100,7 @@ export class Layout extends Component {
 		// input is changed here
 		const value = event.target.value;
 		let form = { ...this.state.form };
-		console.log(form.signIn[inputIdentifier]);
+
 		let signIn;
 		let signUp;
 		if (this.state.isSignIn) {
@@ -136,7 +137,6 @@ export class Layout extends Component {
 			this.props.onAuth(null, null, email.value, password.value, isClient, true);
 		} else {
 			const { fName, sName, email, password } = this.state.form.signUp;
-			console.log(fName);
 			this.props.onAuth(fName.value, sName.value, email.value, password.value, isClient, false);
 		}
 	};
@@ -146,6 +146,7 @@ export class Layout extends Component {
 	render() {
 		return (
 			<div style={{ position: "relative" }}>
+				{/* {this.state.isRedirect ? <Redirect from="*" to={"/profile"} /> : null} */}
 				<Modal scrollable open={this.state.signModalOpened} modalClosed={this.signModalClosedHandler}>
 					<SignModal
 						roleClicked={this.roleClickedHandler}

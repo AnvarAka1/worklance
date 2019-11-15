@@ -66,6 +66,17 @@ const signModal = props => {
 			</div>
 		</div>
 	);
+	const submitButton = (
+		<Button wide mtb green ptb>
+			<Header h={5}>
+				{props.isSignIn ? (
+					content.signIn[props.lang ? props.lang : 0]
+				) : (
+					content.signUp[props.lang ? props.lang : 0]
+				)}
+			</Header>
+		</Button>
+	);
 	return (
 		<Paper sign clear center>
 			<Header center mtbB h={5}>
@@ -73,10 +84,8 @@ const signModal = props => {
 			</Header>
 			<form onSubmit={event => props.submitted(event)}>
 				{form}
+				{submitButton}
 
-				<Button wide mtb green ptb>
-					<Header h={5}>{content.signUp[props.lang ? props.lang : 0]}</Header>
-				</Button>
 				{role}
 			</form>
 			{toggleMessage}

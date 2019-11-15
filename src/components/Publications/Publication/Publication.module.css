@@ -1,5 +1,6 @@
 .Publication {
 	position: relative;
+	cursor: pointer;
 }
 .IconWrapper {
 	position: absolute;

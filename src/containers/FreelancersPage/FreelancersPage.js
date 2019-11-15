@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "../../axios-db";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import Freelancers from "../../components/Freelancers/Freelancers";
 import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
@@ -11,6 +12,7 @@ import Avatar1 from "../../assets/images/profile/avatar1.jpg";
 import Avatar2 from "../../assets/images/profile/avatar2.jpg";
 import Avatar3 from "../../assets/images/profile/avatar3.jpg";
 export class FreelancersPage extends Component {
+	token = null;
 	state = {
 		freelancers: [
 			{
@@ -198,6 +200,20 @@ export class FreelancersPage extends Component {
 		loading: false,
 		lang: 0
 	};
+	componentDidMount() {
+		this.token = localStorage.getItem("token");
+		axios
+			.get("/userdata/02", {
+				headers: {
+					Authorization: this.token
+				}
+			})
+			.then(res => {
+				console.log(res.data);
+				this.setState({ freelancers: res.data });
+			})
+			.catch(err => console.log(err));
+	}
 	freelancerModalOpenedHandler = () => {
 		this.setState({
 			fleelancerOpen: true

@@ -4,26 +4,27 @@ import { Switch, Route } from "react-router-dom";
 import ProjectsPage from "./containers/ProjectsPage/ProjectsPage";
 import FreelancersPage from "./containers/FreelancersPage/FreelancersPage";
 import ProfilePage from "./containers/ProfilePage/ProfilePage";
+import Logout from "./containers/Logout/Logout";
+import AddPublicationPage from "./containers/AddPublicationPage/AddPublicationPage";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
 class App extends Component {
 	componentDidMount() {
-		console.log("HIIIII");
 		this.props.onAuthCheck();
 	}
+	redirectToProfile = () => {
+		console.log(this.props.history);
+	};
 	render() {
 		return (
-			<Layout>
+			<Layout redirectToProfile={this.redirectToProfile}>
 				<Switch>
 					<Route path="/projects" component={ProjectsPage} />
 					<Route path="/freelancers" component={FreelancersPage} />
 					<Route path="/profile" component={ProfilePage} />
-					<Route
-						path="/"
-						component={() => {
-							return null;
-						}}
-					/>
+					<Route path="/add" component={AddPublicationPage} />
+					<Route path="/logout" component={Logout} />
+					<Route path="/" component={ProfilePage} />
 				</Switch>
 			</Layout>
 		);
