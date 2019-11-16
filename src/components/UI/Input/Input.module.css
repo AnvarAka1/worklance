@@ -8,9 +8,13 @@
 	line-height: 16px;
 	color: #777777;
 	width: 100%;
+	cursor: auto;
 }
 .Mt {
 	margin-top: 15px;
+}
+.Mb {
+	margin-bottom: 15px;
 }
 .Ptb {
 	padding-top: 25px;

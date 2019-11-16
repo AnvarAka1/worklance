@@ -4,6 +4,7 @@ const button = props => {
 	const buttonClasses = [
 		classes.Button,
 		classes[props.buttonClass],
+		props.wider && classes.Wider,
 		props.wide && classes.Wide,
 		props.blue && classes.Blue,
 		props.green && classes.Green,
@@ -11,8 +12,16 @@ const button = props => {
 		props.mtb && classes.Mtb,
 		props.ptb && classes.Ptb
 	];
+	const style = {
+		...props.buttonStyle
+	};
 	return (
-		<button onClick={props.clicked && props.clicked} className={buttonClasses.join(" ")} disabled={props.disabled}>
+		<button
+			onClick={props.clicked && props.clicked}
+			style={style}
+			className={buttonClasses.join(" ")}
+			disabled={props.disabled}
+		>
 			{props.children}
 		</button>
 	);

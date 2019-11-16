@@ -5,7 +5,10 @@ import ProfilePhoto from "../../components/Profile/ProfilePhoto/ProfilePhoto";
 import Avatar from "../../assets/images/profile/avatar.jpg";
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
 import Publications from "../../components/Publications/Publications";
+import AdditionalBlock from "../../components/AdditionalBlock/AdditionalBlock";
+import ChangeProfileBlock from "../../components/ChangeProfileBlock/ChangeProfileBlock";
 import axios from "../../axios-db";
+
 export class ProfilePage extends Component {
 	token = null;
 	role = null;
@@ -131,7 +134,45 @@ export class ProfilePage extends Component {
 				type: 1
 			}
 		],
+		additional: {
+			experience: {
+				label: [ "Опыт работы", "Work experience", "Uzb" ],
+				config: {
+					type: "text"
+				},
+				grid: {
+					xs: 12
+				},
+				inputType: "input",
+				value: ""
+			},
+			portfolio: [
+				{
+					id: 0,
+					config: {
+						type: "text"
+					},
+					grid: {
+						xs: 12
+					},
+					inputType: "input",
+					value: ""
+				}
+			],
+			skills: {
+				label: [ "Навыки", "Skills", "Uzb" ],
+				config: {
+					type: "text"
+				},
+				grid: {
+					xs: 12
+				},
+				inputType: "input",
+				value: ""
+			}
+		},
 		lang: 0,
+		profileType: 0,
 		isClient: null,
 		loading: true
 	};
@@ -151,14 +192,16 @@ export class ProfilePage extends Component {
 				const data = res.data;
 				this.assignUserValues(data);
 				if (this.role === 1) {
+					// is Client
 					this.assignPublications(data);
+				} else {
+					// is Freelancer
+					this.assignAdditionalBlock(data);
+					this.assignProfileBlock(data.userdatas.profile);
 				}
 			})
 			.catch(err => console.log(err));
 	}
-	// axiosGetCurrentUser(){
-
-	// }
 	assignUserValues = data => {
 		const user = this.role ? data.clients : data.userdatas;
 		const professionOrCompany = this.role ? user.company : user.user_position;
@@ -217,6 +260,117 @@ export class ProfilePage extends Component {
 		newState[formType][inputIdentifier].value = value;
 		this.setState({ profile: newState });
 	};
+	assignAdditionalBlock = data => {
+		const dt = data.userdatas;
+		let additional = {
+			...this.state.additional,
+			experience: {
+				...this.state.additional.experience,
+				value: dt.experience ? dt.experience : ""
+			},
+			portfolio: this.assignPortfolios(data),
+			skills: {
+				...this.state.additional.skills,
+				value: dt.skills ? dt.skills.toString() : ""
+			}
+		};
+
+		this.setState({ additional: additional });
+	};
+	additionalInputChangeHandler = (event, inputIdentifier) => {
+		const value = event.target.value;
+		const additional = {
+			...this.state.additional,
+			[inputIdentifier]: {
+				...this.state.additional[inputIdentifier],
+				value: value
+			}
+		};
+		this.setState({ additional: additional });
+	};
+	// ------------------------------------------------ PORTFOLIO START
+	assignPortfolios = data => {
+		console.log(data);
+		const portfolio = data.userdatas.portfolio;
+		let portfolioFromState = this.state.additional.portfolio.slice();
+		let newPortfolio = [];
+		if (portfolio) {
+			const portfolioArray = portfolio.split(",").map(el => {
+				return el.trim();
+			});
+			newPortfolio = portfolioArray.map((el, index) => {
+				return {
+					...portfolioFromState[0],
+					id: index,
+					value: el
+				};
+			});
+		} else {
+			newPortfolio = portfolioFromState.slice();
+		}
+		return newPortfolio;
+	};
+	portfolioInputChangeHandler = (event, id) => {
+		const value = event.target.value;
+		let additional = {
+			...this.state.additional
+		};
+		let portfolio = additional.portfolio.slice();
+		const index = portfolio.findIndex(el => el.id === id);
+		portfolio[index].value = value;
+		additional.portfolio = portfolio;
+		this.setState({ additional: additional });
+	};
+
+	addPortfolio = event => {
+		event.preventDefault();
+		let additional = { ...this.state.additional };
+		let portfolio = additional.portfolio.slice();
+		const lastIndex = portfolio.length - 1;
+		let idOfLastElement = portfolio[lastIndex].id;
+
+		let isDuplicated = false;
+		do {
+			idOfLastElement++;
+			isDuplicated = false;
+			isDuplicated = portfolio.indexOf(el => el.id === idOfLastElement) < 0 ? false : true;
+		} while (isDuplicated);
+		portfolio.push({
+			id: idOfLastElement,
+			config: {
+				type: "text"
+			},
+			grid: {
+				xs: 12
+			},
+			inputType: "input",
+			value: ""
+		});
+		additional.portfolio = portfolio;
+		this.setState({ additional: additional });
+	};
+
+	// ----------------------------------------------- END OF PORTFOLIO
+	assignProfileBlock = profileType => {
+		this.setState({ profileType: profileType });
+	};
+	profileTypeHandler = (event, type) => {
+		event.preventDefault();
+		let formData = new FormData();
+		formData.append("profile", type);
+		formData.append("_method", "PUT");
+		axios
+			.post("/userdata/profile", formData, {
+				headers: {
+					Authorization: this.token
+				}
+			})
+			.then(res => {
+				this.assignProfileBlock(+res.data);
+			})
+			.catch(err => console.log(err));
+	};
+
 	formSubmitHandler = (event, formType) => {
 		event.preventDefault();
 		console.log("FormType", formType);
@@ -290,6 +444,31 @@ export class ProfilePage extends Component {
 		console.log("Add clicked");
 		this.props.history.push("/add");
 	};
+	addMoreHandler = () => {};
+	additionalHandler = event => {
+		event.preventDefault();
+		let formData = new FormData();
+		const data = { ...this.state.additional };
+		const filteredPortfolio = data.portfolio.filter(el => {
+			return el.value !== "";
+		});
+		console.log(filteredPortfolio);
+		const values = filteredPortfolio.map(el => {
+			return el.value;
+		});
+		console.log(values);
+		formData.append("experience", data.experience.value);
+		formData.append("portfolio", JSON.stringify(values));
+		formData.append("skills", data.skills.value);
+		axios
+			.post("/userdata/addition", formData, {
+				headers: {
+					Authorization: this.token
+				}
+			})
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
 	render() {
 		const content = {
 			general: [ "Общая информация", "General information", "InfoUzb" ],
@@ -297,6 +476,12 @@ export class ProfilePage extends Component {
 			publications: [ "Публикации", "Publications", "Uzb" ],
 			additional: [ "Дополнительно", "Additionally", "Uzb" ]
 		};
+		let additional = null;
+		if (!this.role) {
+			additional = {
+				...this.state.additional
+			};
+		}
 		return (
 			<Grid container spacing={3}>
 				<Grid item sm={6}>
@@ -357,12 +542,11 @@ export class ProfilePage extends Component {
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<Header h={5}>
-								<i className="fa fa-user-lock" />{" "}
 								{this.role ? (
-									content.publications[this.state.lang]
-								) : (
-									content.additional[this.state.lang]
-								)}
+									<React.Fragment>
+										<i className="fa fa-user-lock" /> {content.publications[this.state.lang]}
+									</React.Fragment>
+								) : null}
 							</Header>
 						</Grid>
 
@@ -376,7 +560,24 @@ export class ProfilePage extends Component {
 									removeClicked={this.removeClickedHandler}
 									isAddable
 								/>
-							) : null}
+							) : (
+								<AdditionalBlock
+									addMoreClicked={this.addMoreHandler}
+									clicked={this.additionalHandler}
+									form={additional}
+									addPortfolio={this.addPortfolio}
+									changed={this.additionalInputChangeHandler}
+									portfolioChanged={this.portfolioInputChangeHandler}
+									lang={this.state.lang}
+								/>
+							)}
+							{this.role ? null : (
+								<ChangeProfileBlock
+									lang={this.state.lang}
+									type={this.state.profileType}
+									clicked={this.profileTypeHandler}
+								/>
+							)}
 						</Grid>
 					</Grid>
 				</Grid>

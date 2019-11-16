@@ -1,0 +1,32 @@
+.ChangeProfileBlock {
+	display: flex;
+	width: 100%;
+	justify-content: space-evenly;
+}
+.ChangeProfileBlock > div {
+	background: #f4f4f4;
+	border: 1px solid #e2e2e2;
+	padding-top: 8px;
+	padding-bottom: 9px;
+	width: 100%;
+	cursor: pointer;
+	transition: .25s ease all;
+}
+.ChangeProfileBlock > div:hover {
+	background: #007bff;
+}
+.ChangeProfileBlock > div:hover > h6 {
+	color: white !important;
+}
+.ChangeProfileBlock > .Active {
+	background: #007bff;
+}
+.ChangeProfileBlock > .Active > h6 {
+	color: white !important;
+}
+.ChangeProfileBlock > div:first-child {
+	border-radius: 4px 0 0 4px;
+}
+.ChangeProfileBlock > div:last-child {
+	border-radius: 0 4px 4px 0;
+}
