@@ -12,7 +12,8 @@ const paper = props => {
 		props.mt && classes.Mt,
 		props.mb && classes.Mb,
 		props.sign && classes.Sign,
-		props.center && classes.Center
+		props.center && classes.Center,
+		props.cancelMinHeight && classes.CancelMinHeight
 	];
 	const paperStyle = {
 		cursor: props.click ? "pointer" : "default"

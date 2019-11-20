@@ -10,7 +10,7 @@ export const authFormFlush = () => {
 		type: actionTypes.AUTH_FORM_FLUSH
 	};
 };
-export const authSuccess = (token, id, role, email, avatar, name, password) => {
+export const authSuccess = (token, id, role, email, avatar, name, profession, password) => {
 	return {
 		type: actionTypes.AUTH_SUCCESS,
 		id: id,
@@ -19,6 +19,7 @@ export const authSuccess = (token, id, role, email, avatar, name, password) => {
 		email: email,
 		name: name,
 		avatar: avatar,
+		profession: profession,
 		password: password,
 		formFlush: true
 	};
@@ -59,7 +60,6 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 		axios
 			.post(urls[+isSignIn], formData)
 			.then(response => {
-				console.log(response);
 				message = response.data.message;
 				const data = response.data.auth;
 				const userData = response.data.user;
@@ -73,7 +73,24 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 				localStorage.setItem("id", userData.id);
 				localStorage.setItem("name", userData.fullname);
 				localStorage.setItem("role", userData.role);
-				dispatch(authSuccess(token, userData.id, role, email, userData.avatar, userData.fullname, password));
+				console.log(userData.role, userData.company, userData.position);
+				localStorage.setItem(
+					"profession",
+					+userData.role ? response.data.userdata.company : response.data.userdata.user_position
+				);
+				console.log(response.data.userdata.user_position);
+				dispatch(
+					authSuccess(
+						token,
+						userData.id,
+						role,
+						email,
+						userData.avatar,
+						userData.fullname,
+						response.data.userdata.user_position,
+						password
+					)
+				);
 				dispatch(checkAuthTimeout(data.expires_in));
 				if (response.data.status === "error") dispatch(authFail(response.data.message));
 			})
@@ -92,18 +109,15 @@ export const checkAuthTimeout = expirationTime => {
 };
 
 export const authCheckState = () => {
-	console.log("something");
 	return dispatch => {
-		console.log("Here");
 		const token = localStorage.getItem("token");
 		const id = localStorage.getItem("id");
 		const role = localStorage.getItem("role");
 		const name = localStorage.getItem("name");
-		console.log(name);
-		// const avatar = localStorage.getItem("avatar");
+		const profession = localStorage.getItem("profession");
 		let avatar = null;
 		const url = +role === 1 ? "/client" : "/user";
-		console.log("role", role);
+
 		axios
 			.get(`${url}/current`, {
 				headers: {
@@ -111,20 +125,19 @@ export const authCheckState = () => {
 				}
 			})
 			.then(res => {
-				console.log(res);
 				avatar = +role === 1 ? res.data.clients.avatar : res.data.userdatas.avatar;
 
 				if (!token) {
 					dispatch(logout());
 				} else {
 					const expirationDate = new Date(localStorage.getItem("expirationDate"));
-					console.log(res);
+
 					if (new Date() > expirationDate) {
 						dispatch(logout());
 					} else {
 						const token = localStorage.getItem("token");
 						// need to discuss this
-						dispatch(authSuccess(token, id, role, null, avatar, name, null));
+						dispatch(authSuccess(token, id, role, null, avatar, name, profession, null));
 						dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
 					}
 				}

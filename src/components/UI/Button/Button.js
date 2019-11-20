@@ -15,6 +15,15 @@ const button = props => {
 	const style = {
 		...props.buttonStyle
 	};
+	switch (props.widerValue) {
+		case 1:
+			buttonClasses.push(classes.Wider1);
+			break;
+		case 2:
+			buttonClasses.push(classes.Wider2);
+			break;
+		default:
+	}
 	return (
 		<button
 			onClick={props.clicked && props.clicked}

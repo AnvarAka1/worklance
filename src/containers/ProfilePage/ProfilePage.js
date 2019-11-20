@@ -8,13 +8,27 @@ import Publications from "../../components/Publications/Publications";
 import AdditionalBlock from "../../components/AdditionalBlock/AdditionalBlock";
 import ChangeProfileBlock from "../../components/ChangeProfileBlock/ChangeProfileBlock";
 import axios from "../../axios-db";
-
+import Hidden from "@material-ui/core/Hidden";
 export class ProfilePage extends Component {
 	token = null;
 	role = null;
 	state = {
 		profile: {
 			avatar: Avatar,
+			avatarInput: [
+				{
+					key: "file",
+					config: {
+						name: "file",
+						type: "file"
+					},
+					inputType: "input",
+					grid: {
+						xs: 12
+					},
+					value: ""
+				}
+			],
 			general: {
 				name: {
 					label: [ "Полное имя", "Full name", "Uzb" ],
@@ -171,6 +185,8 @@ export class ProfilePage extends Component {
 				value: ""
 			}
 		},
+		message: null,
+		success: null,
 		lang: 0,
 		profileType: 0,
 		isClient: null,
@@ -268,10 +284,11 @@ export class ProfilePage extends Component {
 				...this.state.additional.experience,
 				value: dt.experience ? dt.experience : ""
 			},
+
 			portfolio: this.assignPortfolios(data),
 			skills: {
 				...this.state.additional.skills,
-				value: dt.skills ? dt.skills.toString() : ""
+				value: dt.skills ? JSON.parse(dt.skills) : ""
 			}
 		};
 
@@ -328,15 +345,17 @@ export class ProfilePage extends Component {
 		let portfolio = additional.portfolio.slice();
 		const lastIndex = portfolio.length - 1;
 		let idOfLastElement = portfolio[lastIndex].id;
-
+		let neededId = idOfLastElement;
+		let idToUse;
 		let isDuplicated = false;
 		do {
-			idOfLastElement++;
+			neededId++;
 			isDuplicated = false;
-			isDuplicated = portfolio.indexOf(el => el.id === idOfLastElement) < 0 ? false : true;
+			isDuplicated = portfolio.indexOf(el => el.id === neededId) < 0 ? false : true;
+			idToUse = neededId;
 		} while (isDuplicated);
 		portfolio.push({
-			id: idOfLastElement,
+			id: idToUse,
 			config: {
 				type: "text"
 			},
@@ -374,6 +393,7 @@ export class ProfilePage extends Component {
 	formSubmitHandler = (event, formType) => {
 		event.preventDefault();
 		console.log("FormType", formType);
+		this.setState({ success: null });
 		let formData = new FormData();
 		const urlToStoreOverallInfo = this.role ? "/client" : "/userdata";
 		const formDataFieldForCompanyOrPosition = this.role ? "company" : "user_position";
@@ -393,7 +413,10 @@ export class ProfilePage extends Component {
 							Authorization: this.token
 						}
 					})
-					.then(res => console.log(res))
+					.then(res => {
+						const success = "general";
+						this.setState({ success: success });
+					})
 					.catch(err => console.log(err));
 				break;
 			case "email":
@@ -408,7 +431,10 @@ export class ProfilePage extends Component {
 							Authorization: this.token
 						}
 					})
-					.then(res => console.log(res))
+					.then(res => {
+						const success = "email";
+						this.setState({ success: success });
+					})
 					.catch(err => console.log(err));
 				break;
 			case "security":
@@ -424,7 +450,10 @@ export class ProfilePage extends Component {
 							Authorization: this.token
 						}
 					})
-					.then(res => console.log(res))
+					.then(res => {
+						const success = "security";
+						this.setState({ success: success });
+					})
 					.catch(err => console.log(err));
 				break;
 			default:
@@ -484,14 +513,14 @@ export class ProfilePage extends Component {
 		}
 		return (
 			<Grid container spacing={3}>
-				<Grid item sm={6}>
+				<Grid item md={6} sm={12}>
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<Header h={5}>
 								<i className="fa fa-user" /> {content.general[this.state.lang]}
 							</Header>
 						</Grid>
-						<Grid item sm={4}>
+						<Grid item md={4} sm={6} xs={12}>
 							<ProfilePhoto
 								change
 								avatarChanged={this.avatarChangeHandler}
@@ -499,11 +528,13 @@ export class ProfilePage extends Component {
 								name={"Avatar"}
 								lang={this.state.lang}
 								large
+								input={this.state.avatarInput}
 								loading={this.state.loading}
 							/>
 						</Grid>
-						<Grid item sm={8}>
+						<Grid item md={8} sm={6} xs={12}>
 							<ProfileInputs
+								success={this.state.success}
 								half
 								changed={this.inputChangeHandler}
 								inputs={this.state.profile.general}
@@ -517,8 +548,9 @@ export class ProfilePage extends Component {
 								<i className="fa fa-user-lock" /> {content.security[this.state.lang]}
 							</Header>
 						</Grid>
-						<Grid item sm={6}>
+						<Grid item sm={6} xs={12}>
 							<ProfileInputs
+								success={this.state.success}
 								changed={this.inputChangeHandler}
 								inputs={this.state.profile.security}
 								lang={this.state.lang}
@@ -526,8 +558,9 @@ export class ProfilePage extends Component {
 								submitted={this.formSubmitHandler}
 							/>
 						</Grid>
-						<Grid item sm={6}>
+						<Grid item sm={6} xs={12}>
 							<ProfileInputs
+								success={this.state.success}
 								changed={this.inputChangeHandler}
 								inputs={this.state.profile.email}
 								lang={this.state.lang}
@@ -537,8 +570,10 @@ export class ProfilePage extends Component {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item sm={1} />
-				<Grid item sm={5}>
+				<Hidden smDown>
+					<Grid item sm={1} />
+				</Hidden>
+				<Grid item md={5} sm={12} xs={12}>
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<Header h={5}>

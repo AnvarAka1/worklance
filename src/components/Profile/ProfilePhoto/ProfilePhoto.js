@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./ProfilePhoto.module.css";
 import Header from "../../UI/Header/Header";
+import Input from "../../UI/Input/Input";
 // import { NavLink } from "react-router-dom";
 const profilePhoto = props => {
 	let imageRef = React.createRef();
@@ -22,14 +23,16 @@ const profilePhoto = props => {
 	// if (!props.loading) {
 	// 	resizeFunction();
 	// }
+	const input = props.input ? <Input elementConfig={props.input.config} {...props.input} /> : null;
 	return (
 		<div className={profilePhotoClasses.join(" ")}>
 			<img src={avatar} alt={name} ref={imageRef} />
 			{props.change ? (
-				<Header h={6} normal center>
+				<Header h={6} normal center clicked={props.avatarChanged}>
 					{content.changeAvatar[lang]}
 				</Header>
 			) : null}
+			{input}
 		</div>
 	);
 };

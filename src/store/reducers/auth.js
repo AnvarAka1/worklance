@@ -8,6 +8,7 @@ const initialState = {
 	email: "",
 	name: "",
 	avatar: "",
+	profession: null,
 	password: "",
 	formFlush: false,
 	loading: false
@@ -30,6 +31,7 @@ const authSuccess = (state, action) => {
 		email: action.email,
 		avatar: action.avatar,
 		password: action.password,
+		profession: action.profession,
 		error: null,
 		formFlush: true,
 		loading: false
@@ -63,6 +65,7 @@ const authLogout = (state, action) => {
 		role: null,
 		error: null,
 		email: "",
+		profession: null,
 		name: "",
 		avatar: "",
 		password: ""

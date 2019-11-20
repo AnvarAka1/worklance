@@ -29,6 +29,16 @@ const input = props => {
 			);
 			break;
 		case "select":
+			input = (
+				<select className={inputClasses.join(" ")} {...elementConfig} value={value} onChange={props.changed}>
+					{console.log(props.lang)}
+					{props.elementConfig.options.map(option => (
+						<option key={option.value} value={option.value}>
+							{option.displayValue[props.lang ? props.lang : 0]}
+						</option>
+					))}
+				</select>
+			);
 			break;
 
 		default:

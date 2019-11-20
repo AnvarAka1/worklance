@@ -5,7 +5,10 @@ import { NavLink } from "react-router-dom";
 const navigationItem = props => {
 	const { title, lang, link } = props;
 	return (
-		<li className={classes.NavigationItem}>
+		<li
+			className={[ classes.NavigationItem, props.isVertical && classes.Vertical ].join(" ")}
+			onClick={props.drawerClosed}
+		>
 			<NavLink to={link} activeClassName={classes.Active}>
 				<Header normal h={6}>
 					{title[lang]}

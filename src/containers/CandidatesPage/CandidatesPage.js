@@ -8,10 +8,10 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
 import Avatar1 from "../../assets/images/profile/avatar1.jpg";
-export class FreelancersPage extends Component {
+export class CandidatesPage extends Component {
 	token = null;
 	state = {
-		freelancers: null,
+		candidates: null,
 		notificationItems: [
 			{
 				id: 0,
@@ -51,7 +51,7 @@ export class FreelancersPage extends Component {
 				date: "27.09"
 			}
 		],
-		freelancerSelected: 0,
+		candidateSelected: 0,
 		fleelancerOpen: false,
 		loading: true,
 		lang: 0
@@ -60,35 +60,35 @@ export class FreelancersPage extends Component {
 		this.token = localStorage.getItem("token");
 		this.setState({ loading: true });
 		axios
-			.get("/userdata/02", {
+			.get("/userdata/12", {
 				headers: {
 					Authorization: this.token
 				}
 			})
 			.then(res => {
 				console.log(res.data);
-				this.setState({ freelancers: res.data, loading: false });
+				this.setState({ candidates: res.data, loading: false });
 			})
 			.catch(err => console.log(err));
 	}
-	freelancerModalOpenedHandler = () => {
+	candidateModalOpenedHandler = () => {
 		this.setState({
 			fleelancerOpen: true
 		});
 	};
-	freelancerModalClosedHandler = () => {
+	candidateModalClosedHandler = () => {
 		this.setState({
 			fleelancerOpen: false
 		});
 	};
-	freelancerClickedHandler = (event, id) => {
-		console.log("Freelancer with id " + id + " was clicked");
-		this.setState({ freelancerSelected: id });
-		this.freelancerModalOpenedHandler();
+	candidateClickedHandler = (event, id) => {
+		console.log("candidate with id " + id + " was clicked");
+		this.setState({ candidateSelected: id });
+		this.candidateModalOpenedHandler();
 	};
-	freelancerIndex(id) {
-		const fl = this.state.freelancers.filter(freelancer => {
-			return +freelancer.id === +id;
+	candidateIndex(id) {
+		const fl = this.state.candidates.filter(candidate => {
+			return +candidate.id === +id;
 		});
 		return fl[0];
 	}
@@ -98,7 +98,7 @@ export class FreelancersPage extends Component {
 		};
 
 		const button = (
-			<Button clicked={this.freelancerModalClosedHandler}>
+			<Button clicked={this.candidateModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);
@@ -109,17 +109,21 @@ export class FreelancersPage extends Component {
 				hasCloseButton
 				scrollable
 				open={this.state.fleelancerOpen}
-				modalClosed={this.freelancerModalClosedHandler}
+				modalClosed={this.candidateModalClosedHandler}
 			>
-				<Freelancer center button={button} clear {...this.freelancerIndex(this.state.freelancerSelected)} />
+				<Freelancer center button={button} clear {...this.candidateIndex(this.state.candidateSelected)} />
 			</Modal>
 		) : null;
-		let freelancers = !this.state.loading ? (
+		let candidates = !this.state.loading ? (
 			<Freelancers
 				inline
-				freelancers={this.state.freelancers}
+				freelancers={this.state.candidates}
 				lang={this.state.lang}
-				freelancerClicked={this.freelancerClickedHandler}
+				loading={this.state.loading}
+				fleelancerOpen={this.state.fleelancerOpen}
+				candidateModalClosed={this.candidateModalClosedHandler}
+				freelancerClicked={this.candidateClickedHandler}
+				index={this.candidateIndex(this.state.candidateSelected)}
 			/>
 		) : null;
 		let notificationItems = !this.state.loading ? (
@@ -139,7 +143,7 @@ export class FreelancersPage extends Component {
 							<Grid item xs={12}>
 								<SearchBar lang={this.state.lang} />
 							</Grid>
-							{freelancers}
+							{candidates}
 						</Grid>
 					</Grid>
 					<Grid item md={4} xs={12}>
@@ -151,4 +155,4 @@ export class FreelancersPage extends Component {
 	}
 }
 
-export default FreelancersPage;
+export default CandidatesPage;

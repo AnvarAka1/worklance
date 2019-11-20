@@ -40,3 +40,14 @@
 	margin: auto;
 	margin-top: 40px;
 }
+@media (max-width: 960px) {
+	.CancelMinHeight {
+		min-height: auto;
+	}
+}
+@media (max-width: 600px) {
+	.Sign {
+		padding: 30px 30px 15px;
+		width: auto;
+	}
+}

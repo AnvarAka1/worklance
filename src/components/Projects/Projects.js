@@ -6,6 +6,7 @@ const projects = props => {
 		return (
 			<Grid item xs={12} key={project.id}>
 				<Project
+					clicked={event => props.projectClicked(event, project.id)}
 					hover={project.id === props.hover ? true : false}
 					onHover={() => props.onHover(project.id)}
 					onUnHover={() => props.onUnHover(project.id)}

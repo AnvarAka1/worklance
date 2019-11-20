@@ -23,7 +23,7 @@ const notificationItems = props => {
 	});
 	return (
 		<React.Fragment>
-			<Paper minHeight>
+			<Paper minHeight cancelMinHeight>
 				<div className={classes.TopTitles}>
 					<div className={classes.NotificationsTitle}>
 						<img src={BellIcon} alt="Notifications" />

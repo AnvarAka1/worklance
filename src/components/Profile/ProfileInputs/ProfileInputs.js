@@ -4,10 +4,12 @@ import Button from "../../UI/Button/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import LabeledInput from "../../UI/LabeledInput/LabeledInput";
+import Header from "../../UI/Header/Header";
 const profileInputs = props => {
-	const { inputs, lang, formType } = props;
+	const { inputs, lang, formType, success } = props;
 	const content = {
-		save: [ "Сохранить изменения", "Save changes", "UZB" ]
+		save: [ "Сохранить изменения", "Save changes", "UZB" ],
+		message: [ "Успешно обновлено", "Successfully updated", "Uzb" ]
 	};
 	const inputsArray = [];
 	for (let key in inputs) {
@@ -30,7 +32,7 @@ const profileInputs = props => {
 		);
 	});
 	const submitBtn = props.customBtn ? (
-		props.customBtn
+		<div className={classes.Buttons}>{props.customBtn}</div>
 	) : (
 		<Grid item sm={props.half ? 6 : 8}>
 			<Button wide clicked={props.clicked}>
@@ -38,18 +40,24 @@ const profileInputs = props => {
 			</Button>
 		</Grid>
 	);
+
+	const message = success === formType && (
+		<Header h={6} mt color="green">
+			{content.message[lang ? lang : 0]}
+		</Header>
+	);
 	return (
 		<div className={classes.ProfileInputs}>
 			<form onSubmit={event => props.submitted(event, formType)}>
-				<Grid container>
+				<Grid container spacing={3}>
 					{inputsJSX}
-
 					<Hidden smDown>
 						<Grid item sm={props.half ? 6 : 4} />
 					</Hidden>
 					{submitBtn}
 				</Grid>
 			</form>
+			{message}
 		</div>
 	);
 };

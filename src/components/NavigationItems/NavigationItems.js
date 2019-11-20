@@ -6,6 +6,7 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 import Logo from "../UI/Logo/Logo";
 import MyProfile from "../Profile/MyProfile/MyProfile";
 import Button from "../UI/Button/Button";
+import Hidden from "@material-ui/core/Hidden";
 const navigationItems = props => {
 	const items = [
 		{
@@ -35,15 +36,29 @@ const navigationItems = props => {
 	const content = {
 		button: [ "Войти", "Login" ]
 	};
+
 	const navigationItems =
 		items &&
 		items.map(item => {
-			return <NavigationItem key={item.id} {...item} lang={props.lang ? props.lang : 0} />;
+			return (
+				<NavigationItem
+					isVertical={props.isVertical}
+					drawerClosed={props.drawerClosed}
+					key={item.id}
+					{...item}
+					lang={props.lang ? props.lang : 0}
+				/>
+			);
 		});
 
 	const logo = (
 		<li className={classes.Logo}>
-			<Logo />
+			<Hidden xsDown>
+				<Logo />
+			</Hidden>
+			<Hidden smUp>
+				<Logo isMobLogo />
+			</Hidden>
 		</li>
 	);
 	const button = (
@@ -53,18 +68,27 @@ const navigationItems = props => {
 	);
 
 	const myProfile = <MyProfile profile={props.profile} />;
-	return (
+	return !props.isVertical ? (
 		<AppBar color="inherit" position="static">
 			<Container maxWidth="xl">
 				<div className={classes.NavigationItems}>
 					<ul className={classes.Items}>
 						{logo}
-						{navigationItems}
+						<Hidden smDown>{navigationItems}</Hidden>
 					</ul>
-					<div className={classes.RightNav}>{props.isAuthorized ? myProfile : button}</div>
+					<div className={classes.RightNav}>
+						{props.isAuthorized ? myProfile : button}
+						<Hidden mdUp>
+							<div className={classes.Hamburger} onClick={props.drawerOpened}>
+								<i className="fa fa-bars" />
+							</div>
+						</Hidden>
+					</div>
 				</div>
 			</Container>
 		</AppBar>
+	) : (
+		navigationItems
 	);
 };
 

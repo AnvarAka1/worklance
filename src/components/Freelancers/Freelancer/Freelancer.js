@@ -6,7 +6,7 @@ import ProfileShortInfo from "../../Profile/ProfileShortInfo/ProfileShortInfo";
 import Skills from "../../Skills/Skills";
 import Text from "../../UI/Text/Text";
 const freelancer = props => {
-	const { avatar, fullname, position_ru, position_en, position_uz, text, skills, lang } = props;
+	const { avatar, fullname, user_position, about, skills, lang } = props;
 	const freelancerClasses = [ classes.Freelancer, props.inline && classes.Inline ];
 	const button = props.button ? <div className={classes.Right}>{props.button}</div> : null;
 	return (
@@ -15,15 +15,9 @@ const freelancer = props => {
 				<div className={freelancerClasses.join(" ")}>
 					<ProfilePhoto big avatar={avatar} name={fullname} />
 					<div className={classes.Text}>
-						<ProfileShortInfo
-							name={fullname}
-							position_en={position_en}
-							position_ru={position_ru}
-							position_uz={position_uz}
-							lang={lang}
-						/>
+						<ProfileShortInfo name={fullname} position={user_position} lang={lang} />
 						<Text mt mbB>
-							{text}
+							{about}
 						</Text>
 						<Skills skills={skills} />
 						{button}

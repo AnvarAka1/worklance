@@ -4,14 +4,14 @@ import Grid from "@material-ui/core/Grid";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Project from "../../components/Projects/Project/Project";
-import Button from "../../components/UI/Button/Button";
 import Modal from "../../components/UI/Modal/Modal";
+import Button from "../../components/UI/Button/Button";
 import Avatar1 from "../../assets/images/profile/avatar1.jpg";
 import axios from "../../axios-db";
-export class ProjectsPage extends Component {
+export class VacanciesPage extends Component {
 	_isMounted = false;
 	state = {
-		projects: [
+		vacancies: [
 			{
 				id: 0,
 				authorId: 1,
@@ -80,17 +80,18 @@ export class ProjectsPage extends Component {
 		],
 		lang: 0,
 		hover: false,
-		loading: true,
-		projectOpen: false
+		vacancyOpen: false,
+		vacancySelected: null,
+		loading: true
 	};
 	componentDidMount() {
 		this._isMounted = true;
 		this.setState({ loading: true });
 		axios
-			.get("/projects")
+			.get("/vacancies")
 			.then(res => {
 				if (this._isMounted) {
-					this.setState({ projects: res.data, loading: false });
+					this.setState({ vacancies: res.data, loading: false });
 				}
 			})
 			.catch(err => {
@@ -113,25 +114,25 @@ export class ProjectsPage extends Component {
 	onHoverLeave = id => {
 		this.setState({ hover: -1 });
 	};
-	projectModalOpenedHandler = () => {
+	vacancyModalOpenedHandler = () => {
 		this.setState({
-			projectOpen: true
+			vacancyOpen: true
 		});
 	};
-	projectModalClosedHandler = () => {
+	vacancyModalClosedHandler = () => {
 		this.setState({
-			projectOpen: false
+			vacancyOpen: false
 		});
 	};
-	projectClickedHandler = (event, id) => {
-		console.log("project with id " + id + " was clicked");
-		this.setState({ projectSelected: id });
-		this.projectModalOpenedHandler();
+	vacancyClickedHandler = (event, id) => {
+		console.log("Vacancy with id " + id + " was clicked");
+		this.setState({ vacancySelected: id });
+		this.vacancyModalOpenedHandler();
 	};
-	projectIndex(id) {
+	vacancyIndex(id) {
 		console.log(id);
-		const fl = this.state.projects.filter(project => {
-			return +project.id === +id;
+		const fl = this.state.vacancies.filter(vacancy => {
+			return +vacancy.id === +id;
 		});
 		console.log(fl);
 		return fl[0];
@@ -141,7 +142,7 @@ export class ProjectsPage extends Component {
 			button: [ "Закрыть", "Close" ]
 		};
 		const button = (
-			<Button clicked={this.projectModalClosedHandler}>
+			<Button clicked={this.vacancyModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);
@@ -150,20 +151,20 @@ export class ProjectsPage extends Component {
 				narrow
 				hasCloseButton
 				scrollable
-				open={this.state.projectOpen}
-				modalClosed={this.projectModalClosedHandler}
+				open={this.state.vacancyOpen}
+				modalClosed={this.vacancyModalClosedHandler}
 			>
-				<Project center button={button} clear {...this.projectIndex(this.state.projectSelected)} />
+				<Project center button={button} clear {...this.vacancyIndex(this.state.vacancySelected)} />
 			</Modal>
 		) : null;
-		let projects = !this.state.loading ? (
+		let vacancies = !this.state.loading ? (
 			<Projects
 				lang={this.state.lang}
 				hover={this.state.hover}
 				onHover={this.onHoverEnter}
 				onUnHover={this.onHoverLeave}
-				projects={this.state.projects}
-				projectClicked={this.projectClickedHandler}
+				projects={this.state.vacancies}
+				projectClicked={this.vacancyClickedHandler}
 			/>
 		) : null;
 		let notificationItems = !this.state.loading ? (
@@ -183,7 +184,7 @@ export class ProjectsPage extends Component {
 							<Grid item xs={12}>
 								<SearchBar lang={this.state.lang} />
 							</Grid>
-							{projects}
+							{vacancies}
 						</Grid>
 					</Grid>
 					<Grid item md={4} xs={12}>
@@ -195,4 +196,4 @@ export class ProjectsPage extends Component {
 	}
 }
 
-export default ProjectsPage;
+export default VacanciesPage;

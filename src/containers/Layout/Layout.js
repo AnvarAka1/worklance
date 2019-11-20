@@ -4,6 +4,8 @@ import Container from "@material-ui/core/Container";
 import Avatar from "../../assets/images/profile/avatar2.jpg";
 import Modal from "../../components/UI/Modal/Modal";
 import SignModal from "../../components/SignModal/SignModal";
+import Hidden from "@material-ui/core/Hidden";
+import Drawer from "@material-ui/core/Drawer";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 // import { Redirect } from "react-router-dom";
@@ -69,14 +71,14 @@ export class Layout extends Component {
 		profile: {
 			avatar: Avatar,
 			name: "Geralt of Rivia",
-			position_en: "ReactJS Developer",
-			position_ru: "ReactJS Разработчик"
+			role: ""
 		},
 		isClient: false,
 		signModalOpened: false,
 		isSignIn: true,
 		isAuthorizing: false,
-		isRedirect: false
+		isRedirect: false,
+		drawerLeft: false
 	};
 	componentDidMount() {
 		this.setState({ isAuthorizing: true });
@@ -87,9 +89,17 @@ export class Layout extends Component {
 			profile = { ...this.state.profile };
 			profile.avatar = this.props.authAvatar;
 			profile.name = this.props.name;
+			profile.role = this.props.profession ? this.props.profession : this.props.role;
 			this.setState({ profile: profile, signModalOpened: false, isAuthorizing: false });
 		}
 	}
+	drawerOpenedHandler = () => {
+		this.setState({ drawerLeft: true });
+		console.log("object");
+	};
+	drawerClosedHandler = () => {
+		this.setState({ drawerLeft: false });
+	};
 	signModalOpenedHandler = () => {
 		this.setState({ signModalOpened: true, isSignIn: true });
 	};
@@ -158,12 +168,26 @@ export class Layout extends Component {
 						submitted={this.formSubmittedHandler}
 					/>
 				</Modal>
+
 				<NavigationItems
+					drawerOpened={this.drawerOpenedHandler}
 					isAuthorized={this.props.isAuthorized}
 					signModalOpened={this.signModalOpenedHandler}
 					signModalClosed={this.signModalClosedHandler}
 					profile={this.state.profile}
 				/>
+				<Hidden mdUp>
+					<Drawer open={this.state.drawerLeft} onClose={this.drawerClosedHandler} anchor="right">
+						<NavigationItems
+							isVertical
+							drawerClosed={this.drawerClosedHandler}
+							isAuthorized={this.props.isAuthorized}
+							signModalOpened={this.signModalOpenedHandler}
+							signModalClosed={this.signModalClosedHandler}
+							profile={this.state.profile}
+						/>
+					</Drawer>
+				</Hidden>
 				<Container maxWidth="xl" style={{ paddingTop: "30px" }}>
 					{this.props.children}
 				</Container>
@@ -179,6 +203,8 @@ const mapStateToProps = state => {
 		isFormFlush: state.auth.formFlush,
 		hasError: state.auth.error,
 		authAvatar: state.auth.avatar,
+		role: state.auth.role,
+		profession: state.auth.profession,
 		name: state.auth.name
 	};
 };

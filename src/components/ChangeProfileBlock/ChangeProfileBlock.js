@@ -28,7 +28,7 @@ const changeProfileBlock = props => {
 		return (
 			<div
 				key={block.type}
-				className={type === block.type && classes.Active}
+				className={+type === +block.type ? classes.Active : ""}
 				onClick={event => props.clicked(event, block.type)}
 			>
 				<Header h={6} color="#777777" center>
@@ -38,7 +38,7 @@ const changeProfileBlock = props => {
 		);
 	});
 	return (
-		<Paper>
+		<Paper mt>
 			<Header h={5} mb>
 				{content.title[lang ? lang : 0]}
 			</Header>

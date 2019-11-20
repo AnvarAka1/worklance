@@ -25,7 +25,11 @@ export class AddPublicationPage extends Component {
 			},
 			description: {
 				label: [ "Описание", "Description", "Uzb" ],
-				config: {},
+				config: {
+					style: {
+						height: "70vh"
+					}
+				},
 				grid: {
 					xs: 12
 				},
@@ -35,12 +39,14 @@ export class AddPublicationPage extends Component {
 			type: {
 				label: [ "Тип публикации", "Publication type", "Uzb" ],
 				config: {
-					options: [ "Проект" ]
+					options: [
+						{ value: 0, displayValue: [ "Проект", "Project", "Uzb" ] },
+						{ value: 1, displayValue: [ "Вакансия", "Vacancy", "Uzb" ] }
+					]
 				},
 				grid: {
 					sm: 6
 				},
-
 				inputType: "select",
 				value: ""
 			},
@@ -88,7 +94,6 @@ export class AddPublicationPage extends Component {
 		this.token = localStorage.getItem("token");
 		this.getCurrentClient()
 			.then(res => {
-				console.log(res);
 				this.profile = res.data;
 				this.assignPublications(res.data);
 			})
@@ -111,8 +116,10 @@ export class AddPublicationPage extends Component {
 		const publications = data.clients.publications.slice();
 		this.setState({ publications: publications });
 	};
+
 	inputChangeHandler = (event, inputIdentifier, formType = null) => {
 		const value = event.target.value;
+		console.log("value: ", value);
 		let form = {
 			...this.state.form,
 			[inputIdentifier]: {
@@ -122,6 +129,7 @@ export class AddPublicationPage extends Component {
 		};
 		this.setState({ form: form });
 	};
+
 	backClickedHandler = () => {
 		this.props.history.push("/profile");
 	};
@@ -130,12 +138,12 @@ export class AddPublicationPage extends Component {
 
 		let formData = new FormData();
 		const data = { ...this.state.form };
-		console.log(this.profile.id);
+
 		formData.append("client_id", this.profile.id);
 		formData.append("title", data.title.value);
 		formData.append("description", data.description.value);
 		formData.append("price", data.price.value);
-		formData.append("type", data.type.value ? data.type.value : 1);
+		formData.append("type", data.type.value);
 		formData.append("contact", this.profile.clients.phone);
 		axios
 			.post("/client/publication", formData, {
@@ -178,10 +186,10 @@ export class AddPublicationPage extends Component {
 		) : null;
 		const customBtn = (
 			<React.Fragment>
-				<Button clicked={this.backClickedHandler} grey>
+				<Button widerValue={1} clicked={this.backClickedHandler} grey>
 					{content.backBtn[this.state.lang]}
 				</Button>
-				<Button blue clicked={this.addClickedHandler}>
+				<Button wider blue clicked={this.addClickedHandler}>
 					{content.addBtn[this.state.lang]}
 				</Button>
 			</React.Fragment>

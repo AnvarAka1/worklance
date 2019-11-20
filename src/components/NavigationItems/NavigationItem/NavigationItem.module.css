@@ -12,3 +12,15 @@
 .Active h6 {
 	color: #007bff;
 }
+.Vertical {
+	width: 100%;
+	padding: 10px 50px;
+	font-size: 20px;
+	margin: 0;
+}
+.Vertical:first-child {
+	margin-top: 20px;
+}
+.Vertical * {
+	font-size: 16px;
+}

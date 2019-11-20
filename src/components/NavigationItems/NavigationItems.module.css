@@ -12,9 +12,35 @@
 	margin-right: 15px;
 }
 .RightNav {
+	display: flex;
+	justify-content: space-between;
+}
+.RightNav > div,
+.RightNav button {
+	margin-left: 10px;
+}
+.RightNav > div {
+	display: flex;
+	align-items: center;
+}
+.RightNav i {
+	font-size: 25px;
+	margin-left: 20px;
 }
 @media (max-width: 1290px) {
 	.NavigationItems {
 		padding: 13px 0;
+	}
+}
+@media (max-width: 500px) {
+	.RightNav button {
+		font-size: 10px;
+		width: 60px;
+		padding-top: 2px;
+		padding-bottom: 3px;
+	}
+	.RightNav i {
+		font-size: 20px;
+		margin-left: 15px;
 	}
 }

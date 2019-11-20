@@ -4,8 +4,8 @@ import Skill from "./Skill/Skill";
 const skills = props => {
 	const skills =
 		props.skills &&
-		props.skills.map(skill => {
-			return <Skill key={skill.id} title={skill.title} />;
+		props.skills.map((skill, index) => {
+			return <Skill key={index} title={skill} />;
 		});
 	return <div className={classes.Skills}>{skills}</div>;
 };
