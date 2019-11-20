@@ -119,7 +119,6 @@ export class AddPublicationPage extends Component {
 
 	inputChangeHandler = (event, inputIdentifier, formType = null) => {
 		const value = event.target.value;
-		console.log("value: ", value);
 		let form = {
 			...this.state.form,
 			[inputIdentifier]: {
@@ -145,6 +144,8 @@ export class AddPublicationPage extends Component {
 		formData.append("price", data.price.value);
 		formData.append("type", data.type.value);
 		formData.append("contact", this.profile.clients.phone);
+
+		// check for response
 		axios
 			.post("/client/publication", formData, {
 				headers: {

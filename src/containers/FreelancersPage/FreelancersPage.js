@@ -66,7 +66,6 @@ export class FreelancersPage extends Component {
 				}
 			})
 			.then(res => {
-				console.log(res.data);
 				this.setState({ freelancers: res.data, loading: false });
 			})
 			.catch(err => console.log(err));
@@ -82,7 +81,6 @@ export class FreelancersPage extends Component {
 		});
 	};
 	freelancerClickedHandler = (event, id) => {
-		console.log("Freelancer with id " + id + " was clicked");
 		this.setState({ freelancerSelected: id });
 		this.freelancerModalOpenedHandler();
 	};

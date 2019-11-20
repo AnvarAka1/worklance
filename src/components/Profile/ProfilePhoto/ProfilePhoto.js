@@ -23,16 +23,24 @@ const profilePhoto = props => {
 	// if (!props.loading) {
 	// 	resizeFunction();
 	// }
-	const input = props.input ? <Input elementConfig={props.input.config} {...props.input} /> : null;
+	const text = (
+		<Header h={6} normal center mt>
+			{content.changeAvatar[lang ? lang : 0]}
+		</Header>
+	);
+	const input = props.input ? (
+		<Input changed={props.avatarChanged} elementConfig={props.input.config} {...props.input} text={text} />
+	) : null;
+	const error = props.error && (
+		<Header h={6} normal center color="red" mt>
+			{props.error}
+		</Header>
+	);
 	return (
 		<div className={profilePhotoClasses.join(" ")}>
 			<img src={avatar} alt={name} ref={imageRef} />
-			{props.change ? (
-				<Header h={6} normal center clicked={props.avatarChanged}>
-					{content.changeAvatar[lang]}
-				</Header>
-			) : null}
 			{input}
+			{error}
 		</div>
 	);
 };

@@ -1,9 +1,9 @@
 import React from "react";
 import Freelancer from "./Freelancer/Freelancer";
 import Grid from "@material-ui/core/Grid";
-import Modal from "../UI/Modal/Modal";
-import Button from "../UI/Button/Button";
-import classes from "./Freelancers.module.css";
+// import Modal from "../UI/Modal/Modal";
+// import Button from "../UI/Button/Button";
+// import classes from "./Freelancers.module.css";
 const freelancers = props => {
 	// const content = {
 	// 	button: [ "Закрыть", "Close" ]

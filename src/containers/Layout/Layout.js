@@ -8,7 +8,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-// import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 export class Layout extends Component {
 	state = {
@@ -90,12 +90,20 @@ export class Layout extends Component {
 			profile.avatar = this.props.authAvatar;
 			profile.name = this.props.name;
 			profile.role = this.props.profession ? this.props.profession : this.props.role;
-			this.setState({ profile: profile, signModalOpened: false, isAuthorizing: false });
+			const shouldRedirect = this.state.isSignIn ? false : true;
+			this.setState({
+				profile: profile,
+				signModalOpened: false,
+				isAuthorizing: false,
+				isRedirect: shouldRedirect
+			});
+		}
+		if (this.state.isRedirect) {
+			this.setState({ isRedirect: false });
 		}
 	}
 	drawerOpenedHandler = () => {
 		this.setState({ drawerLeft: true });
-		console.log("object");
 	};
 	drawerClosedHandler = () => {
 		this.setState({ drawerLeft: false });
@@ -138,7 +146,6 @@ export class Layout extends Component {
 	};
 	formSubmittedHandler = event => {
 		// needs to be changed
-		console.log("Submitted");
 		event.preventDefault();
 		this.setState({ isAuthorizing: true });
 		const { isSignIn, isClient } = this.state;
@@ -156,7 +163,7 @@ export class Layout extends Component {
 	render() {
 		return (
 			<div style={{ position: "relative" }}>
-				{/* {this.state.isRedirect ? <Redirect from="*" to={"/profile"} /> : null} */}
+				{this.state.isRedirect ? <Redirect to={"/profile"} /> : null}
 				<Modal scrollable open={this.state.signModalOpened} modalClosed={this.signModalClosedHandler}>
 					<SignModal
 						roleClicked={this.roleClickedHandler}

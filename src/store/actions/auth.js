@@ -73,12 +73,12 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 				localStorage.setItem("id", userData.id);
 				localStorage.setItem("name", userData.fullname);
 				localStorage.setItem("role", userData.role);
-				console.log(userData.role, userData.company, userData.position);
+
 				localStorage.setItem(
 					"profession",
 					+userData.role ? response.data.userdata.company : response.data.userdata.user_position
 				);
-				console.log(response.data.userdata.user_position);
+
 				dispatch(
 					authSuccess(
 						token,

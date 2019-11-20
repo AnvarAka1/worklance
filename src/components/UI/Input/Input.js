@@ -1,4 +1,5 @@
 import React from "react";
+
 import classes from "./Input.module.css";
 const input = props => {
 	let input = null;
@@ -10,13 +11,15 @@ const input = props => {
 		props.search && classes.Search,
 		props.mt && classes.Mt,
 		props.mb && classes.Mb,
-		props.ptb && classes.Ptb
+		props.ptb && classes.Ptb,
+		inputType === "file" && classes.File
 	];
 	switch (inputType) {
 		case "input":
 			input = (
 				<input className={inputClasses.join(" ")} {...elementConfig} value={value} onChange={props.changed} />
 			);
+
 			break;
 		case "textarea":
 			input = (
@@ -31,7 +34,6 @@ const input = props => {
 		case "select":
 			input = (
 				<select className={inputClasses.join(" ")} {...elementConfig} value={value} onChange={props.changed}>
-					{console.log(props.lang)}
 					{props.elementConfig.options.map(option => (
 						<option key={option.value} value={option.value}>
 							{option.displayValue[props.lang ? props.lang : 0]}
@@ -40,7 +42,22 @@ const input = props => {
 				</select>
 			);
 			break;
+		case "file":
+			input = (
+				<React.Fragment>
+					<input
+						className={inputClasses.join(" ")}
+						{...elementConfig}
+						value={value}
+						onChange={props.changed}
+					/>
+					<label htmlFor={props.elementConfig.name} className={classes.FileLabel}>
+						{props.text}
+					</label>
+				</React.Fragment>
+			);
 
+			break;
 		default:
 			input = (
 				<input className={inputClasses.join(" ")} {...elementConfig} value={value} onChange={props.changed} />

@@ -15,20 +15,19 @@ export class ProfilePage extends Component {
 	state = {
 		profile: {
 			avatar: Avatar,
-			avatarInput: [
-				{
-					key: "file",
-					config: {
-						name: "file",
-						type: "file"
-					},
-					inputType: "input",
-					grid: {
-						xs: 12
-					},
-					value: ""
-				}
-			],
+			avatarInput: {
+				key: "file",
+				config: {
+					name: "file",
+					type: "file",
+					id: "file"
+				},
+				inputType: "file",
+				grid: {
+					xs: 12
+				},
+				value: ""
+			},
 			general: {
 				name: {
 					label: [ "Полное имя", "Full name", "Uzb" ],
@@ -190,6 +189,8 @@ export class ProfilePage extends Component {
 		lang: 0,
 		profileType: 0,
 		isClient: null,
+		selectedFile: null,
+		avatarError: null,
 		loading: true
 	};
 
@@ -197,7 +198,6 @@ export class ProfilePage extends Component {
 		this.token = localStorage.getItem("token");
 		this.role = +localStorage.getItem("role");
 		const url = this.role === 1 ? "/client" : "/user";
-		console.log(url);
 		axios
 			.get(`${url}/current`, {
 				headers: {
@@ -307,7 +307,6 @@ export class ProfilePage extends Component {
 	};
 	// ------------------------------------------------ PORTFOLIO START
 	assignPortfolios = data => {
-		console.log(data);
 		const portfolio = data.userdatas.portfolio;
 		let portfolioFromState = this.state.additional.portfolio.slice();
 		let newPortfolio = [];
@@ -351,6 +350,8 @@ export class ProfilePage extends Component {
 		do {
 			neededId++;
 			isDuplicated = false;
+			//check
+			// eslint-disable-next-line
 			isDuplicated = portfolio.indexOf(el => el.id === neededId) < 0 ? false : true;
 			idToUse = neededId;
 		} while (isDuplicated);
@@ -392,7 +393,6 @@ export class ProfilePage extends Component {
 
 	formSubmitHandler = (event, formType) => {
 		event.preventDefault();
-		console.log("FormType", formType);
 		this.setState({ success: null });
 		let formData = new FormData();
 		const urlToStoreOverallInfo = this.role ? "/client" : "/userdata";
@@ -406,7 +406,14 @@ export class ProfilePage extends Component {
 				formData.append(formDataFieldForCompanyOrPosition, general.profession.value);
 				formData.append("phone", general.phone.value);
 				formData.append("about", general.about.value);
+				formData.append(
+					"avatar",
+					this.state.selectedFile && this.state.selectedFile,
+					this.state.selectedFile && this.state.selectedFile.name
+				);
 
+				// check for response
+				// maybe add authCheckState
 				axios
 					.post(urlToStoreOverallInfo, formData, {
 						headers: {
@@ -460,8 +467,21 @@ export class ProfilePage extends Component {
 				return;
 		}
 	};
-	avatarChangeHandler = () => {
-		console.log("Change Avatar");
+
+	avatarChangeHandler = event => {
+		this.setState({ avatarError: null });
+		const error = [
+			"Размер файла не должен превышать 2 мегабайт!",
+			"File size should not be greater than 2 mb!",
+			"Uzb"
+		];
+		if (event.target.files[0].size / 1024 / 1024 > 2) {
+			this.setState({ avatarError: error[this.props.lang ? this.props.lang : 0] });
+		} else {
+			this.setState({
+				selectedFile: event.target.files[0]
+			});
+		}
 	};
 	publicationClickedHandler = (event, id) => {
 		this.props.history.push(`/publications/${id}`);
@@ -470,7 +490,6 @@ export class ProfilePage extends Component {
 		console.log("Remove clicked with id", id);
 	};
 	addClickedHandler = () => {
-		console.log("Add clicked");
 		this.props.history.push("/add");
 	};
 	addMoreHandler = () => {};
@@ -522,13 +541,14 @@ export class ProfilePage extends Component {
 						</Grid>
 						<Grid item md={4} sm={6} xs={12}>
 							<ProfilePhoto
+								error={this.state.avatarError}
 								change
 								avatarChanged={this.avatarChangeHandler}
 								avatar={this.state.profile.avatar}
 								name={"Avatar"}
 								lang={this.state.lang}
 								large
-								input={this.state.avatarInput}
+								input={this.state.profile.avatarInput}
 								loading={this.state.loading}
 							/>
 						</Grid>

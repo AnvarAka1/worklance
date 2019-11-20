@@ -125,16 +125,14 @@ export class VacanciesPage extends Component {
 		});
 	};
 	vacancyClickedHandler = (event, id) => {
-		console.log("Vacancy with id " + id + " was clicked");
 		this.setState({ vacancySelected: id });
 		this.vacancyModalOpenedHandler();
 	};
 	vacancyIndex(id) {
-		console.log(id);
 		const fl = this.state.vacancies.filter(vacancy => {
 			return +vacancy.id === +id;
 		});
-		console.log(fl);
+
 		return fl[0];
 	}
 	render() {

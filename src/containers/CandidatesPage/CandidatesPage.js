@@ -66,7 +66,6 @@ export class CandidatesPage extends Component {
 				}
 			})
 			.then(res => {
-				console.log(res.data);
 				this.setState({ candidates: res.data, loading: false });
 			})
 			.catch(err => console.log(err));
@@ -82,7 +81,6 @@ export class CandidatesPage extends Component {
 		});
 	};
 	candidateClickedHandler = (event, id) => {
-		console.log("candidate with id " + id + " was clicked");
 		this.setState({ candidateSelected: id });
 		this.candidateModalOpenedHandler();
 	};

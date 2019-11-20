@@ -105,7 +105,6 @@ export class ProjectsPage extends Component {
 	};
 	viewClickedHandler = (event, id) => {
 		event.preventDefault();
-		console.log("You clicked " + id);
 	};
 	onHoverEnter = id => {
 		this.setState({ hover: id });
@@ -124,16 +123,14 @@ export class ProjectsPage extends Component {
 		});
 	};
 	projectClickedHandler = (event, id) => {
-		console.log("project with id " + id + " was clicked");
 		this.setState({ projectSelected: id });
 		this.projectModalOpenedHandler();
 	};
 	projectIndex(id) {
-		console.log(id);
 		const fl = this.state.projects.filter(project => {
 			return +project.id === +id;
 		});
-		console.log(fl);
+
 		return fl[0];
 	}
 	render() {
