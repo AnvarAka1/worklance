@@ -8,9 +8,14 @@ import VacanciesPage from "./containers/VacanciesPage/VacanciesPage";
 import Logout from "./containers/Logout/Logout";
 import AddPublicationPage from "./containers/AddPublicationPage/AddPublicationPage";
 import CandidatesPage from "./containers/CandidatesPage/CandidatesPage";
+import { TitleComponent } from "./hoc/TitleComponent/TitleComponent";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
+
 class App extends Component {
+	state = {
+		title: "Worklance"
+	};
 	componentDidMount() {
 		this.props.onAuthCheck();
 	}
@@ -40,14 +45,22 @@ class App extends Component {
 				</Switch>
 			);
 		}
-		return <Layout redirectToProfile={this.redirectToProfile}>{routes}</Layout>;
+		return (
+			<React.Fragment>
+				<TitleComponent
+					title={localStorage.getItem("name") ? localStorage.getItem("name") + " | Worklance" : null}
+				/>
+				<Layout redirectToProfile={this.redirectToProfile}>{routes}</Layout>
+			</React.Fragment>
+		);
 	}
 }
 const mapStateToProps = state => {
 	return {
 		isAuthorized: state.auth.token != null,
 		role: state.auth.role,
-		lang: state.lang.lang
+		lang: state.lang.lang,
+		name: state.auth.fullName
 	};
 };
 const mapDispatchToProps = dispatch => {

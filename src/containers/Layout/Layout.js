@@ -207,7 +207,7 @@ export class Layout extends Component {
 						/>
 					</Drawer>
 				</Hidden>
-				<Container maxWidth="xl" style={{ paddingTop: "30px" }}>
+				<Container maxWidth="xl" style={{ paddingTop: "30px", paddingBottom: "60px" }}>
 					{this.props.children}
 				</Container>
 			</div>
