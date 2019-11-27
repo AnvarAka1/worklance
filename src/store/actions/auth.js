@@ -114,10 +114,9 @@ export const authCheckState = () => {
 		const id = localStorage.getItem("id");
 		const role = localStorage.getItem("role");
 		const name = localStorage.getItem("name");
-		const profession = localStorage.getItem("profession");
 		let avatar = null;
 		const url = +role === 1 ? "/client" : "/user";
-
+		let profession = null;
 		axios
 			.get(`${url}/current`, {
 				headers: {
@@ -126,7 +125,9 @@ export const authCheckState = () => {
 			})
 			.then(res => {
 				avatar = +role === 1 ? res.data.clients.avatar : res.data.userdatas.avatar;
-
+				profession = +role === 1 ? res.data.clients.company : res.data.userdatas.user_position;
+				localStorage.setItem("profession", profession);
+				console.log(profession);
 				if (!token) {
 					dispatch(logout());
 				} else {

@@ -7,6 +7,7 @@ import Logo from "../UI/Logo/Logo";
 import MyProfile from "../Profile/MyProfile/MyProfile";
 import Button from "../UI/Button/Button";
 import Hidden from "@material-ui/core/Hidden";
+import Header from "../UI/Header/Header";
 const navigationItems = props => {
 	const items = [
 		{
@@ -66,8 +67,16 @@ const navigationItems = props => {
 			{content.button[props.lang ? props.lang : 0]}
 		</Button>
 	);
-
-	const myProfile = <MyProfile profile={props.profile} />;
+	const exitButton = (
+		<li className={classes.ExitButton}>
+			<Button exit clicked={props.logoutModalOpened}>
+				<Header h={5} color="#777" normal center>
+					Выйти
+				</Header>
+			</Button>
+		</li>
+	);
+	const myProfile = <MyProfile profile={props.profile} logoutModalOpened={props.logoutModalOpened} />;
 	return !props.isVertical ? (
 		<AppBar color="inherit" position="static">
 			<Container maxWidth="xl">
@@ -88,7 +97,12 @@ const navigationItems = props => {
 			</Container>
 		</AppBar>
 	) : (
-		navigationItems
+		<React.Fragment>
+			<ul>
+				{navigationItems}
+				{exitButton}
+			</ul>
+		</React.Fragment>
 	);
 };
 

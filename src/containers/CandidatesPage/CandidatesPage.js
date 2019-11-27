@@ -96,7 +96,7 @@ export class CandidatesPage extends Component {
 		};
 
 		const button = (
-			<Button clicked={this.candidateModalClosedHandler}>
+			<Button noHover clicked={this.candidateModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);

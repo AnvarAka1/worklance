@@ -2,9 +2,7 @@ import React from "react";
 import classes from "./ProfilePhoto.module.css";
 import Header from "../../UI/Header/Header";
 import Input from "../../UI/Input/Input";
-// import { NavLink } from "react-router-dom";
 const profilePhoto = props => {
-	let imageRef = React.createRef();
 	const { avatar, name, lang } = props;
 	const profilePhotoClasses = [
 		classes.ProfilePhoto,
@@ -17,12 +15,7 @@ const profilePhoto = props => {
 	const content = {
 		changeAvatar: [ "Изменить фотографию", "Change photo", "UZB" ]
 	};
-	// const resizeFunction = () => {
-	// 	const width = imageRef.current;
-	// };
-	// if (!props.loading) {
-	// 	resizeFunction();
-	// }
+
 	const text = (
 		<Header h={6} normal center mt>
 			{content.changeAvatar[lang ? lang : 0]}
@@ -38,7 +31,7 @@ const profilePhoto = props => {
 	);
 	return (
 		<div className={profilePhotoClasses.join(" ")}>
-			<img src={avatar} alt={name} ref={imageRef} />
+			<img src={avatar} alt={name} />
 			{input}
 			{error}
 		</div>

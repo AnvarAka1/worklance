@@ -9,7 +9,7 @@ const publications = props => {
 		add: [ "Добавить еще", "Add more", "Uzb" ],
 		noPublications: [ "Нет публикаций", "No publications", "Uzb" ]
 	};
-	const publicationsJSX = publications.length ? (
+	const publicationsJSX = publications ? (
 		publications.map(publication => {
 			return (
 				<Publication

@@ -10,7 +10,7 @@ const navigationItem = props => {
 			onClick={props.drawerClosed}
 		>
 			<NavLink to={link} activeClassName={classes.Active}>
-				<Header normal h={6}>
+				<Header normal h={props.isVertical ? 5 : 6}>
 					{title[lang]}
 				</Header>
 			</NavLink>

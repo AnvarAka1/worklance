@@ -9,6 +9,7 @@ import Drawer from "@material-ui/core/Drawer";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
+import LogoutModal from "../../components/LogoutModal/LogoutModal";
 
 export class Layout extends Component {
 	state = {
@@ -68,17 +69,14 @@ export class Layout extends Component {
 			formIsValid: true
 		},
 
-		profile: {
-			avatar: Avatar,
-			name: "Geralt of Rivia",
-			role: ""
-		},
+		profile: null,
 		isClient: false,
 		signModalOpened: false,
 		isSignIn: true,
 		isAuthorizing: false,
 		isRedirect: false,
-		drawerLeft: false
+		drawerLeft: false,
+		logoutModalOpened: false
 	};
 	componentDidMount() {
 		this.setState({ isAuthorizing: true });
@@ -86,10 +84,13 @@ export class Layout extends Component {
 	componentDidUpdate() {
 		if (this.props.isAuthorized && this.state.isAuthorizing) {
 			let profile;
+			const role = +localStorage.getItem("role");
+			const profession = localStorage.getItem("profession");
+
 			profile = { ...this.state.profile };
 			profile.avatar = this.props.authAvatar;
 			profile.name = this.props.name;
-			profile.role = this.props.profession ? this.props.profession : this.props.role;
+			profile.role = profession !== "null" ? profession : role;
 			const shouldRedirect = this.state.isSignIn ? false : true;
 			this.setState({
 				profile: profile,
@@ -160,6 +161,15 @@ export class Layout extends Component {
 	roleClickedHandler = (event, isClient) => {
 		this.setState({ isClient: isClient });
 	};
+	logoutModalClosedHandler = event => {
+		event.preventDefault();
+		this.setState({ logoutModalOpened: false });
+	};
+	logoutModalOpenedHandler = event => {
+		event.preventDefault();
+		this.setState({ logoutModalOpened: true });
+	};
+
 	render() {
 		return (
 			<div style={{ position: "relative" }}>
@@ -175,8 +185,9 @@ export class Layout extends Component {
 						submitted={this.formSubmittedHandler}
 					/>
 				</Modal>
-
+				<LogoutModal open={this.state.logoutModalOpened} modalClosed={this.logoutModalClosedHandler} />
 				<NavigationItems
+					logoutModalOpened={this.logoutModalOpenedHandler}
 					drawerOpened={this.drawerOpenedHandler}
 					isAuthorized={this.props.isAuthorized}
 					signModalOpened={this.signModalOpenedHandler}
@@ -187,6 +198,7 @@ export class Layout extends Component {
 					<Drawer open={this.state.drawerLeft} onClose={this.drawerClosedHandler} anchor="right">
 						<NavigationItems
 							isVertical
+							logoutModalOpened={this.logoutModalOpenedHandler}
 							drawerClosed={this.drawerClosedHandler}
 							isAuthorized={this.props.isAuthorized}
 							signModalOpened={this.signModalOpenedHandler}

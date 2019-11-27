@@ -48,7 +48,7 @@ export class AddPublicationPage extends Component {
 					sm: 6
 				},
 				inputType: "select",
-				value: ""
+				value: "0"
 			},
 			price: {
 				label: [ "Цена", "Price", "Uzb" ],
@@ -63,39 +63,20 @@ export class AddPublicationPage extends Component {
 			}
 		},
 
-		publications: [
-			{
-				id: 0,
-				title: "Доработать адаптивность сайта",
-				date: "27.09.2019",
-				type: 1
-			},
-
-			{
-				id: 1,
-				title: "Фронт-энд разработчик",
-				date: "25.09.2019",
-				type: 0
-			},
-
-			{
-				id: 2,
-				title: "Написать телеграм-бота",
-				date: "21.09.2019",
-				type: 1
-			}
-		],
+		publications: null,
 		lang: 0,
 		isClient: null,
 		loading: true,
 		submitted: false
 	};
 	componentDidMount() {
+		this.setState({ loading: true });
 		this.token = localStorage.getItem("token");
 		this.getCurrentClient()
 			.then(res => {
 				this.profile = res.data;
 				this.assignPublications(res.data);
+				this.setState({ loading: false });
 			})
 			.catch(err => console.log(err));
 	}
@@ -195,6 +176,15 @@ export class AddPublicationPage extends Component {
 				</Button>
 			</React.Fragment>
 		);
+		const publications = (
+			<Publications
+				clicked={this.publicationClickedHandler}
+				lang={this.state.lang}
+				publications={this.state.publications}
+				removeClicked={this.removeClickedHandler}
+			/>
+		);
+
 		return (
 			<Grid container spacing={3}>
 				<Grid item sm={6}>
@@ -227,12 +217,7 @@ export class AddPublicationPage extends Component {
 						</Grid>
 
 						<Grid item xs={12}>
-							<Publications
-								clicked={this.publicationClickedHandler}
-								lang={this.state.lang}
-								publications={this.state.publications}
-								removeClicked={this.removeClickedHandler}
-							/>
+							{publications}
 						</Grid>
 					</Grid>
 				</Grid>

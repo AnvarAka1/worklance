@@ -8,9 +8,12 @@ const button = props => {
 		props.wide && classes.Wide,
 		props.blue && classes.Blue,
 		props.green && classes.Green,
+		props.danger && classes.Danger,
 		props.grey && classes.Grey,
 		props.mtb && classes.Mtb,
-		props.ptb && classes.Ptb
+		props.ptb && classes.Ptb,
+		props.exit && classes.Exit,
+		props.noHover && classes.NoHover
 	];
 	const style = {
 		...props.buttonStyle

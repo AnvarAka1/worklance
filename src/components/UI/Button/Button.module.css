@@ -10,14 +10,26 @@
 	cursor: pointer;
 	border: none;
 	outline: none;
-	padding-top: 7px;
-	padding-bottom: 8px;
+	/* padding-top: 7px; */
+	padding: 7px 5px 8px;
+	/* padding-bottom: 8px; */
 	transition: all .25s ease;
 }
 .Button:hover {
 	background: #007bff;
 	color: #fff;
 }
+.Button:hover * {
+	color: #ffffff;
+}
+.Exit {
+	background: transparent;
+	width: 100%;
+}
+.Exit:hover {
+	background: transparent;
+}
+
 .Blue {
 	background: #007bff;
 	font-weight: bold;
@@ -27,6 +39,14 @@
 .Green {
 	background: #1bc47d;
 	font-weight: normal;
+	color: #ffffff;
+}
+.Danger {
+	background: red;
+	font-weight: normal;
+	color: #ffffff;
+}
+.Danger * {
 	color: #ffffff;
 }
 .Green * {
@@ -54,4 +74,8 @@
 .Ptb {
 	padding-top: 25px;
 	padding-bottom: 25px;
+}
+.NoHover:hover {
+	background: #eeeeee;
+	color: #777777;
 }

@@ -27,6 +27,11 @@
 	font-size: 25px;
 	margin-left: 20px;
 }
+.ExitButton {
+	margin-top: 10px;
+	/* background: rgb(226, 113, 113); */
+	text-align: center;
+}
 @media (max-width: 1290px) {
 	.NavigationItems {
 		padding: 13px 0;

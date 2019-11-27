@@ -11,35 +11,7 @@ import axios from "../../axios-db";
 export class VacanciesPage extends Component {
 	_isMounted = false;
 	state = {
-		vacancies: [
-			{
-				id: 0,
-				authorId: 1,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "300"
-			},
-			{
-				id: 1,
-				authorId: 2,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "400"
-			},
-			{
-				id: 2,
-				authorId: 1,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "100"
-			}
-		],
+		vacancies: null,
 		notificationItems: [
 			{
 				id: 0,
@@ -140,7 +112,7 @@ export class VacanciesPage extends Component {
 			button: [ "Закрыть", "Close" ]
 		};
 		const button = (
-			<Button clicked={this.vacancyModalClosedHandler}>
+			<Button noHover clicked={this.vacancyModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);

@@ -96,7 +96,7 @@ export class FreelancersPage extends Component {
 		};
 
 		const button = (
-			<Button clicked={this.freelancerModalClosedHandler}>
+			<Button noHover clicked={this.freelancerModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);

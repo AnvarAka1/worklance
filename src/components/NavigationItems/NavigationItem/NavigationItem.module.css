@@ -13,14 +13,16 @@
 	color: #007bff;
 }
 .Vertical {
-	width: 100%;
-	padding: 10px 50px;
+	width: auto;
+	padding: 10px 0px;
+	text-align: center;
 	font-size: 20px;
 	margin: 0;
 }
 .Vertical:first-child {
 	margin-top: 20px;
 }
-.Vertical * {
-	font-size: 16px;
+
+.Vertical h5 {
+	padding: 0 50px;
 }

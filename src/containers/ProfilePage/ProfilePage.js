@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Header from "../../components/UI/Header/Header";
 import ProfilePhoto from "../../components/Profile/ProfilePhoto/ProfilePhoto";
-import Avatar from "../../assets/images/profile/avatar.jpg";
+
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
 import Publications from "../../components/Publications/Publications";
 import AdditionalBlock from "../../components/AdditionalBlock/AdditionalBlock";
@@ -14,7 +14,7 @@ export class ProfilePage extends Component {
 	role = null;
 	state = {
 		profile: {
-			avatar: Avatar,
+			avatar: null,
 			avatarInput: {
 				key: "file",
 				config: {
@@ -125,28 +125,7 @@ export class ProfilePage extends Component {
 				}
 			}
 		},
-		publications: [
-			{
-				id: 0,
-				title: "Доработать адаптивность сайта",
-				date: "27.09.2019",
-				type: 1
-			},
-
-			{
-				id: 1,
-				title: "Фронт-энд разработчик",
-				date: "25.09.2019",
-				type: 0
-			},
-
-			{
-				id: 2,
-				title: "Написать телеграм-бота",
-				date: "21.09.2019",
-				type: 1
-			}
-		],
+		publications: null,
 		additional: {
 			experience: {
 				label: [ "Опыт работы", "Work experience", "Uzb" ],
@@ -195,6 +174,7 @@ export class ProfilePage extends Component {
 	};
 
 	componentDidMount() {
+		this.setState({ loading: true });
 		this.token = localStorage.getItem("token");
 		this.role = +localStorage.getItem("role");
 		const url = this.role === 1 ? "/client" : "/user";
@@ -209,11 +189,14 @@ export class ProfilePage extends Component {
 				this.assignUserValues(data);
 				if (this.role === 1) {
 					// is Client
+					this.setState({ isClient: true });
 					this.assignPublications(data);
 				} else {
 					// is Freelancer
+
 					this.assignAdditionalBlock(data);
 					this.assignProfileBlock(data.userdatas.profile);
+					this.setState({ loading: false, isClient: false });
 				}
 			})
 			.catch(err => console.log(err));
@@ -517,6 +500,17 @@ export class ProfilePage extends Component {
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	};
+	returnGeneralInput = () => {
+		const label = [ "Компания/Должность", "Company/Position", "Uzb" ];
+		let general = {
+			...this.state.profile.general,
+			profession: {
+				...this.state.profile.general.profession,
+				label: label
+			}
+		};
+		return general;
+	};
 	render() {
 		const content = {
 			general: [ "Общая информация", "General information", "InfoUzb" ],
@@ -530,6 +524,17 @@ export class ProfilePage extends Component {
 				...this.state.additional
 			};
 		}
+		const publications = (
+			<Publications
+				clicked={this.publicationClickedHandler}
+				lang={this.state.lang}
+				publications={this.state.publications}
+				addClicked={this.addClickedHandler}
+				removeClicked={this.removeClickedHandler}
+				isAddable
+			/>
+		);
+
 		return (
 			<Grid container spacing={3}>
 				<Grid item md={6} sm={12}>
@@ -552,12 +557,13 @@ export class ProfilePage extends Component {
 								loading={this.state.loading}
 							/>
 						</Grid>
+
 						<Grid item md={8} sm={6} xs={12}>
 							<ProfileInputs
 								success={this.state.success}
 								half
 								changed={this.inputChangeHandler}
-								inputs={this.state.profile.general}
+								inputs={this.state.isClient ? this.returnGeneralInput() : this.state.profile.general}
 								lang={this.state.lang}
 								formType={"general"}
 								submitted={this.formSubmitHandler}
@@ -607,14 +613,7 @@ export class ProfilePage extends Component {
 
 						<Grid item xs={12}>
 							{this.role ? (
-								<Publications
-									clicked={this.publicationClickedHandler}
-									lang={this.state.lang}
-									publications={this.state.publications}
-									addClicked={this.addClickedHandler}
-									removeClicked={this.removeClickedHandler}
-									isAddable
-								/>
+								<React.Fragment>{publications}</React.Fragment>
 							) : (
 								<AdditionalBlock
 									addMoreClicked={this.addMoreHandler}

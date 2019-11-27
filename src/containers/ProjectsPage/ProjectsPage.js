@@ -11,35 +11,7 @@ import axios from "../../axios-db";
 export class ProjectsPage extends Component {
 	_isMounted = false;
 	state = {
-		projects: [
-			{
-				id: 0,
-				authorId: 1,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "300"
-			},
-			{
-				id: 1,
-				authorId: 2,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "400"
-			},
-			{
-				id: 2,
-				authorId: 1,
-				title: "Доработать адаптивность сайта",
-				author: "MyTaxi Ltd",
-				text:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum auctor ridiculus vitae. Est sagittis, at volutpat turpis tellus faucibus commodo. Sit nulla tortor nibh nisi, eros. Scelerisque suspendisse erat sit ultricies tristique.  Est sagittis, at volutpat turpis tellus faucibus commodo",
-				price: "100"
-			}
-		],
+		projects: null,
 		notificationItems: [
 			{
 				id: 0,
@@ -138,7 +110,7 @@ export class ProjectsPage extends Component {
 			button: [ "Закрыть", "Close" ]
 		};
 		const button = (
-			<Button clicked={this.projectModalClosedHandler}>
+			<Button noHover clicked={this.projectModalClosedHandler}>
 				{content.button[this.props.lang ? this.props.lang : 0]}
 			</Button>
 		);
