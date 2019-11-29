@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import NavigationItems from "../../components/NavigationItems/NavigationItems";
 import Container from "@material-ui/core/Container";
-import Avatar from "../../assets/images/profile/avatar2.jpg";
 import Modal from "../../components/UI/Modal/Modal";
 import SignModal from "../../components/SignModal/SignModal";
 import Hidden from "@material-ui/core/Hidden";
@@ -176,6 +175,7 @@ export class Layout extends Component {
 				{this.state.isRedirect ? <Redirect to={"/profile"} /> : null}
 				<Modal scrollable open={this.state.signModalOpened} modalClosed={this.signModalClosedHandler}>
 					<SignModal
+						signModalClosed={this.signModalClosedHandler}
 						roleClicked={this.roleClickedHandler}
 						isClientSelected={this.state.isClient}
 						toggle={this.toggleClickedHandler}

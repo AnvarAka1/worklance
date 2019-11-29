@@ -1,0 +1,27 @@
+.InputWithDropdown{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    
+}
+
+.InputWithDropdown input{
+    width: 70%;
+    border-radius: 4px 0px 0px 4px;
+    border: none
+}
+.InputWithDropdown select{
+    width: 30%;
+    background: #B5B5B5;
+    color: #FAFAFA;
+    border-radius: 0px 4px 4px 0px;
+    border: none;
+    height: 100%;
+    display: block;
+    margin:0;
+    border-bottom: 1px solid #CCCCCC;
+}
+

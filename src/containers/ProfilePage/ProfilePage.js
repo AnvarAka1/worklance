@@ -483,11 +483,11 @@ export class ProfilePage extends Component {
 		const filteredPortfolio = data.portfolio.filter(el => {
 			return el.value !== "";
 		});
-		console.log(filteredPortfolio);
+
 		const values = filteredPortfolio.map(el => {
 			return el.value;
 		});
-		console.log(values);
+
 		formData.append("experience", data.experience.value);
 		formData.append("portfolio", JSON.stringify(values));
 		formData.append("skills", data.skills.value);

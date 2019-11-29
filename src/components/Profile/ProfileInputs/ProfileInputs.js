@@ -51,6 +51,7 @@ const profileInputs = props => {
 			<form onSubmit={event => props.submitted(event, formType)}>
 				<Grid container spacing={3}>
 					{inputsJSX}
+					{props.customInput && props.customInput}
 					<Hidden smDown>
 						<Grid item sm={props.half ? 6 : 4} />
 					</Hidden>

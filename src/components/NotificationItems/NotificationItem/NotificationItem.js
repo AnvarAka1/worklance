@@ -6,33 +6,33 @@ import ProfilePhoto from "../../Profile/ProfilePhoto/ProfilePhoto";
 import ApprIcon from "../../../assets/images/icons/approved.png";
 import { NavLink } from "react-router-dom";
 const notificationItem = props => {
-	const { name, avatar, text, userId, lang, approved } = props;
-	const content = {
+	const { title, avatar, content, userId, lang, approved } = props;
+	const content1 = {
 		button: [ "Прочитать", "Read" ]
 	};
 	return (
 		<div className={classes.NotificationItem}>
 			<div className={classes.ProfileInfo}>
 				<NavLink to={`/users/${userId}`}>
-					<ProfilePhoto name={name} avatar={avatar} />
+					<ProfilePhoto name={title} avatar={avatar} />
 				</NavLink>
 				<div className={classes.Info}>
 					<NavLink to={`/users/${userId}`}>
 						<div className={classes.Name}>
-							<Header h={6}>{name}</Header>
+							<Header h={6}>{title}</Header>
 							{approved ? <img src={ApprIcon} alt="Approved" /> : null}
 						</div>
 					</NavLink>
 					<div className={classes.Overflow}>
 						<NavLink to={`/users/${userId}`}>
 							<Header h={6} color="#777777">
-								{text}
+								{content}
 							</Header>
 						</NavLink>
 					</div>
 				</div>
 			</div>
-			<Button clicked={props.clicked}>{content.button[lang]}</Button>
+			<Button clicked={props.clicked}>{content1.button[lang]}</Button>
 		</div>
 	);
 };

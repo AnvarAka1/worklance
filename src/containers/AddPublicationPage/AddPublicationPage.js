@@ -4,6 +4,7 @@ import Header from "../../components/UI/Header/Header";
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
 import Publications from "../../components/Publications/Publications";
 import Button from "../../components/UI/Button/Button";
+import InputWithDropdown from "../../components/InputWithDropdown/InputWithDropdown";
 import axios from "../../axios-db";
 // import Hidden from "@material-ui/core/Hidden";
 export class AddPublicationPage extends Component {
@@ -49,17 +50,28 @@ export class AddPublicationPage extends Component {
 				},
 				inputType: "select",
 				value: "0"
-			},
+			}
+		},
+
+		formPrice: {
 			price: {
 				label: [ "Цена", "Price", "Uzb" ],
 				config: {
 					type: "text"
 				},
-				grid: {
-					sm: 6
-				},
+
 				inputType: "input",
 				value: ""
+			},
+			currency: {
+				elementConfig: {
+					options: [
+						{ value: 0, displayValue: [ "USD", "USD", "USD" ] },
+						{ value: 1, displayValue: [ "Сум", "Sum", "So'm" ] }
+					]
+				},
+				inputType: "select",
+				value: "0"
 			}
 		},
 
@@ -118,11 +130,12 @@ export class AddPublicationPage extends Component {
 
 		let formData = new FormData();
 		const data = { ...this.state.form };
-
+		const adata = { ...this.state.formPrice };
 		formData.append("client_id", this.profile.id);
 		formData.append("title", data.title.value);
 		formData.append("description", data.description.value);
-		formData.append("price", data.price.value);
+		formData.append("price", adata.price.value);
+		formData.append("priceType", adata.currency.value);
 		formData.append("type", data.type.value);
 		formData.append("contact", this.profile.clients.phone);
 
@@ -152,7 +165,26 @@ export class AddPublicationPage extends Component {
 	submitClickedHandler = event => {
 		event.preventDefault();
 	};
-
+	inputWithDropdownChangeHandler = event => {
+		const formPrice = {
+			...this.state.formPrice,
+			price: {
+				...this.state.formPrice.price,
+				value: event.target.value
+			}
+		};
+		this.setState({ formPrice: formPrice });
+	};
+	inputSelectChangedHandler = event => {
+		const formPrice = {
+			...this.state.formPrice,
+			currency: {
+				...this.state.formPrice.currency,
+				value: event.target.value
+			}
+		};
+		this.setState({ formPrice: formPrice });
+	};
 	render() {
 		const content = {
 			addPublication: [ "Добавить публикацию", "Add publication", "Uzb" ],
@@ -185,6 +217,15 @@ export class AddPublicationPage extends Component {
 			/>
 		);
 
+		const inputWithDropdown = (
+			<InputWithDropdown
+				input={this.state.formPrice.price}
+				inputSelect={this.state.formPrice.currency}
+				inputChanged={this.inputWithDropdownChangeHandler}
+				inputSelectChanged={this.inputSelectChangedHandler}
+			/>
+		);
+
 		return (
 			<Grid container spacing={3}>
 				<Grid item sm={6}>
@@ -202,6 +243,7 @@ export class AddPublicationPage extends Component {
 								inputs={this.state.form}
 								formType={null}
 								customBtn={customBtn}
+								customInput={inputWithDropdown}
 							/>
 							{message}
 						</Grid>

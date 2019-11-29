@@ -5,8 +5,9 @@ import Input from "../UI/Input/Input";
 import Header from "../UI/Header/Header";
 import Button from "../UI/Button/Button";
 import classes from "./SignModal.module.css";
-
+import { NavLink } from "react-router-dom";
 const signModal = props => {
+	const { lang } = props;
 	const content = {
 		or: [ "или", "or" ],
 		googleSignIn: [ "Авторизация с помощью Google", "Authorize via Google" ],
@@ -18,7 +19,8 @@ const signModal = props => {
 		hasAccountMessage: [ "У вас уже имеется аккаунт? Пройдите ", "Already have an account? " ],
 		noAccountMessage: [ "У вас нет аккаунта? Пройдите ", "Do not have an account? " ],
 		auth: [ "Авторизацию", "Authorize" ],
-		reg: [ "Регистрацию", "Register" ]
+		reg: [ "Регистрацию", "Register" ],
+		forgotPassword: [ "Забыли пароль?", "Forgot password", "Uzb" ]
 	};
 	let objForm = props.isSignIn ? props.form.signIn : props.form.signUp;
 	const inputs = [];
@@ -40,13 +42,9 @@ const signModal = props => {
 
 	const toggleMessage = (
 		<Header center h={5} mtbB>
-			{props.isSignIn ? (
-				content.hasAccountMessage[props.lang ? props.lang : 0]
-			) : (
-				content.noAccountMessage[props.lang ? props.lang : 0]
-			)}
+			{props.isSignIn ? content.hasAccountMessage[lang ? lang : 0] : content.noAccountMessage[lang ? lang : 0]}
 			<span onClick={props.toggle} className={classes.Toggle}>
-				{props.isSignIn ? content.reg[props.lang ? props.lang : 0] : content.auth[props.lang ? props.lang : 0]}
+				{props.isSignIn ? content.reg[lang ? lang : 0] : content.auth[lang ? lang : 0]}
 			</span>
 		</Header>
 	);
@@ -56,34 +54,34 @@ const signModal = props => {
 				className={!props.isClientSelected ? classes.Selected : ""}
 				onClick={event => props.roleClicked(event, false)}
 			>
-				{content.freelancer[props.lang ? props.lang : 0]}
+				{content.freelancer[lang ? lang : 0]}
 			</div>
 			<div
 				className={props.isClientSelected ? classes.Selected : ""}
 				onClick={event => props.roleClicked(event, true)}
 			>
-				{content.client[props.lang ? props.lang : 0]}
+				{content.client[lang ? lang : 0]}
 			</div>
 		</div>
 	);
+	const forgotPassword = props.isSignIn && (
+		<Header h={5} color="#00b1eb" center mt clicked={props.signModalClosed}>
+			{content.forgotPassword[lang ? lang : 0]}
+		</Header>
+	);
 	const submitButton = (
 		<Button wide mtb green ptb>
-			<Header h={5}>
-				{props.isSignIn ? (
-					content.signIn[props.lang ? props.lang : 0]
-				) : (
-					content.signUp[props.lang ? props.lang : 0]
-				)}
-			</Header>
+			<Header h={5}>{props.isSignIn ? content.signIn[lang ? lang : 0] : content.signUp[lang ? lang : 0]}</Header>
 		</Button>
 	);
 	return (
 		<Paper sign clear center>
 			<Header center mtbB h={5}>
-				{content.or[props.lang ? props.lang : 0]}
+				{content.or[lang ? lang : 0]}
 			</Header>
 			<form onSubmit={event => props.submitted(event)}>
 				{form}
+				{forgotPassword}
 				{submitButton}
 
 				{role}

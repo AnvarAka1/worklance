@@ -22,7 +22,7 @@ const project = props => {
 				</Header>
 				<Text mt>{description}</Text>
 				<Header mt h={5}>
-					{content.price[lang]} : ${price}
+					{content.price[lang ? lang : 0]} : ${price}
 				</Header>
 				{button}
 			</Paper>

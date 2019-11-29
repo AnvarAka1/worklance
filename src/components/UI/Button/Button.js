@@ -11,6 +11,7 @@ const button = props => {
 		props.danger && classes.Danger,
 		props.grey && classes.Grey,
 		props.mtb && classes.Mtb,
+		props.mt && classes.Mt,
 		props.ptb && classes.Ptb,
 		props.exit && classes.Exit,
 		props.noHover && classes.NoHover

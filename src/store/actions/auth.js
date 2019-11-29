@@ -131,7 +131,7 @@ export const authCheckState = () => {
 				avatar = +role === 1 ? res.data.clients.avatar : res.data.userdatas.avatar;
 				profession = +role === 1 ? res.data.clients.company : res.data.userdatas.user_position;
 				localStorage.setItem("profession", profession);
-				console.log(profession);
+
 				if (!token) {
 					dispatch(logout());
 				} else {

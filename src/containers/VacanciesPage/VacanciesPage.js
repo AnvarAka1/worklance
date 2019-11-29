@@ -1,55 +1,14 @@
 import React, { Component } from "react";
 import Projects from "../../components/Projects/Projects";
-import Grid from "@material-ui/core/Grid";
-import NotificationItems from "../../components/NotificationItems/NotificationItems";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import Project from "../../components/Projects/Project/Project";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
-import Avatar1 from "../../assets/images/profile/avatar1.jpg";
 import axios from "../../axios-db";
+import Notifications from "../../hoc/Notifications/Notifications";
 export class VacanciesPage extends Component {
 	_isMounted = false;
 	state = {
 		vacancies: null,
-		notificationItems: [
-			{
-				id: 0,
-				userId: 1,
-				avatar: Avatar1,
-				name: "Anvar Abdulsatarov",
-				text: "Hello, It's me",
-				approved: true,
-				date: "27.09"
-			},
-			{
-				id: 1,
-				userId: 1,
-				avatar: Avatar1,
-				name: "Anvar Abdulsatarov",
-				text: "Hello, It's me",
-				approved: true,
-				date: "27.09"
-			},
-			{
-				id: 2,
-				userId: 2,
-				avatar: Avatar1,
-				name: "Anvar Abdulsatarov",
-				text: "Hello, It's me",
-				approved: true,
-				date: "22.08"
-			},
-			{
-				id: 3,
-				userId: 1,
-				avatar: Avatar1,
-				name: "Anvar Abdulsatarov",
-				text: "Hello, It's me",
-				approved: true,
-				date: "27.09"
-			}
-		],
 		lang: 0,
 		hover: false,
 		vacancyOpen: false,
@@ -137,33 +96,14 @@ export class VacanciesPage extends Component {
 				projectClicked={this.vacancyClickedHandler}
 			/>
 		) : null;
-		let notificationItems = !this.state.loading ? (
-			<NotificationItems
-				archiveClicked={this.archiveClickedHandler}
-				viewClicked={this.viewClickedHandler}
-				lang={this.state.lang}
-				notificationItems={this.state.notificationItems}
-			/>
-		) : null;
+
 		return (
 			<React.Fragment>
 				{modal}
-				<Grid container spacing={3}>
-					<Grid item md={8} xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={12}>
-								<SearchBar lang={this.state.lang} />
-							</Grid>
-							{vacancies}
-						</Grid>
-					</Grid>
-					<Grid item md={4} xs={12}>
-						{notificationItems}
-					</Grid>
-				</Grid>
+				{vacancies}
 			</React.Fragment>
 		);
 	}
 }
 
-export default VacanciesPage;
+export default Notifications(VacanciesPage);
