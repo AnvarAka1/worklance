@@ -81,15 +81,25 @@ export class Layout extends Component {
 		this.setState({ isAuthorizing: true });
 	}
 	componentDidUpdate() {
-		if (this.props.isAuthorized && this.state.isAuthorizing) {
-			let profile;
-			const role = +localStorage.getItem("role");
-			const profession = localStorage.getItem("profession");
+		//update profile after profile settings
+		if (this.props.profileHasUpdated) {
+			const profile = this.updateUserInfo();
+			this.setState({ profile: profile });
+			// resets profileHasUpdated in store
+			this.props.onAuthResetProfileUpdated();
+		}
 
-			profile = { ...this.state.profile };
-			profile.avatar = this.props.authAvatar;
-			profile.name = this.props.name;
-			profile.role = profession !== "null" ? profession : role;
+		// update profile when authorizing
+		if (this.props.isAuthorized && this.state.isAuthorizing) {
+			// let profile;
+			// const role = +localStorage.getItem("role");
+			// const profession = localStorage.getItem("profession");
+
+			// profile = { ...this.state.profile };
+			// profile.avatar = this.props.authAvatar;
+			// profile.name = this.props.name;
+			// profile.role = profession !== "null" ? profession : role;
+			const profile = this.updateUserInfo();
 			const shouldRedirect = this.state.isSignIn ? false : true;
 			this.setState({
 				profile: profile,
@@ -102,6 +112,17 @@ export class Layout extends Component {
 			this.setState({ isRedirect: false });
 		}
 	}
+	updateUserInfo = () => {
+		const role = +localStorage.getItem("role");
+		const profession = localStorage.getItem("profession");
+		const profile = {
+			...this.state.profile,
+			avatar: this.props.authAvatar,
+			name: this.props.name,
+			role: profession !== "null" ? profession : role
+		};
+		return profile;
+	};
 	drawerOpenedHandler = () => {
 		this.setState({ drawerLeft: true });
 	};
@@ -168,7 +189,13 @@ export class Layout extends Component {
 		event.preventDefault();
 		this.setState({ logoutModalOpened: true });
 	};
-
+	responseGoogle = res => {
+		// console.log(res);
+		const userData = res.profileObj;
+		// const el = res.El;
+		const googleId = res.googleId;
+		this.props.onAuthGoogle(userData.givenName, userData.email, googleId);
+	};
 	render() {
 		return (
 			<div style={{ position: "relative" }}>
@@ -224,13 +251,15 @@ const mapStateToProps = state => {
 		authAvatar: state.auth.avatar,
 		role: state.auth.role,
 		profession: state.auth.profession,
-		name: state.auth.name
+		name: state.auth.name,
+		profileHasUpdated: state.auth.profileHasUpdated
 	};
 };
 const mapDispatchToProps = dispatch => {
 	return {
 		onAuth: (name, surname, email, password, role, isSignIn) =>
 			dispatch(actions.auth(name, surname, email, password, role, isSignIn)),
+		onAuthResetProfileUpdated: () => dispatch(actions.authResetProfileUpdated()),
 		onLogout: () => dispatch(actions.logout()),
 		onFormFlush: () => dispatch(actions.authFormFlush())
 	};

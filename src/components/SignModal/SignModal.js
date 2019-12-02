@@ -5,7 +5,7 @@ import Input from "../UI/Input/Input";
 import Header from "../UI/Header/Header";
 import Button from "../UI/Button/Button";
 import classes from "./SignModal.module.css";
-import { NavLink } from "react-router-dom";
+import GoogleLogin from "react-google-login";
 const signModal = props => {
 	const { lang } = props;
 	const content = {
@@ -39,10 +39,25 @@ const signModal = props => {
 			/>
 		);
 	});
-
+	const google = (
+		<GoogleLogin
+			buttonText={
+				props.isSignIn ? (
+					content.googleSignIn[props.lang ? props.lang : 0]
+				) : (
+					content.googleSignUp[props.lang ? props.lang : 0]
+				)
+			}
+			className={classes.GoogleButton}
+			clientId="577775945538-b8slg5r441le79hi2606hm6gqh8a4sis.apps.googleusercontent.com"
+			onSuccess={props.responseGoogle}
+			onFailure={props.responseGoogle}
+			cookiePolicy={"single_host_origin"}
+		/>
+	);
 	const toggleMessage = (
 		<Header center h={5} mtbB>
-			{props.isSignIn ? content.hasAccountMessage[lang ? lang : 0] : content.noAccountMessage[lang ? lang : 0]}
+			{props.isSignIn ? content.noAccountMessage[lang ? lang : 0] : content.hasAccountMessage[lang ? lang : 0]}
 			<span onClick={props.toggle} className={classes.Toggle}>
 				{props.isSignIn ? content.reg[lang ? lang : 0] : content.auth[lang ? lang : 0]}
 			</span>
@@ -76,15 +91,15 @@ const signModal = props => {
 	);
 	return (
 		<Paper sign clear center>
+			{google}
 			<Header center mtbB h={5}>
 				{content.or[lang ? lang : 0]}
 			</Header>
 			<form onSubmit={event => props.submitted(event)}>
 				{form}
 				{forgotPassword}
-				{submitButton}
-
 				{role}
+				{submitButton}
 			</form>
 			{toggleMessage}
 		</Paper>

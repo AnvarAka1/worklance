@@ -9,12 +9,13 @@
 .Toggle:hover {
 	color: #1bc47d;
 }
-.Role{
+.Role {
 	display: flex;
 	justify-content: space-evenly;
+	margin-top: 20px;
 }
-.Role>div{
-	width: 	100%;
+.Role > div {
+	width: 100%;
 	padding-top: 25px;
 	padding-bottom: 25px;
 	text-align: center;
@@ -24,11 +25,18 @@
 	background: white;
 }
 
-.Role>div:hover{
-	background: #007BFF;
-	color: white
-}
-.Role>.Selected{
+.Role > div:hover {
+	background: #024388;
 	color: white;
-	background: #1BC47D
+}
+.Role > .Selected {
+	color: white;
+	background: #1bc47d;
+}
+.GoogleButton {
+	width: 100%;
+	height: 70px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
 }

@@ -5,3 +5,7 @@
 .MyProfileWrapper {
 	display: flex;
 }
+.NotMyProfile {
+	flex-direction: row-reverse;
+	align-items: flex-start;
+}

@@ -5,6 +5,7 @@ import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs"
 import Publications from "../../components/Publications/Publications";
 import Button from "../../components/UI/Button/Button";
 import InputWithDropdown from "../../components/InputWithDropdown/InputWithDropdown";
+import { Redirect } from "react-router-dom";
 import axios from "../../axios-db";
 // import Hidden from "@material-ui/core/Hidden";
 export class AddPublicationPage extends Component {
@@ -79,8 +80,10 @@ export class AddPublicationPage extends Component {
 		lang: 0,
 		isClient: null,
 		loading: true,
-		submitted: false
+		submitted: false,
+		isRedirect: false
 	};
+
 	componentDidMount() {
 		this.setState({ loading: true });
 		this.token = localStorage.getItem("token");
@@ -95,6 +98,11 @@ export class AddPublicationPage extends Component {
 	componentDidUpdate() {
 		if (this.state.submitted) {
 			// this.setState({ submitted: false });
+		}
+		if (this.state.submitted) {
+			setTimeout(() => {
+				this.setState({ submitted: false, isRedirect: true });
+			}, 3000);
 		}
 	}
 
@@ -227,43 +235,46 @@ export class AddPublicationPage extends Component {
 		);
 
 		return (
-			<Grid container spacing={3}>
-				<Grid item sm={6}>
-					<Grid container spacing={3}>
-						<Grid item xs={12}>
-							<Header h={5}>
-								<i className="fa fa-plus-circle" /> {content.addPublication[this.state.lang]}
-							</Header>
-						</Grid>
-						<Grid item sm={12}>
-							<ProfileInputs
-								changed={this.inputChangeHandler}
-								submitted={this.submitClickedHandler}
-								lang={this.state.lang}
-								inputs={this.state.form}
-								formType={null}
-								customBtn={customBtn}
-								customInput={inputWithDropdown}
-							/>
-							{message}
+			<React.Fragment>
+				{this.state.isRedirect ? <Redirect to="/" /> : null}
+				<Grid container spacing={3}>
+					<Grid item sm={6}>
+						<Grid container spacing={3}>
+							<Grid item xs={12}>
+								<Header h={5}>
+									<i className="fa fa-plus-circle" /> {content.addPublication[this.state.lang]}
+								</Header>
+							</Grid>
+							<Grid item sm={12}>
+								<ProfileInputs
+									changed={this.inputChangeHandler}
+									submitted={this.submitClickedHandler}
+									lang={this.state.lang}
+									inputs={this.state.form}
+									formType={null}
+									customBtn={customBtn}
+									customInput={inputWithDropdown}
+								/>
+								{message}
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-				<Grid item sm={1} />
-				<Grid item sm={5}>
-					<Grid container spacing={3}>
-						<Grid item xs={12}>
-							<Header h={5}>
-								<i className="fa fa-user-lock" /> {content.publications[this.state.lang]}
-							</Header>
-						</Grid>
+					<Grid item sm={1} />
+					<Grid item sm={5}>
+						<Grid container spacing={3}>
+							<Grid item xs={12}>
+								<Header h={5}>
+									<i className="fa fa-user-lock" /> {content.publications[this.state.lang]}
+								</Header>
+							</Grid>
 
-						<Grid item xs={12}>
-							{publications}
+							<Grid item xs={12}>
+								{publications}
+							</Grid>
 						</Grid>
 					</Grid>
 				</Grid>
-			</Grid>
+			</React.Fragment>
 		);
 	}
 }

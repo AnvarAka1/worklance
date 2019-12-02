@@ -16,7 +16,7 @@
 	transition: all .25s ease;
 }
 .Button:hover {
-	background: #007bff;
+	background: #024388;
 	color: #fff;
 }
 .Button:hover * {

@@ -9,6 +9,8 @@ import AdditionalBlock from "../../components/AdditionalBlock/AdditionalBlock";
 import ChangeProfileBlock from "../../components/ChangeProfileBlock/ChangeProfileBlock";
 import axios from "../../axios-db";
 import Hidden from "@material-ui/core/Hidden";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 export class ProfilePage extends Component {
 	token = null;
 	role = null;
@@ -379,6 +381,8 @@ export class ProfilePage extends Component {
 		this.setState({ success: null });
 		let formData = new FormData();
 		const urlToStoreOverallInfo = this.role ? "/client" : "/userdata";
+		const urlToGetOverallInfo = this.role ? "/client" : "/user";
+		const userDataOrClient = this.role ? "client" : "userdatas";
 		const formDataFieldForCompanyOrPosition = this.role ? "company" : "user_position";
 		switch (formType) {
 			case "general":
@@ -406,6 +410,20 @@ export class ProfilePage extends Component {
 					.then(res => {
 						const success = "general";
 						this.setState({ success: success });
+						return axios.get(urlToGetOverallInfo + "/current", {
+							headers: {
+								Authorization: this.token
+							}
+						});
+					})
+					.then(res => {
+						console.log(res.data);
+						this.props.onAvatarChange(res.data[userDataOrClient].avatar);
+						const profile = {
+							...this.state.profile,
+							avatar: res.data[userDataOrClient].avatar
+						};
+						this.setState({ profile: profile });
 					})
 					.catch(err => console.log(err));
 				break;
@@ -640,4 +658,9 @@ export class ProfilePage extends Component {
 	}
 }
 
-export default ProfilePage;
+const mapDispatchToProps = dispatch => {
+	return {
+		onAvatarChange: avatar => dispatch(actions.authAvatarChange(avatar))
+	};
+};
+export default connect(null, mapDispatchToProps)(ProfilePage);

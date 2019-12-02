@@ -11,6 +11,7 @@ const initialState = {
 	profession: null,
 	password: "",
 	formFlush: false,
+	profileHasUpdated: false,
 	loading: false
 };
 
@@ -55,7 +56,13 @@ const authStart = (state, action) => {
 		loading: true
 	};
 };
-
+const authAvatarChange = (state, action) => {
+	return {
+		...state,
+		avatar: action.avatar,
+		profileHasUpdated: true
+	};
+};
 // clear everything
 const authLogout = (state, action) => {
 	return {
@@ -71,7 +78,21 @@ const authLogout = (state, action) => {
 		password: ""
 	};
 };
-
+const authProfileUpdate = (state, action) => {
+	return {
+		...state,
+		role: action.role,
+		avatar: action.avatar,
+		name: action.name,
+		profileHasUpdated: true
+	};
+};
+const authResetProfileUpdated = (state, action) => {
+	return {
+		...state,
+		profileHasUpdated: false
+	};
+};
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.AUTH_START:
@@ -80,6 +101,12 @@ const reducer = (state = initialState, action) => {
 			return authSuccess(state, action);
 		case actionTypes.AUTH_FAIL:
 			return authFail(state, action);
+		case actionTypes.AUTH_AVATAR_CHANGE:
+			return authAvatarChange(state, action);
+		case actionTypes.AUTH_PROFILE_UPDATE:
+			return authProfileUpdate(state, action);
+		case actionTypes.AUTH_RESET_PROFILE_UPDATED:
+			return authResetProfileUpdated(state, action);
 		case actionTypes.AUTH_LOGOUT:
 			return authLogout(state, action);
 		case actionTypes.AUTH_FORM_FLUSH:

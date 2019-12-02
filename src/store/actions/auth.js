@@ -31,6 +31,25 @@ export const authFail = error => {
 		error: error
 	};
 };
+export const authAvatarChange = avatar => {
+	return {
+		type: actionTypes.AUTH_AVATAR_CHANGE,
+		avatar: avatar
+	};
+};
+export const authProfileUpdate = (avatar, name, role) => {
+	return {
+		type: actionTypes.AUTH_PROFILE_UPDATE,
+		avatar: avatar,
+		name: name,
+		role: role
+	};
+};
+export const authResetProfileUpdated = () => {
+	return {
+		type: actionTypes.AUTH_RESET_PROFILE_UPDATED
+	};
+};
 export const logout = () => {
 	localStorage.removeItem("token");
 	localStorage.removeItem("expirationDate");
