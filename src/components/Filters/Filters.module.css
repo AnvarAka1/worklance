@@ -1,0 +1,58 @@
+.Filters {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+.FiltersInner {
+	display: flex;
+	justify-content: space-evenly;
+	width: 80%;
+}
+.Filters button {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 19px;
+	/* identical to box height */
+	text-align: center;
+
+	color: #777777;
+	padding: 10px 30px;
+	width: auto;
+}
+
+.FiltersInner * {
+	width: 100%;
+	font-size: 14px;
+}
+.FiltersInner > input {
+	padding: 10px 15px;
+	height: 52px;
+}
+.FiltersInner > * {
+	background: #f4f4f4;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-right: 15px;
+}
+.FiltersInner input {
+	font-style: italic;
+	width: 100%;
+}
+@media (max-width: 650px) {
+	.Filters {
+		display: block;
+	}
+	.Filters button {
+		width: 100%;
+	}
+	.FiltersInner {
+		width: 100%;
+		display: block;
+	}
+	.FiltersInner > * {
+		margin-bottom: 10px;
+		margin-right: 0px;
+	}
+}

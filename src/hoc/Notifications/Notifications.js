@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NotificationItems from "../../components/NotificationItems/NotificationItems";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Avatar1 from "../../assets/images/profile/avatar1.jpg";
+import Filters from "../../components/Filters/Filters";
 const Notifications = WrappedComponent => {
 	return class extends Component {
 		token = null;
@@ -20,37 +21,45 @@ const Notifications = WrappedComponent => {
 				exp: "",
 				cost: ""
 			},
-			options: {
-				stack: [
-					{
-						id: 0,
-						value: [ "Все", "All", "AllUzb" ]
+			filter: {
+				multiSelect: {
+					stack: {
+						options: [
+							{
+								id: 0,
+								values: [ "Все", "All", "AllUzb" ]
+							},
+							{
+								id: 1,
+								values: [ "Некоторые", "Some", "SomeUzb" ]
+							}
+						],
+						placeholder: "Стек",
+						value: []
 					},
-					{
-						id: 1,
-						value: [ "Некоторые", "Some", "SomeUzb" ]
+					exp: {
+						options: [
+							{
+								id: 0,
+								values: [ "212", "1231" ]
+							},
+							{
+								id: 1,
+								values: [ "333", "3333" ]
+							}
+						],
+						placeholder: "Навыки",
+						value: []
 					}
-				],
-				exp: [
-					{
-						id: 0,
-						value: [ "", "" ]
+				},
+				cost: {
+					inputType: "input",
+					config: {
+						type: "text",
+						placeholder: "Цена начиная с...$"
 					},
-					{
-						id: 1,
-						value: [ "", "" ]
-					}
-				],
-				cost: [
-					{
-						id: 0,
-						value: 300
-					},
-					{
-						id: 1,
-						value: 15
-					}
-				]
+					value: ""
+				}
 			},
 			notificationItems: [
 				{
@@ -91,6 +100,7 @@ const Notifications = WrappedComponent => {
 				}
 			],
 			lang: 0,
+			filterOpen: false,
 			loading: true
 		};
 		componentDidMount() {
@@ -121,7 +131,14 @@ const Notifications = WrappedComponent => {
 					})
 					.catch(err => console.log(err));
 		}
-
+		filterClickedHandler = event => {
+			event.preventDefault();
+			this.setState(prevState => {
+				return {
+					filterOpen: !prevState.filterOpen
+				};
+			});
+		};
 		getCurrentUser = () => {
 			const url = this.role ? "/client" : "/user";
 			return axios.get(`${url}/current`, {
@@ -134,9 +151,37 @@ const Notifications = WrappedComponent => {
 		searchChangedHandler = event => {
 			console.log("Search " + event.target.value);
 		};
+
 		searchSubmitHandler = event => {
 			event.preventDefault();
 			console.log("Search Submitted");
+		};
+
+		costChangeHandler = event => {
+			const filter = {
+				...this.state.filter,
+				cost: {
+					...this.state.filter.cost,
+					value: event.target.value
+				}
+			};
+			this.setState({ filter: filter });
+		};
+		selectChangeHandler = (event, key) => {
+			const filter = {
+				...this.state.filter,
+				multiSelect: {
+					...this.state.filter.multiSelect,
+					[key]: {
+						...this.state.filter.multiSelect[key],
+						value: event.target.value
+					}
+				}
+			};
+			this.setState({ filter: filter });
+		};
+		filterSubmitHandler = () => {
+			console.log("Filter submitted");
 		};
 		render() {
 			let notificationItems = !this.state.loading ? (
@@ -159,6 +204,15 @@ const Notifications = WrappedComponent => {
 									filterClicked={this.filterClickedHandler}
 									lang={this.state.lang}
 								/>
+								{this.state.filterOpen && (
+									<Filters
+										selects={this.state.filter.multiSelect}
+										selectChanged={this.selectChangeHandler}
+										costChanged={this.costChangeHandler}
+										filterSubmitted={this.filterSubmitHandler}
+										cost={this.state.filter.cost}
+									/>
+								)}
 							</Grid>
 							<WrappedComponent {...this.props} />
 						</Grid>

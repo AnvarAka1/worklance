@@ -21,7 +21,6 @@ class App extends Component {
 	componentDidMount() {
 		if (localStorage.getItem("token")) {
 			this.props.onAuthCheck();
-			console.log("LOL");
 		}
 	}
 	redirectToProfile = () => {};

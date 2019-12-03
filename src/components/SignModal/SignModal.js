@@ -6,6 +6,7 @@ import Header from "../UI/Header/Header";
 import Button from "../UI/Button/Button";
 import classes from "./SignModal.module.css";
 import GoogleLogin from "react-google-login";
+import { NavLink } from "react-router-dom";
 const signModal = props => {
 	const { lang } = props;
 	const content = {
@@ -80,9 +81,11 @@ const signModal = props => {
 		</div>
 	);
 	const forgotPassword = props.isSignIn && (
-		<Header h={5} color="#00b1eb" center mt clicked={props.signModalClosed}>
-			{content.forgotPassword[lang ? lang : 0]}
-		</Header>
+		<NavLink to="/forgot">
+			<Header h={5} color="#00b1eb" center mt clicked={props.signModalClosed}>
+				{content.forgotPassword[lang ? lang : 0]}
+			</Header>
+		</NavLink>
 	);
 	const submitButton = (
 		<Button wide mtb green ptb>

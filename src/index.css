@@ -69,7 +69,12 @@ img {
 .green {
 	color: #3aff89;
 }
-
+.MuiInput-underline:before {
+	content: none !important;
+}
+.MuiInput-underline:after {
+	content: none !important;
+}
 @media (max-width: 1290px) {
 	h1 {
 		font-size: 56px;
