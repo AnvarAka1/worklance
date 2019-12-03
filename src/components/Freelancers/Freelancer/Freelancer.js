@@ -26,7 +26,7 @@ const freelancer = props => {
 	const modalText = getModalText(props);
 	return (
 		<div onClick={props.blockClicked}>
-			<Paper clear={props.clear} center={props.center} tl>
+			<Paper clear={props.clear} center={props.center} scroll tl>
 				<div className={freelancerClasses.join(" ")}>
 					<ProfilePhoto big avatar={avatar} name={fullname} />
 

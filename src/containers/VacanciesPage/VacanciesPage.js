@@ -21,6 +21,7 @@ export class VacanciesPage extends Component {
 		axios
 			.get("/vacancies")
 			.then(res => {
+				console.log(res.data);
 				if (this._isMounted) {
 					this.setState({ vacancies: res.data, loading: false });
 				}

@@ -13,7 +13,7 @@ const project = props => {
 	const button = props.button ? <div className={classes.Right}>{props.button}</div> : null;
 	return (
 		<div onMouseEnter={props.onHover} onMouseLeave={props.onUnHover} onClick={props.clicked}>
-			<Paper clear={props.clear} center={props.center} tl>
+			<Paper clear={props.clear} center={props.center} tl scroll>
 				<Header color={props.hover ? "#007BFF" : "#333"} h={5}>
 					{title}
 				</Header>
@@ -24,7 +24,7 @@ const project = props => {
 					{description}
 				</Text>
 				<Header mt h={5}>
-					{content.price[lang ? lang : 0]} : ${price}
+					{content.price[lang ? lang : 0]} : {price}
 				</Header>
 				{button}
 			</Paper>

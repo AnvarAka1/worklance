@@ -135,15 +135,16 @@ export class AddPublicationPage extends Component {
 	};
 	addClickedHandler = () => {
 		this.setState({ submitted: false });
-
+		// const currency = ["$","som"];
 		let formData = new FormData();
 		const data = { ...this.state.form };
 		const adata = { ...this.state.formPrice };
+		const price = +adata.currency.value ? adata.price.value + " som" : "$" + adata.price.value;
 		formData.append("client_id", this.profile.id);
 		formData.append("title", data.title.value);
 		formData.append("description", data.description.value);
-		formData.append("price", adata.price.value);
-		formData.append("priceType", adata.currency.value);
+		formData.append("price", price);
+		// formData.append("priceType", adata.currency.value);
 		formData.append("type", data.type.value);
 		formData.append("contact", this.profile.clients.phone);
 
