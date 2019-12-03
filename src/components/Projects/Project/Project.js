@@ -20,7 +20,9 @@ const project = props => {
 				<Header h={5} color="#AAAAAA">
 					{author}
 				</Header>
-				<Text mt>{description}</Text>
+				<Text maxHeight={props.maxHeight} mt>
+					{description}
+				</Text>
 				<Header mt h={5}>
 					{content.price[lang ? lang : 0]} : ${price}
 				</Header>

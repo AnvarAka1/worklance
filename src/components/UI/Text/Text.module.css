@@ -20,3 +20,18 @@
 .MbB {
 	margin-bottom: 20px;
 }
+.MaxHeight {
+	max-height: 100px;
+	overflow: hidden;
+	position: relative;
+}
+.MaxHeight:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	/* height: 30px; */
+	height: 30%;
+	width: 100%;
+	background: linear-gradient(0deg, rgb(255, 255, 255) 0, rgba(255, 255, 255, 0) 100%);
+}

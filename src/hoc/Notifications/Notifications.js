@@ -94,31 +94,32 @@ const Notifications = WrappedComponent => {
 			loading: true
 		};
 		componentDidMount() {
-			this.getCurrentUser()
-				.then(res => {
-					console.log(res);
-					let fRoles = [ "freelancers", "candidates", "f_can" ];
-					if (+res.data.role) {
-						console.log("here");
-						return axios.get("/notification/clients", {
-							headers: {
-								Authorization: this.token
-							}
-						});
-					} else {
-						console.log("here");
-						return axios.get(`/notification/${fRoles[+res.data.userdatas.profile]}`, {
-							headers: {
-								Authorization: this.token
-							}
-						});
-					}
-				})
-				.then(res => {
-					console.log(res.data);
-					this.setState({ notificationItems: res.data, loading: false });
-				})
-				.catch(err => console.log(err));
+			if (localStorage.getItem("token"))
+				this.getCurrentUser()
+					.then(res => {
+						console.log(res);
+						let fRoles = [ "freelancers", "candidates", "f_can" ];
+						if (+res.data.role) {
+							console.log("here");
+							return axios.get("/notification/clients", {
+								headers: {
+									Authorization: this.token
+								}
+							});
+						} else {
+							console.log("here");
+							return axios.get(`/notification/${fRoles[+res.data.userdatas.profile]}`, {
+								headers: {
+									Authorization: this.token
+								}
+							});
+						}
+					})
+					.then(res => {
+						console.log(res.data);
+						this.setState({ notificationItems: res.data, loading: false });
+					})
+					.catch(err => console.log(err));
 		}
 
 		getCurrentUser = () => {

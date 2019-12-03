@@ -11,6 +11,7 @@ const projects = props => {
 					onHover={() => props.onHover(project.id)}
 					onUnHover={() => props.onUnHover(project.id)}
 					lang={props.lang}
+					maxHeight={props.maxHeight}
 					{...project}
 				/>
 			</Grid>

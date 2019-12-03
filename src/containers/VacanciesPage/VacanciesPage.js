@@ -88,6 +88,7 @@ export class VacanciesPage extends Component {
 		) : null;
 		let vacancies = !this.state.loading ? (
 			<Projects
+				maxHeight
 				lang={this.state.lang}
 				hover={this.state.hover}
 				onHover={this.onHoverEnter}

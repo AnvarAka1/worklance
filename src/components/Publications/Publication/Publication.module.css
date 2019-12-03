@@ -1,6 +1,7 @@
 .Publication {
 	position: relative;
 	cursor: pointer;
+	padding: 15px;
 }
 .IconWrapper {
 	position: absolute;
@@ -14,6 +15,7 @@
 	transition: color .25s ease;
 	color: #f04d4e;
 	cursor: pointer;
+	padding: 3px;
 }
 .Icon:hover {
 	color: rgba(240, 77, 77, 0.61);

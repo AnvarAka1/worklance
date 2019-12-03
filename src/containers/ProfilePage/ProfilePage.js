@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Header from "../../components/UI/Header/Header";
 import ProfilePhoto from "../../components/Profile/ProfilePhoto/ProfilePhoto";
-
+import DialogModal from "../../components/DialogModal/DialogModal";
 import ProfileInputs from "../../components/Profile/ProfileInputs/ProfileInputs";
 import Publications from "../../components/Publications/Publications";
 import AdditionalBlock from "../../components/AdditionalBlock/AdditionalBlock";
@@ -172,7 +172,8 @@ export class ProfilePage extends Component {
 		isClient: null,
 		selectedFile: null,
 		avatarError: null,
-		loading: true
+		loading: true,
+		dialogOpen: false
 	};
 
 	componentDidMount() {
@@ -489,6 +490,20 @@ export class ProfilePage extends Component {
 	};
 	removeClickedHandler = (event, id) => {
 		console.log("Remove clicked with id", id);
+		this.setState({ dialogOpen: true });
+	};
+	removeHandler = () => {
+		const id = this.state.publicationToRemove;
+		const formData = new FormData();
+		formData.append("id", id);
+		axios.post(`/remove`, formData, {
+			headers: {
+				Authorization: this.token
+			}
+		});
+	};
+	dialogCloseHandler = () => {
+		this.setState({ dialogOpen: false });
 	};
 	addClickedHandler = () => {
 		this.props.history.push("/add");
@@ -534,7 +549,12 @@ export class ProfilePage extends Component {
 			general: [ "Общая информация", "General information", "InfoUzb" ],
 			security: [ "Безопасность", "Security", "Uzb" ],
 			publications: [ "Публикации", "Publications", "Uzb" ],
-			additional: [ "Дополнительно", "Additionally", "Uzb" ]
+			additional: [ "Дополнительно", "Additionally", "Uzb" ],
+			dialog: [
+				"Вы уверены, что хотите удалить публикацию?",
+				"Are you sure, you want to delete the publication?",
+				"Uzb"
+			]
 		};
 		let additional = null;
 		if (!this.role) {
@@ -554,106 +574,116 @@ export class ProfilePage extends Component {
 		);
 
 		return (
-			<Grid container spacing={3}>
-				<Grid item md={6} sm={12}>
-					<Grid container spacing={3}>
-						<Grid item xs={12}>
-							<Header h={5}>
-								<i className="fa fa-user" /> {content.general[this.state.lang]}
-							</Header>
-						</Grid>
-						<Grid item md={4} sm={6} xs={12}>
-							<ProfilePhoto
-								error={this.state.avatarError}
-								change
-								avatarChanged={this.avatarChangeHandler}
-								avatar={this.state.profile.avatar}
-								name={"Avatar"}
-								lang={this.state.lang}
-								large
-								input={this.state.profile.avatarInput}
-								loading={this.state.loading}
-							/>
-						</Grid>
+			<React.Fragment>
+				<DialogModal
+					header={content.dialog}
+					yesClicked={this.removeHandler}
+					open={this.state.dialogOpen}
+					modalClosed={this.dialogCloseHandler}
+				/>
+				<Grid container spacing={3}>
+					<Grid item md={6} sm={12}>
+						<Grid container spacing={3}>
+							<Grid item xs={12}>
+								<Header h={5}>
+									<i className="fa fa-user" /> {content.general[this.state.lang]}
+								</Header>
+							</Grid>
+							<Grid item md={4} sm={6} xs={12}>
+								<ProfilePhoto
+									error={this.state.avatarError}
+									change
+									avatarChanged={this.avatarChangeHandler}
+									avatar={this.state.profile.avatar}
+									name={"Avatar"}
+									lang={this.state.lang}
+									large
+									input={this.state.profile.avatarInput}
+									loading={this.state.loading}
+								/>
+							</Grid>
 
-						<Grid item md={8} sm={6} xs={12}>
-							<ProfileInputs
-								success={this.state.success}
-								half
-								changed={this.inputChangeHandler}
-								inputs={this.state.isClient ? this.returnGeneralInput() : this.state.profile.general}
-								lang={this.state.lang}
-								formType={"general"}
-								submitted={this.formSubmitHandler}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<Header h={5}>
-								<i className="fa fa-user-lock" /> {content.security[this.state.lang]}
-							</Header>
-						</Grid>
-						<Grid item sm={6} xs={12}>
-							<ProfileInputs
-								success={this.state.success}
-								changed={this.inputChangeHandler}
-								inputs={this.state.profile.security}
-								lang={this.state.lang}
-								formType={"security"}
-								submitted={this.formSubmitHandler}
-							/>
-						</Grid>
-						<Grid item sm={6} xs={12}>
-							<ProfileInputs
-								success={this.state.success}
-								changed={this.inputChangeHandler}
-								inputs={this.state.profile.email}
-								lang={this.state.lang}
-								formType={"email"}
-								submitted={this.formSubmitHandler}
-							/>
+							<Grid item md={8} sm={6} xs={12}>
+								<ProfileInputs
+									success={this.state.success}
+									half
+									changed={this.inputChangeHandler}
+									inputs={
+										this.state.isClient ? this.returnGeneralInput() : this.state.profile.general
+									}
+									lang={this.state.lang}
+									formType={"general"}
+									submitted={this.formSubmitHandler}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<Header h={5}>
+									<i className="fa fa-user-lock" /> {content.security[this.state.lang]}
+								</Header>
+							</Grid>
+							<Grid item sm={6} xs={12}>
+								<ProfileInputs
+									success={this.state.success}
+									changed={this.inputChangeHandler}
+									inputs={this.state.profile.security}
+									lang={this.state.lang}
+									formType={"security"}
+									submitted={this.formSubmitHandler}
+								/>
+							</Grid>
+							<Grid item sm={6} xs={12}>
+								<ProfileInputs
+									success={this.state.success}
+									changed={this.inputChangeHandler}
+									inputs={this.state.profile.email}
+									lang={this.state.lang}
+									formType={"email"}
+									submitted={this.formSubmitHandler}
+								/>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-				<Hidden smDown>
-					<Grid item sm={1} />
-				</Hidden>
-				<Grid item md={5} sm={12} xs={12}>
-					<Grid container spacing={3}>
-						<Grid item xs={12}>
-							<Header h={5}>
+					<Hidden smDown>
+						<Grid item sm={1} />
+					</Hidden>
+					<Grid item md={5} sm={12} xs={12}>
+						<Grid container spacing={3}>
+							<Grid item xs={12}>
+								<Header h={5}>
+									{this.role ? (
+										<React.Fragment>
+											<i className="fa fa-user-lock" /> {content.publications[this.state.lang]}
+										</React.Fragment>
+									) : null}
+								</Header>
+							</Grid>
+
+							<Grid item xs={12}>
 								{this.role ? (
-									<React.Fragment>
-										<i className="fa fa-user-lock" /> {content.publications[this.state.lang]}
-									</React.Fragment>
-								) : null}
-							</Header>
-						</Grid>
-
-						<Grid item xs={12}>
-							{this.role ? (
-								<React.Fragment>{publications}</React.Fragment>
-							) : (
-								<AdditionalBlock
-									addMoreClicked={this.addMoreHandler}
-									clicked={this.additionalHandler}
-									form={additional}
-									addPortfolio={this.addPortfolio}
-									changed={this.additionalInputChangeHandler}
-									portfolioChanged={this.portfolioInputChangeHandler}
-									lang={this.state.lang}
-								/>
-							)}
-							{this.role ? null : (
-								<ChangeProfileBlock
-									lang={this.state.lang}
-									type={this.state.profileType}
-									clicked={this.profileTypeHandler}
-								/>
-							)}
+									<React.Fragment>{publications}</React.Fragment>
+								) : (
+									<AdditionalBlock
+										addMoreClicked={this.addMoreHandler}
+										clicked={this.additionalHandler}
+										form={additional}
+										addPortfolio={this.addPortfolio}
+										changed={this.additionalInputChangeHandler}
+										portfolioChanged={this.portfolioInputChangeHandler}
+										lang={this.state.lang}
+									/>
+								)}
+								{this.role ? null : (
+									<ChangeProfileBlock
+										lang={this.state.lang}
+										type={this.state.profileType}
+										clicked={this.profileTypeHandler}
+									/>
+								)}
+							</Grid>
 						</Grid>
 					</Grid>
 				</Grid>
-			</Grid>
+			</React.Fragment>
 		);
 	}
 }
@@ -663,4 +693,5 @@ const mapDispatchToProps = dispatch => {
 		onAvatarChange: avatar => dispatch(actions.authAvatarChange(avatar))
 	};
 };
+
 export default connect(null, mapDispatchToProps)(ProfilePage);

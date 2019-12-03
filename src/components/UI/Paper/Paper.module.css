@@ -4,6 +4,9 @@
 	box-shadow: 0px 5px 10px #e5e5e5;
 	border-radius: 5px;
 }
+.NoPadding {
+	padding: 0;
+}
 .Clear {
 	box-shadow: none;
 	border-radius: 5px;

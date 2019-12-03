@@ -8,7 +8,8 @@ const text = props => {
 		props.mt && classes.Mt,
 		props.mb && classes.Mb,
 		props.mtB && classes.MtB,
-		props.mbB && classes.MbB
+		props.mbB && classes.MbB,
+		props.maxHeight && classes.MaxHeight
 	];
 	const textStyles = {
 		color: props.color && props.color,

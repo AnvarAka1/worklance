@@ -4,6 +4,7 @@ const paper = props => {
 	const paperClasses = [
 		classes.Paper,
 		props.paperClass && classes[props.paperClass],
+		props.noPadding && classes.NoPadding,
 		props.clear && classes.Clear,
 		props.tl && classes.Tl,
 		props.trl && classes.Trl,

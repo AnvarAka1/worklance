@@ -19,7 +19,10 @@ class App extends Component {
 		title: "Worklance"
 	};
 	componentDidMount() {
-		this.props.onAuthCheck();
+		if (localStorage.getItem("token")) {
+			this.props.onAuthCheck();
+			console.log("LOL");
+		}
 	}
 	redirectToProfile = () => {};
 

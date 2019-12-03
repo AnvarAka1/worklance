@@ -15,7 +15,7 @@ const freelancer = props => {
 	// all text is to the right
 	const rightText = props.inline && (
 		<React.Fragment>
-			<Text mt mbB>
+			<Text mt maxHeight={props.maxHeight} mbB>
 				{about}
 			</Text>
 			<Skills skills={skills} />

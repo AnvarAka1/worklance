@@ -8,7 +8,7 @@ import Drawer from "@material-ui/core/Drawer";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
-import LogoutModal from "../../components/LogoutModal/LogoutModal";
+import DialogModal from "../../components/DialogModal/DialogModal";
 
 export class Layout extends Component {
 	state = {
@@ -81,6 +81,9 @@ export class Layout extends Component {
 		this.setState({ isAuthorizing: true });
 	}
 	componentDidUpdate() {
+		if (this.state.isLogout) {
+			this.setState({ isLogout: false });
+		}
 		//update profile after profile settings
 		if (this.props.profileHasUpdated) {
 			const profile = this.updateUserInfo();
@@ -91,14 +94,6 @@ export class Layout extends Component {
 
 		// update profile when authorizing
 		if (this.props.isAuthorized && this.state.isAuthorizing) {
-			// let profile;
-			// const role = +localStorage.getItem("role");
-			// const profession = localStorage.getItem("profession");
-
-			// profile = { ...this.state.profile };
-			// profile.avatar = this.props.authAvatar;
-			// profile.name = this.props.name;
-			// profile.role = profession !== "null" ? profession : role;
 			const profile = this.updateUserInfo();
 			const shouldRedirect = this.state.isSignIn ? false : true;
 			this.setState({
@@ -189,6 +184,10 @@ export class Layout extends Component {
 		event.preventDefault();
 		this.setState({ logoutModalOpened: true });
 	};
+	logoutHandler = event => {
+		this.setState({ isLogout: true });
+		this.logoutModalClosedHandler(event);
+	};
 	responseGoogle = res => {
 		// console.log(res);
 		const userData = res.profileObj;
@@ -197,9 +196,15 @@ export class Layout extends Component {
 		this.props.onAuthGoogle(userData.givenName, userData.email, googleId);
 	};
 	render() {
+		const redirect = this.state.isLogout ? <Redirect to="/logout" /> : null;
+		const content = {
+			dialog: [ "Вы уверены, что хотите выйти?", "Are you sure you want to logout?", "Uzb" ]
+		};
 		return (
 			<div style={{ position: "relative" }}>
+				{redirect}
 				{this.state.isRedirect ? <Redirect to={"/profile"} /> : null}
+
 				<Modal scrollable open={this.state.signModalOpened} modalClosed={this.signModalClosedHandler}>
 					<SignModal
 						signModalClosed={this.signModalClosedHandler}
@@ -212,7 +217,12 @@ export class Layout extends Component {
 						submitted={this.formSubmittedHandler}
 					/>
 				</Modal>
-				<LogoutModal open={this.state.logoutModalOpened} modalClosed={this.logoutModalClosedHandler} />
+				<DialogModal
+					header={content.dialog}
+					yesClicked={this.logoutHandler}
+					open={this.state.logoutModalOpened}
+					modalClosed={this.logoutModalClosedHandler}
+				/>
 				<NavigationItems
 					logoutModalOpened={this.logoutModalOpenedHandler}
 					drawerOpened={this.drawerOpenedHandler}

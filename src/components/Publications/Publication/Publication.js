@@ -9,16 +9,18 @@ const publication = props => {
 		vacancy: [ "Вакансия", "Vacancy", "Uzb" ]
 	};
 	return (
-		<Paper mb>
-			<div className={classes.Publication} onClick={props.clicked}>
-				<Header h={5}>{title}</Header>
-				<div>
-					<Header h={5} normal>
-						{date}
-					</Header>
-					<Header h={5} normal>
-						{type ? content.vacancy[lang] : content.project[lang]}
-					</Header>
+		<Paper noPadding mb>
+			<div className={classes.Publication}>
+				<div className={classes.ClickablePart} onClick={props.clicked}>
+					<Header h={5}>{title}</Header>
+					<div>
+						<Header h={5} normal>
+							{date}
+						</Header>
+						<Header h={5} normal>
+							{type ? content.vacancy[lang] : content.project[lang]}
+						</Header>
+					</div>
 				</div>
 				<div className={classes.IconWrapper} onClick={props.removeClicked}>
 					<i className={[ "fa fa-trash", classes.Icon ].join(" ")} />

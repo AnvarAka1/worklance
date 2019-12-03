@@ -72,6 +72,7 @@ export class CandidatesPage extends Component {
 		) : null;
 		let candidates = !this.state.loading ? (
 			<Freelancers
+				maxHeight
 				inline
 				freelancers={this.state.candidates}
 				lang={this.state.lang}

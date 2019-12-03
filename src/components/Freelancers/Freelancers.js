@@ -18,6 +18,7 @@ const freelancers = props => {
 		return (
 			<Grid item xs={12} key={freelancer.id}>
 				<Freelancer
+					maxHeight={props.maxHeight}
 					inline={props.inline}
 					{...freelancer}
 					blockClicked={event => props.freelancerClicked(event, freelancer.id)}
