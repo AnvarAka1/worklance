@@ -1,0 +1,13 @@
+.FreelancerSkeleton{
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+}
+.Wrapper{
+    display: flex;
+    align-items: flex-start;
+}
+.Text{
+    width: 100%;
+    margin-left: 10px;
+}

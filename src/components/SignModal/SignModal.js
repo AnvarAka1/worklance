@@ -81,7 +81,7 @@ const signModal = props => {
 		</div>
 	);
 	const forgotPassword = props.isSignIn && (
-		<NavLink to="/forgot">
+		<NavLink to="/forgot" onClick={props.signModalClosed}>
 			<Header h={5} color="#00b1eb" center mt clicked={props.signModalClosed}>
 				{content.forgotPassword[lang ? lang : 0]}
 			</Header>

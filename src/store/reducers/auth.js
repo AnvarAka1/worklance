@@ -38,7 +38,12 @@ const authSuccess = (state, action) => {
 		loading: false
 	};
 };
-
+const authLoading = (state, action) => {
+	return {
+		...state,
+		loading: true
+	};
+};
 // error
 const authFail = (state, action) => {
 	return {
@@ -95,6 +100,8 @@ const authResetProfileUpdated = (state, action) => {
 };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case actionTypes.AUTH_LOADING:
+			return authLoading(state, action);
 		case actionTypes.AUTH_START:
 			return authStart(state, action);
 		case actionTypes.AUTH_SUCCESS:

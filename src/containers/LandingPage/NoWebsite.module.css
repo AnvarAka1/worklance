@@ -1,0 +1,15 @@
+.NoWebsite {
+	width: 100%;
+	min-height: 200px;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+}
+
+.NoWebsite div {
+	width: 100%;
+}
+.NoWebsite h1 {
+	/* white-space: nowrap; */
+	line-height: normal;
+}

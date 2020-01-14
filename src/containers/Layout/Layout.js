@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
 import DialogModal from "../../components/DialogModal/DialogModal";
+import LoadingModal from "../../components/LoadingModal/LoadingModal";
 
 export class Layout extends Component {
 	state = {
@@ -70,12 +71,13 @@ export class Layout extends Component {
 
 		profile: null,
 		isClient: false,
-		signModalOpened: false,
+		signModalOpened: true,
 		isSignIn: true,
 		isAuthorizing: false,
 		isRedirect: false,
 		drawerLeft: false,
-		logoutModalOpened: false
+		logoutModalOpened: false,
+		loading: false
 	};
 	componentDidMount() {
 		this.setState({ isAuthorizing: true });
@@ -84,6 +86,7 @@ export class Layout extends Component {
 		if (this.state.isLogout) {
 			this.setState({ isLogout: false });
 		}
+
 		//update profile after profile settings
 		if (this.props.profileHasUpdated) {
 			const profile = this.updateUserInfo();
@@ -129,6 +132,7 @@ export class Layout extends Component {
 	};
 	signModalClosedHandler = () => {
 		this.setState({ signModalOpened: false });
+		// do nothing
 	};
 	inputChangedHandler = (event, inputIdentifier) => {
 		// input is changed here
@@ -198,14 +202,21 @@ export class Layout extends Component {
 	render() {
 		const redirect = this.state.isLogout ? <Redirect to="/logout" /> : null;
 		const content = {
-			dialog: [ "Вы уверены, что хотите выйти?", "Are you sure you want to logout?", "Uzb" ]
+			dialog: [ "Вы уверены, что хотите выйти?", "Are you sure you want to logout?", "Uzb" ],
+			loading: [ "Пожалуйста, подождите...", "Please, wait...", "Uzb" ]
 		};
 		return (
 			<div style={{ position: "relative" }}>
 				{redirect}
 				{this.state.isRedirect ? <Redirect to={"/profile"} /> : null}
-
-				<Modal scrollable open={this.state.signModalOpened} modalClosed={this.signModalClosedHandler}>
+				<LoadingModal open={this.props.loading}>
+					{content.loading[this.props.lang ? this.props.lang : 0]}
+				</LoadingModal>
+				<Modal
+					scrollable
+					open={!this.props.loading && this.state.signModalOpened}
+					modalClosed={this.signModalClosedHandler}
+				>
 					<SignModal
 						signModalClosed={this.signModalClosedHandler}
 						roleClicked={this.roleClickedHandler}
@@ -262,7 +273,8 @@ const mapStateToProps = state => {
 		role: state.auth.role,
 		profession: state.auth.profession,
 		name: state.auth.name,
-		profileHasUpdated: state.auth.profileHasUpdated
+		profileHasUpdated: state.auth.profileHasUpdated,
+		loading: state.auth.loading
 	};
 };
 const mapDispatchToProps = dispatch => {

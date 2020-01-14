@@ -51,7 +51,11 @@ const navigationItems = props => {
 				/>
 			);
 		});
-
+	const hamburger = props.isAuthorized && (
+		<div className={classes.Hamburger} onClick={props.drawerOpened}>
+			<i className="fa fa-bars" />
+		</div>
+	);
 	const logo = (
 		<li className={classes.Logo}>
 			<Hidden xsDown>
@@ -83,15 +87,11 @@ const navigationItems = props => {
 				<div className={classes.NavigationItems}>
 					<ul className={classes.Items}>
 						{logo}
-						<Hidden smDown>{navigationItems}</Hidden>
+						<Hidden smDown>{props.isAuthorized && navigationItems}</Hidden>
 					</ul>
 					<div className={classes.RightNav}>
 						{props.isAuthorized ? myProfile : button}
-						<Hidden mdUp>
-							<div className={classes.Hamburger} onClick={props.drawerOpened}>
-								<i className="fa fa-bars" />
-							</div>
-						</Hidden>
+						<Hidden mdUp>{hamburger}</Hidden>
 					</div>
 				</div>
 			</Container>
@@ -99,8 +99,8 @@ const navigationItems = props => {
 	) : (
 		<React.Fragment>
 			<ul>
-				{navigationItems}
-				{exitButton}
+				{props.isAuthorized && navigationItems}
+				{props.isAuthorized && exitButton}
 			</ul>
 		</React.Fragment>
 	);

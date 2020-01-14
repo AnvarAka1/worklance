@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./ProfilePhoto.module.css";
 import Header from "../../UI/Header/Header";
 import Input from "../../UI/Input/Input";
+import Skeleton from "@material-ui/lab/Skeleton";
 const profilePhoto = props => {
 	const { avatar, name, lang } = props;
 	const profilePhotoClasses = [
@@ -31,7 +32,15 @@ const profilePhoto = props => {
 	);
 	return (
 		<div className={profilePhotoClasses.join(" ")}>
-			<img src={avatar} alt={name} />
+			{!props.loading ? (
+				<img src={avatar} alt={name} />
+			) : (
+				<Skeleton
+					variant="circle"
+					className={profilePhotoClasses.join(" ")}
+					style={{ boxSizing: "border-box" }}
+				/>
+			)}
 			{input}
 			{error}
 		</div>

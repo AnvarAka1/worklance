@@ -1,0 +1,31 @@
+.Images img {
+	width: auto;
+}
+.LandingPage img {
+	max-width: 20%;
+}
+.LandingPage {
+	font-size: 16px;
+	min-width: 320px;
+	position: relative;
+	line-height: 1.65;
+	font-family: opensans, sans-serif;
+	overflow-x: hidden;
+	color: #fff;
+}
+.LandingPage h1,
+.LandingPage h2,
+.LandingPage h3,
+.LandingPage h4,
+.LandingPage h4 {
+	color: #fff;
+}
+.LandingPage h1 {
+	font-size: 2.5rem;
+}
+.fontSize h1 {
+	font-size: 100px;
+}
+.fontSize p {
+	color: #fff;
+}

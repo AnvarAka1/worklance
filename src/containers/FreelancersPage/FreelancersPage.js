@@ -5,6 +5,7 @@ import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
 import Notifications from "../../hoc/Notifications/Notifications";
+import FreelancerSkeleton from "../../components/UI/Skeleton/FreelancerSkeleton/FreelancerSkeleton";
 export class FreelancersPage extends Component {
 	token = null;
 	state = {
@@ -69,7 +70,11 @@ export class FreelancersPage extends Component {
 			>
 				<Freelancer center button={button} clear {...this.freelancerIndex(this.state.freelancerSelected)} />
 			</Modal>
-		) : null;
+		) : (
+			<Modal>
+				<FreelancerSkeleton />
+			</Modal>
+		);
 		let freelancers = !this.state.loading ? (
 			<Freelancers
 				inline
@@ -77,7 +82,9 @@ export class FreelancersPage extends Component {
 				lang={this.state.lang}
 				freelancerClicked={this.freelancerClickedHandler}
 			/>
-		) : null;
+		) : (
+			<FreelancerSkeleton />
+		);
 
 		return (
 			<React.Fragment>

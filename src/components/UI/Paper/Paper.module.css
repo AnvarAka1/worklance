@@ -65,6 +65,14 @@
 	width: 0;
 	height: 0;
 }
+.Loading {
+	height: 80vh;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+}
 @media (max-width: 960px) {
 	.CancelMinHeight {
 		min-height: auto;
@@ -74,5 +82,8 @@
 	.Sign {
 		padding: 30px 30px 15px;
 		width: auto;
+	}
+	.Loading {
+		padding: 0;
 	}
 }

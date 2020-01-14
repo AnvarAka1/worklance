@@ -16,7 +16,8 @@ const paper = props => {
 		props.center && classes.Center,
 		props.cancelMinHeight && classes.CancelMinHeight,
 		props.logout && classes.Logout,
-		props.scroll && classes.Scroll
+		props.scroll && classes.Scroll,
+		props.loading && classes.Loading
 	];
 	const paperStyle = {
 		cursor: props.click ? "pointer" : "default"

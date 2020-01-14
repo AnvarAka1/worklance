@@ -16,8 +16,8 @@
 	transition: all .25s ease;
 }
 .Button:hover {
-	background: #024388;
-	color: #fff;
+	background: #bebebe;
+	color: #777777;
 }
 .Button:hover * {
 	color: #ffffff;
@@ -36,14 +36,26 @@
 	text-align: center;
 	color: #ffffff;
 }
+.Blue:hover {
+	background: #0057b4;
+	color: #ffffff;
+}
 .Green {
 	background: #1bc47d;
 	font-weight: normal;
 	color: #ffffff;
 }
+.Green:hover {
+	background: #005c36;
+	color: #ffffff;
+}
 .Danger {
 	background: red;
 	font-weight: normal;
+	color: #ffffff;
+}
+.Danger:hover {
+	background: rgb(167, 0, 0);
 	color: #ffffff;
 }
 .Danger * {

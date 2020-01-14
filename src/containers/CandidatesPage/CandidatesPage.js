@@ -5,6 +5,7 @@ import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
 import Notifications from "../../hoc/Notifications/Notifications";
+import FreelancerSkeleton from "../../components/UI/Skeleton/FreelancerSkeleton/FreelancerSkeleton";
 export class CandidatesPage extends Component {
 	token = null;
 	state = {
@@ -69,7 +70,11 @@ export class CandidatesPage extends Component {
 			>
 				<Freelancer center button={button} clear {...this.candidateIndex(this.state.candidateSelected)} />
 			</Modal>
-		) : null;
+		) : (
+			<Modal>
+				<FreelancerSkeleton />
+			</Modal>
+		);
 		let candidates = !this.state.loading ? (
 			<Freelancers
 				maxHeight
@@ -82,7 +87,9 @@ export class CandidatesPage extends Component {
 				freelancerClicked={this.candidateClickedHandler}
 				index={this.candidateIndex(this.state.candidateSelected)}
 			/>
-		) : null;
+		) : (
+			<FreelancerSkeleton />
+		);
 
 		return (
 			<React.Fragment>

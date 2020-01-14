@@ -1,5 +1,10 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-db";
+export const authLoading = () => {
+	return {
+		type: actionTypes.AUTH_LOADING
+	};
+};
 export const authStart = () => {
 	return {
 		type: actionTypes.AUTH_START
@@ -21,14 +26,16 @@ export const authSuccess = (token, id, role, email, avatar, name, profession, pa
 		avatar: avatar,
 		profession: profession,
 		password: password,
-		formFlush: true
+		formFlush: true,
+		loading: false
 	};
 };
 
 export const authFail = error => {
 	return {
 		type: actionTypes.AUTH_FAIL,
-		error: error
+		error: error,
+		loading: false
 	};
 };
 export const authAvatarChange = avatar => {
@@ -99,7 +106,7 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 
 				localStorage.setItem(
 					"profession",
-					+userData.role ? response.data.userdata.company : response.data.userdata.user_position
+					+userData.role ? response.data.userdata.company : userData.user_position
 				);
 
 				dispatch(
@@ -110,7 +117,8 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 						email,
 						userData.avatar,
 						userData.fullname,
-						response.data.userdata.user_position,
+						// response.data.userdata.user_position,
+						userData.user_position,
 						password
 					)
 				);
@@ -133,6 +141,7 @@ export const checkAuthTimeout = expirationTime => {
 
 export const authCheckState = () => {
 	return dispatch => {
+		dispatch(authLoading());
 		const token = localStorage.getItem("token");
 		const id = localStorage.getItem("id");
 		const role = localStorage.getItem("role");
