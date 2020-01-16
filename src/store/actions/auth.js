@@ -175,6 +175,9 @@ export const authCheckState = () => {
 					}
 				}
 			})
-			.catch(err => console.log(err));
+			.catch(err => {
+				console.log(err);
+				dispatch(authFail(err));
+			});
 	};
 };

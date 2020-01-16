@@ -4,7 +4,6 @@ import Freelancers from "../../components/Freelancers/Freelancers";
 import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
-import Notifications from "../../hoc/Notifications/Notifications";
 import FreelancerSkeleton from "../../components/UI/Skeleton/FreelancerSkeleton/FreelancerSkeleton";
 export class CandidatesPage extends Component {
 	token = null;
@@ -100,4 +99,4 @@ export class CandidatesPage extends Component {
 	}
 }
 
-export default Notifications(CandidatesPage);
+export default CandidatesPage;

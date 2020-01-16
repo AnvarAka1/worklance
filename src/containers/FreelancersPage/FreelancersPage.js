@@ -4,7 +4,6 @@ import Freelancers from "../../components/Freelancers/Freelancers";
 import Freelancer from "../../components/Freelancers/Freelancer/Freelancer";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
-import Notifications from "../../hoc/Notifications/Notifications";
 import FreelancerSkeleton from "../../components/UI/Skeleton/FreelancerSkeleton/FreelancerSkeleton";
 export class FreelancersPage extends Component {
 	token = null;
@@ -70,11 +69,7 @@ export class FreelancersPage extends Component {
 			>
 				<Freelancer center button={button} clear {...this.freelancerIndex(this.state.freelancerSelected)} />
 			</Modal>
-		) : (
-			<Modal>
-				<FreelancerSkeleton />
-			</Modal>
-		);
+		) : null;
 		let freelancers = !this.state.loading ? (
 			<Freelancers
 				inline
@@ -95,4 +90,4 @@ export class FreelancersPage extends Component {
 	}
 }
 
-export default Notifications(FreelancersPage);
+export default FreelancersPage;

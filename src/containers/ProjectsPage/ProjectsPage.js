@@ -4,7 +4,7 @@ import Project from "../../components/Projects/Project/Project";
 import Button from "../../components/UI/Button/Button";
 import Modal from "../../components/UI/Modal/Modal";
 import axios from "../../axios-db";
-import Notifications from "../../hoc/Notifications/Notifications";
+
 export class ProjectsPage extends Component {
 	_isMounted = false;
 	state = {
@@ -104,4 +104,4 @@ export class ProjectsPage extends Component {
 	}
 }
 
-export default Notifications(ProjectsPage);
+export default ProjectsPage;

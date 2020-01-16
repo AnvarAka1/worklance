@@ -10,6 +10,8 @@ import AddPublicationPage from "./containers/AddPublicationPage/AddPublicationPa
 import CandidatesPage from "./containers/CandidatesPage/CandidatesPage";
 import ForgotPasswordPage from "./containers/ForgotPasswordPage/ForgotPasswordPage";
 // import LandingPage from "./containers/LandingPage/LandingPage";
+import ResetPasswordPage from "./containers/ResetPasswordPage/ResetPasswordPage";
+import NotificationsLayout from "./hoc/NotificationsLayout/NotificationsLayout";
 import NoWebsite from "./containers/LandingPage/NoWebsite";
 import { TitleComponent } from "./hoc/TitleComponent/TitleComponent";
 
@@ -26,27 +28,32 @@ class App extends Component {
 		}
 	}
 
-	redirectToProfile = () => {};
-
 	render() {
 		let routes = (
 			<Switch>
 				<Route
 					path="/forgot"
-					component={() => {
+					component={props => {
 						return (
-							<Layout redirectToProfile={this.redirectToProfile}>
-								<ForgotPasswordPage />
+							<Layout>
+								<ForgotPasswordPage {...props} />
+							</Layout>
+						);
+					}}
+				/>
+				<Route
+					path="/newpassword"
+					component={props => {
+						return (
+							<Layout>
+								<ResetPasswordPage {...props} />
 							</Layout>
 						);
 					}}
 				/>
 				<Route
 					path="/projects"
-					// component={() => {
-					// 	return <Layout redirectToProfile={this.redirectToProfile} />;
-					// }}
-					component={() => {
+					component={props => {
 						return (
 							<Layout>
 								<span />
@@ -60,12 +67,40 @@ class App extends Component {
 		);
 		if (this.props.isAuthorized) {
 			routes = (
-				<Layout redirectToProfile={this.redirectToProfile}>
+				<Layout>
 					<Switch>
-						<Route path="/projects" component={ProjectsPage} />
-						<Route path="/vacancies" component={VacanciesPage} />
-						<Route path="/freelancers" component={FreelancersPage} />
-						<Route path="/candidates" component={CandidatesPage} />
+						<Route
+							path="/projects"
+							render={props => (
+								<NotificationsLayout>
+									<ProjectsPage {...props} />
+								</NotificationsLayout>
+							)}
+						/>
+						<Route
+							path="/vacancies"
+							render={props => (
+								<NotificationsLayout>
+									<VacanciesPage {...props} />
+								</NotificationsLayout>
+							)}
+						/>
+						<Route
+							path="/freelancers"
+							render={props => (
+								<NotificationsLayout>
+									<FreelancersPage {...props} />
+								</NotificationsLayout>
+							)}
+						/>
+						<Route
+							path="/candidates"
+							render={props => (
+								<NotificationsLayout>
+									<CandidatesPage {...props} />
+								</NotificationsLayout>
+							)}
+						/>
 						<Route path="/profile" component={ProfilePage} />
 						<Route path="/add" component={AddPublicationPage} />
 						<Route path="/logout" component={Logout} />

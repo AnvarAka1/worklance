@@ -10,11 +10,13 @@ export class ForgotPasswordPage extends Component {
 		email: {
 			inputType: "input",
 			elementConfig: {
-				type: "email"
+				type: "email",
+				placeholder: "E-mail"
 			},
 			value: ""
 		},
-		lang: 0
+		lang: 0,
+		isSent: false
 	};
 	inputChangeHandler = event => {
 		let email = {
@@ -25,24 +27,32 @@ export class ForgotPasswordPage extends Component {
 	};
 	formSubmitHandler = event => {
 		event.preventDefault();
+		this.setState({ isSent: false });
 		let formData = new FormData();
 		formData.append("email", this.state.email.value);
 		axios
-			.post("/reset", formData, {
-				headers: {
-					Authorization: this.token
-				}
-			})
+			.post("/reset", formData)
 			.then(res => {
 				console.log(res);
+				this.setState({ isSent: true });
 			})
 			.catch(err => console.log(err));
 	};
 	render() {
 		const content = {
 			email: [ "Введите свой email", "Enter your email", "Uzb" ],
+			message: [
+				"Готово. На Ваш E-mail была выслана ссылка для сброса пароля",
+				"Done. The link for password reset was sent on your E-mail",
+				"Uzb"
+			],
 			button: [ "Отправить", "Send", "Uzb" ]
 		};
+		const message = this.state.isSent ? (
+			<Header h={6} mt color="green">
+				{content.message[this.props.lang ? this.props.lang : 0]}
+			</Header>
+		) : null;
 		return (
 			<Grid item xs={12}>
 				<Grid container>
@@ -55,6 +65,7 @@ export class ForgotPasswordPage extends Component {
 									{content.email[this.state.lang]}
 								</Header>
 								<Input {...this.state.email} changed={event => this.inputChangeHandler(event)} />
+								{message}
 								<Button mt blue wide>
 									{content.button[this.state.lang]}
 								</Button>

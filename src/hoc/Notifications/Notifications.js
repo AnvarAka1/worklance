@@ -183,6 +183,10 @@ const Notifications = WrappedComponent => {
 		filterSubmitHandler = () => {
 			console.log("Filter submitted");
 		};
+		viewClickedHandler = (event, id) => {
+			event.preventDefault();
+			console.log("Notification " + id + " was clicked!");
+		};
 		render() {
 			let notificationItems = !this.state.loading ? (
 				<NotificationItems
