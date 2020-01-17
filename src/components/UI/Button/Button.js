@@ -14,7 +14,8 @@ const button = props => {
 		props.mt && classes.Mt,
 		props.ptb && classes.Ptb,
 		props.exit && classes.Exit,
-		props.noHover && classes.NoHover
+		props.noHover && classes.NoHover,
+		props.dark && classes.Dark
 	];
 	const style = {
 		...props.buttonStyle

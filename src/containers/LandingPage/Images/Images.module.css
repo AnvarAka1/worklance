@@ -1,0 +1,75 @@
+.Images {
+	position: relative;
+	min-height: 100%;
+	padding: 50px 0 10px;
+	text-align: center;
+}
+.StaticImage {
+	position: absolute;
+	width: 160px;
+	height: 160px;
+	left: 0;
+	top: 0;
+	opacity: 0.3;
+	transform: rotate(30deg);
+}
+
+.ImageWrapper {
+	text-align: left;
+	position: relative;
+	padding: 0px 150px 90px;
+	box-sizing: border-box;
+}
+.People {
+	width: 400px;
+	height: 400px;
+    margin: auto;
+    z-index: 3;
+    position: relative;
+}
+.Text {
+	position: absolute;
+	bottom: 0;
+    left: 70px;
+    z-index: 4;
+}
+.Text * {
+	line-height: 35px;
+}
+@media (max-width: 960px) {
+	.ImageWrapper {
+		width: 100%;
+		padding: 0px 60px 90px;
+		text-align: center;
+	}
+	.Text {
+		left: 40px;
+		text-align: left;
+		width: 100%;
+	}
+}
+@media (max-width: 700px) {
+	.ImageWrapper {
+		width: 100%;
+		padding: 0px 30px 90px;
+	}
+	.Text {
+		left: 10px;
+	}
+	.People {
+		width: 100%;
+		height: auto;
+	}
+	.Text * {
+		line-height: 25px;
+	}
+}
+@media (max-width: 400px) {
+	.ImageWrapper {
+		width: 100%;
+		padding: 0px 10px 90px;
+	}
+	.Text {
+		left: 10px;
+	}
+}

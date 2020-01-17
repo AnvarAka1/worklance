@@ -1,0 +1,16 @@
+.Svg {
+	position: absolute;
+	z-index: 2;
+	left: -20%;
+	top: -25%;
+}
+
+@media (max-width: 960px) {
+	.Svg {
+		position: absolute;
+		z-index: 2;
+		left: 0;
+		right: 0;
+		top: -5%;
+	}
+}

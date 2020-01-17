@@ -186,3 +186,14 @@ code {
 	font-weight: bold;
 	src: url('./assets/fonts/Montserrat/Montserrat-Bold.ttf');
 }
+@font-face {
+	font-family: 'PlayfairDisplay';
+	font-weight: 700;
+	src: url('./assets/fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf');
+}
+
+@font-face {
+	font-family: 'PlayfairDisplay';
+	font-weight: normal;
+	src: url('./assets/fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf');
+}

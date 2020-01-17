@@ -10,3 +10,9 @@ export const langChange = () => {
 		type: actionTypes.LANG_CHANGE
 	};
 };
+export const langChangeById = id => {
+	return {
+		type: actionTypes.LANG_CHANGE_BY_ID,
+		id: id
+	};
+};

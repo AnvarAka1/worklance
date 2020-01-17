@@ -7,4 +7,4 @@ export {
 	authProfileUpdate,
 	authResetProfileUpdated
 } from "./auth";
-export { langInit, langChange } from "./lang";
+export { langInit, langChange, langChangeById } from "./lang";

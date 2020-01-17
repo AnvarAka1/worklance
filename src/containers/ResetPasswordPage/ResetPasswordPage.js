@@ -5,6 +5,7 @@ import Header from "../../components/UI/Header/Header";
 import Paper from "../../components/UI/Paper/Paper";
 import Button from "../../components/UI/Button/Button";
 import axios from "../../axios-db";
+import Skeleton from "../../components/UI/Skeleton/Skeleton";
 import queryString from "query-string";
 export class ResetPasswordPage extends Component {
 	state = {
@@ -46,7 +47,7 @@ export class ResetPasswordPage extends Component {
 	};
 	formSubmitHandler = event => {
 		event.preventDefault();
-		this.setState({ isSent: false });
+		this.setState({ isSent: false, loading: true });
 		let formData = new FormData();
 		const tokenValue = queryString.parse(this.props.location.search);
 		formData.append("token", tokenValue.token);
@@ -56,9 +57,12 @@ export class ResetPasswordPage extends Component {
 			.post("/reset/password", formData)
 			.then(res => {
 				console.log(res);
-				this.setState({ isSent: true });
+				this.setState({ isSent: true, loading: false });
 			})
-			.catch(err => console.log(err));
+			.catch(err => {
+				console.log(err);
+				this.setState({ error: err, loading: false });
+			});
 	};
 	render() {
 		const content = {
@@ -75,6 +79,16 @@ export class ResetPasswordPage extends Component {
 				{content.message[this.props.lang ? this.props.lang : 0]}
 			</Header>
 		) : null;
+		const inputs = (
+			<React.Fragment>
+				<Input {...this.state.form.password} changed={event => this.inputChangeHandler(event, "password")} />
+				<Input
+					mt
+					{...this.state.form.confirmPassword}
+					changed={event => this.inputChangeHandler(event, "confirmPassword")}
+				/>
+			</React.Fragment>
+		);
 		return (
 			<Grid item xs={12}>
 				<Grid container>
@@ -86,19 +100,15 @@ export class ResetPasswordPage extends Component {
 								<Header h={5} mb center>
 									{content.password[this.state.lang]}
 								</Header>
-								<Input
-									{...this.state.form.password}
-									changed={event => this.inputChangeHandler(event, "password")}
-								/>
-								<Input
-									mt
-									{...this.state.form.confirmPassword}
-									changed={event => this.inputChangeHandler(event, "confirmPassword")}
-								/>
+								{inputs}
 								{message}
-								<Button mt blue wide>
-									{content.button[this.state.lang]}
-								</Button>
+								{!this.state.loading ? (
+									<Button mt blue wide>
+										{content.button[this.state.lang]}
+									</Button>
+								) : (
+									<Skeleton />
+								)}
 							</form>
 						</Paper>
 					</Grid>

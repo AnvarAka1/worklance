@@ -15,7 +15,7 @@ const langInit = (state, action) => {
 };
 const langChange = (state, action) => {
 	const lang = state.lang;
-	const newLang = (lang + 1) % 2;
+	const newLang = (lang + 1) % 3;
 	const date = new Date("2099");
 	cookies.set("lang", newLang, { expires: date });
 	return {
@@ -23,13 +23,20 @@ const langChange = (state, action) => {
 		lang: newLang
 	};
 };
-
+const langChangeById = (state, action) => {
+	return {
+		...state,
+		lang: action.id
+	};
+};
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.LANG_INIT:
 			return langInit(state, action);
 		case actionTypes.LANG_CHANGE:
 			return langChange(state, action);
+		case actionTypes.LANG_CHANGE_BY_ID:
+			return langChangeById(state, action);
 		default:
 			return state;
 	}

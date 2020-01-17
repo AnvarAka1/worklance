@@ -1,31 +1,135 @@
-.Images img {
-	width: auto;
-}
-.LandingPage img {
-	max-width: 20%;
-}
 .LandingPage {
-	font-size: 16px;
-	min-width: 320px;
+	min-height: 625px;
 	position: relative;
-	line-height: 1.65;
-	font-family: opensans, sans-serif;
-	overflow-x: hidden;
+	padding-bottom: 135px;
+	font-family: PlayfairDisplay, sans-serif;
+}
+.LandingPage * {
+	font-family: PlayfairDisplay, sans-serif;
+}
+.Nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 30px;
+}
+.Nav img {
+	width: 190px;
+	height: auto;
+}
+.Dropdown {
+	position: relative;
+	z-index: 100;
+}
+.Dropdown h6 {
+	cursor: pointer;
+}
+.Dropdown:hover ul {
+	display: block;
+}
+
+.Dropdown ul {
+	display: none;
+	z-index: 999;
+	position: absolute;
+	top: 100%;
+	background: #84848481;
+	text-align: center;
+	border: 1px solid #505050;
+	box-sizing: border-box;
+	border-radius: 4px;
+	right: 0;
+}
+.Dropdown li {
+	cursor: pointer;
+	padding: 5px 50px;
+	white-space: nowrap;
+}
+.Dropdown li * {
 	color: #fff;
 }
-.LandingPage h1,
-.LandingPage h2,
-.LandingPage h3,
-.LandingPage h4,
-.LandingPage h4 {
-	color: #fff;
+.Dropdown li:hover * {
+	color: #000;
 }
-.LandingPage h1 {
-	font-size: 2.5rem;
+.Content {
+	padding-top: 200px;
 }
-.fontSize h1 {
-	font-size: 100px;
+.Content * {
+	line-height: 30px;
 }
-.fontSize p {
-	color: #fff;
+.Content *,
+.Buttons *,
+.Footer {
+	font-size: 18px;
+}
+.Content span {
+	font-weight: normal;
+}
+.Subcontent {
+	margin-top: 30px;
+}
+.Buttons {
+	display: flex;
+	align-items: center;
+}
+.Buttons button,
+.Buttons a {
+	white-space: nowrap;
+	cursor: pointer;
+}
+.Buttons button {
+	width: 190px;
+	line-height: 22px;
+}
+.Buttons a {
+	color: #007bff;
+}
+.Buttons a:hover {
+	color: rgba(0, 123, 255, 0.692);
+}
+.Buttons span {
+	margin: 0 20px;
+}
+.Footer {
+	padding: 70px 0 10px;
+	background-color: #f0f0f0;
+	text-align: center;
+	margin-top: 30px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+@media (max-width: 600px) {
+	.Nav img {
+		width: 150px;
+	}
+	.Content *,
+	.Buttons *,
+	.Footer {
+		font-size: 14px;
+	}
+	.Content {
+		padding-top: 100px;
+	}
+	.Buttons {
+		margin-top: 5px;
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+	}
+	.Buttons span {
+		margin: 10px 0;
+	}
+	.Buttons button {
+		width: 150px;
+		line-height: 18px;
+	}
+}
+@media (max-width: 400px) {
+	.Content {
+		padding-top: 60px;
+	}
 }

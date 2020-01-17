@@ -8,11 +8,10 @@ import VacanciesPage from "./containers/VacanciesPage/VacanciesPage";
 import Logout from "./containers/Logout/Logout";
 import AddPublicationPage from "./containers/AddPublicationPage/AddPublicationPage";
 import CandidatesPage from "./containers/CandidatesPage/CandidatesPage";
-import ForgotPasswordPage from "./containers/ForgotPasswordPage/ForgotPasswordPage";
-// import LandingPage from "./containers/LandingPage/LandingPage";
-import ResetPasswordPage from "./containers/ResetPasswordPage/ResetPasswordPage";
+// import ForgotPasswordPage from "./containers/ForgotPasswordPage/ForgotPasswordPage";
+// import ResetPasswordPage from "./containers/ResetPasswordPage/ResetPasswordPage";
 import NotificationsLayout from "./hoc/NotificationsLayout/NotificationsLayout";
-import NoWebsite from "./containers/LandingPage/NoWebsite";
+import LandingPage from "./containers/LandingPage/LandingPage";
 import { TitleComponent } from "./hoc/TitleComponent/TitleComponent";
 
 import { connect } from "react-redux";
@@ -31,7 +30,7 @@ class App extends Component {
 	render() {
 		let routes = (
 			<Switch>
-				<Route
+				{/* <Route
 					path="/forgot"
 					component={props => {
 						return (
@@ -60,12 +59,12 @@ class App extends Component {
 							</Layout>
 						);
 					}}
-				/>
-				<Route path="/" exact component={NoWebsite} />
+				/> */}
+				<Route path="/" component={LandingPage} />
 				<Redirect from="*" to="/projects" />
 			</Switch>
 		);
-		if (this.props.isAuthorized) {
+		if (this.props.isAuthorized && false) {
 			routes = (
 				<Layout>
 					<Switch>

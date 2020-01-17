@@ -90,6 +90,19 @@
 	padding-top: 25px;
 	padding-bottom: 25px;
 }
+.Dark {
+	background: #000000;
+	color: #ffffff;
+}
+.Dark:hover {
+	background: #000;
+}
+.Dark * {
+	color: #ffffff;
+}
+.Dark:hover * {
+	color: rgba(255, 255, 255, 0.658);
+}
 .NoHover:hover {
 	background: #eeeeee;
 	color: #777777;
