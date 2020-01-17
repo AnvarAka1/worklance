@@ -10,6 +10,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./store/reducers/auth";
 import langReducer from "./store/reducers/lang";
+
 import ScrollToTop from "./hoc/ScrollToTop/ScrollToTop";
 const reducers = combineReducers({
 	auth: authReducer,
