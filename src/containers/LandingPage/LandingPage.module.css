@@ -1,8 +1,27 @@
+.Wrapper {
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	height: 100vh;
+}
 .LandingPage {
-	min-height: 625px;
+	/* min-height: 100%; */
 	position: relative;
-	padding-bottom: 135px;
+	z-index: 1;
+	padding-bottom: 0;
 	font-family: PlayfairDisplay, sans-serif;
+	/* height: calc(100vh - 104px); */
+}
+.LandingPage .SubPage {
+	content: '';
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #000;
+	z-index: -500;
 }
 .LandingPage * {
 	font-family: PlayfairDisplay, sans-serif;
@@ -95,7 +114,7 @@
 	background-color: #f0f0f0;
 	text-align: center;
 	margin-top: 30px;
-	position: absolute;
+	/* position: absolute; */
 	left: 0;
 	right: 0;
 	bottom: 0;

@@ -12,6 +12,7 @@ const initialState = {
 	password: "",
 	formFlush: false,
 	profileHasUpdated: false,
+	success: null,
 	loading: false
 };
 
@@ -98,10 +99,26 @@ const authResetProfileUpdated = (state, action) => {
 		profileHasUpdated: false
 	};
 };
+const authRegSuccess = (state, action) => {
+	return {
+		...state,
+		success: true,
+		loading: false
+	};
+};
+const regSuccess = (state, action) => {
+	return {
+		...state,
+		success: action.message,
+		loading: false
+	};
+};
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.AUTH_LOADING:
 			return authLoading(state, action);
+		case actionTypes.AUTH_REG_SUCCESS:
+			return authRegSuccess(state, action);
 		case actionTypes.AUTH_START:
 			return authStart(state, action);
 		case actionTypes.AUTH_SUCCESS:
@@ -118,6 +135,8 @@ const reducer = (state = initialState, action) => {
 			return authLogout(state, action);
 		case actionTypes.AUTH_FORM_FLUSH:
 			return authFormFlush(state, action);
+		case actionTypes.REG_SUCCESS:
+			return regSuccess(state, action);
 		default:
 			return state;
 	}

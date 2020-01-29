@@ -21,17 +21,17 @@
 	box-sizing: border-box;
 }
 .People {
-	width: 400px;
-	height: 400px;
-    margin: auto;
-    z-index: 3;
-    position: relative;
+	width: 350px;
+	height: 350px;
+	margin: auto;
+	z-index: 3;
+	position: relative;
 }
 .Text {
 	position: absolute;
 	bottom: 0;
-    left: 70px;
-    z-index: 4;
+	left: 70px;
+	z-index: 4;
 }
 .Text * {
 	line-height: 35px;

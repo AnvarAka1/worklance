@@ -218,6 +218,8 @@ export class Layout extends Component {
 					modalClosed={this.signModalClosedHandler}
 				>
 					<SignModal
+						regSuccessMessage={this.props.regSuccess}
+						isAuthSuccess={this.props.regSuccess}
 						signModalClosed={this.signModalClosedHandler}
 						roleClicked={this.roleClickedHandler}
 						isClientSelected={this.state.isClient}
@@ -269,6 +271,7 @@ const mapStateToProps = state => {
 		isLoading: state.auth.loading,
 		isFormFlush: state.auth.formFlush,
 		hasError: state.auth.error,
+		regSuccess: state.auth.success,
 		authAvatar: state.auth.avatar,
 		role: state.auth.role,
 		profession: state.auth.profession,

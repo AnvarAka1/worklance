@@ -21,7 +21,12 @@ const signModal = props => {
 		noAccountMessage: [ "У вас нет аккаунта? Пройдите ", "Do not have an account? " ],
 		auth: [ "Авторизацию", "Authorize" ],
 		reg: [ "Регистрацию", "Register" ],
-		forgotPassword: [ "Забыли пароль?", "Forgot password", "Uzb" ]
+		forgotPassword: [ "Забыли пароль?", "Forgot password", "Uzb" ],
+		message: [
+			"Вы были успешно зарегистрированы. Можете войти через свой аккаунт",
+			"You have been successfully registered. You can now log in using you account",
+			"Uzb"
+		]
 	};
 	let objForm = props.isSignIn ? props.form.signIn : props.form.signUp;
 	const inputs = [];
@@ -94,6 +99,18 @@ const signModal = props => {
 	);
 	return (
 		<Paper sign clear center>
+			{props.isAuthSuccess &&
+			props.isAuthSuccess === true && (
+				<Header h={5} mb color="green" center>
+					{content.message[props.lang ? props.lang : 0]}
+				</Header>
+			)}
+			{props.regSuccessMessage &&
+			props.isAuthSuccess !== true && (
+				<Header h={5} mb color="green" center>
+					{props.regSuccessMessage}
+				</Header>
+			)}
 			{google}
 			<Header center mtbB h={5}>
 				{content.or[lang ? lang : 0]}

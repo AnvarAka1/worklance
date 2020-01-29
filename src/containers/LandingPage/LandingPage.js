@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./LandingPage.module.css";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import Button from "../../components/UI/Button/Button";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -12,19 +12,18 @@ import Images from "./Images/Images";
 import Hidden from "@material-ui/core/Hidden";
 class LandingPage extends Component {
 	state = {
-		size: 600,
+		size: 500,
 		setSize: false,
 		isChanged: false,
 		posNum: 0
 	};
 	componentDidMount() {
-		console.log(this.state.setSize);
 		window.addEventListener("resize", this.handleResize, false);
 		this.setState({ isChanged: false });
 	}
-	// componentWillUnmount() {
-	// 	window.removeEventListener("resize", this.handleResize, false);
-	// }
+	componentWillUnmount() {
+		// window.removeEventListener("resize", this.handleResize, false);
+	}
 	componentDidUpdate() {
 		if (!this.state.isChanged) {
 			this.setState(prevState => {
@@ -37,6 +36,8 @@ class LandingPage extends Component {
 			setTimeout(() => {
 				this.setState({ isChanged: false });
 			}, 5000);
+			// window.removeEventListener("resize", this.handleResize, false);
+			// window.addEventListener("resize", this.handleResize, false);
 		}
 
 		if (this.state.setSize) {
@@ -46,6 +47,7 @@ class LandingPage extends Component {
 		}
 	}
 	handleResize = () => {
+		// console.log(this.state.setSize);
 		if (!this.state.setSize) {
 			// console.log(this.state.setSize);
 			// console.log(window.screen.width);
@@ -91,57 +93,69 @@ class LandingPage extends Component {
 			);
 		});
 		return (
-			<div className={classes.LandingPage}>
-				<Container>
-					<Grid container>
-						<Grid item xs={12}>
-							<Header>
-								<div className={classes.Nav}>
-									<div>
-										<img src={Logo} alt="Logo" />
-									</div>
-									<div>
-										<div className={classes.Dropdown}>
-											<Header h={6} color="#777777">
-												{content.lang[lang ? lang : 0]}
-											</Header>
-											<ul>{languages}</ul>
+			<div className={classes.Wrapper}>
+				<div className={classes.LandingPage}>
+					<Container>
+						<Grid container>
+							<Grid item xs={12}>
+								<Header>
+									<div className={classes.Nav}>
+										<div>
+											<img src={Logo} alt="Logo" />
+										</div>
+										<div>
+											<div className={classes.Dropdown}>
+												<Header h={6} color="#777777">
+													{content.lang[lang ? lang : 0]}
+												</Header>
+												<ul>{languages}</ul>
+											</div>
 										</div>
 									</div>
-								</div>
-							</Header>
-						</Grid>
-						<Hidden mdUp>
-							<Grid item xs={12}>
-								<Images />
-							</Grid>
-						</Hidden>
-						<Grid item md={5} sm={12}>
-							<div className={classes.Content}>
-								<Header h={5}>
-									Worklance<span>{content.definition[lang ? lang : 0]}</span>
 								</Header>
-							</div>
-							<div className={classes.Subcontent}>
-								<Header h={6} color="#333333" normal>
-									{content.looking[lang ? lang : 0]}:
-								</Header>
-								<div className={classes.Buttons}>
-									<NavLink to="/freelancers">
-										<Button dark>{content.emp[lang ? lang : 0]}</Button>
-									</NavLink>
-									<span>{content.or[lang ? lang : 0]}</span>
-									<NavLink to="/vacancies">{content.job[lang ? lang : 0]}</NavLink>
-								</div>
-							</div>
-						</Grid>
-						<Hidden smDown>
-							<Grid item xs={7}>
-								<Images posNum={this.state.posNum} lang={lang} size={this.state.size} />
 							</Grid>
-						</Hidden>
-					</Grid>
-				</Container>
+							<Hidden mdUp>
+								<Grid item xs={12}>
+									<Images />
+								</Grid>
+							</Hidden>
+							<Grid item md={5} sm={12}>
+								<div className={classes.Content}>
+									<Header h={5}>
+										Worklance<span>{content.definition[lang ? lang : 0]}</span>
+									</Header>
+								</div>
+								<div className={classes.Subcontent}>
+									<Header h={6} color="#333333" normal>
+										{content.looking[lang ? lang : 0]}:
+									</Header>
+									<div className={classes.Buttons}>
+										<a
+											href="https://instagram.com/worklance_live"
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											<Button dark>{content.emp[lang ? lang : 0]}</Button>
+										</a>
+										<span>{content.or[lang ? lang : 0]}</span>
+										<a
+											href="https://t.me/worklance_channel"
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{content.job[lang ? lang : 0]}
+										</a>
+									</div>
+								</div>
+							</Grid>
+							<Hidden smDown>
+								<Grid item xs={7}>
+									<Images posNum={this.state.posNum} lang={lang} size={this.state.size} />
+								</Grid>
+							</Hidden>
+						</Grid>
+					</Container>
+				</div>
 				<footer>
 					<div className={classes.Footer}>Worklance inc. © 2020.</div>
 				</footer>

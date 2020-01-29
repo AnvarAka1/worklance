@@ -1,4 +1,5 @@
 export const AUTH_LOADING = "AUTH_LOADING";
+export const AUTH_REG_SUCCESS = "AUTH_REG_SUCCESS";
 export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
@@ -7,6 +8,7 @@ export const AUTH_FORM_FLUSH = "AUTH_FORM_FLUSH";
 export const AUTH_AVATAR_CHANGE = "AUTH_AVATAR_CHANGE";
 export const AUTH_PROFILE_UPDATE = "AUTH_PROFILE_UPDATE";
 export const AUTH_RESET_PROFILE_UPDATED = "AUTH_RESET_PROFILE_UPDATED";
+export const REG_SUCCESS = "REG_SUCCESS";
 
 export const LANG_INIT = "LANG_INIT";
 export const LANG_CHANGE = "LANG_CHANGE";

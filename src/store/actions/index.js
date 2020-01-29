@@ -5,6 +5,8 @@ export {
 	authFormFlush,
 	authAvatarChange,
 	authProfileUpdate,
-	authResetProfileUpdated
+	authResetProfileUpdated,
+	authRegSuccess,
+	authStart
 } from "./auth";
 export { langInit, langChange, langChangeById } from "./lang";

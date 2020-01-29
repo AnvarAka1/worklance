@@ -57,6 +57,17 @@ export const authResetProfileUpdated = () => {
 		type: actionTypes.AUTH_RESET_PROFILE_UPDATED
 	};
 };
+export const authRegSuccess = () => {
+	return {
+		type: actionTypes.AUTH_REG_SUCCESS
+	};
+};
+export const regSuccess = message => {
+	return {
+		type: actionTypes.REG_SUCCESS,
+		message: message
+	};
+};
 export const logout = () => {
 	localStorage.removeItem("token");
 	localStorage.removeItem("expirationDate");
@@ -90,6 +101,11 @@ export const auth = (fName, sName, email, password, role, isSignIn) => {
 		axios
 			.post(urls[+isSignIn], formData)
 			.then(response => {
+				console.log(response.data);
+				if (response.data.message === "We sent activation code. Please check your email.") {
+					dispatch(regSuccess(response.data.message));
+					return;
+				}
 				message = response.data.message;
 				const data = response.data.auth;
 				const userData = response.data.user;
